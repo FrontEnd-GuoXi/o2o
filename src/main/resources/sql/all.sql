@@ -157,6 +157,11 @@ CREATE TABLE `tb_product_img`(
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
+0 row(s) affected, 2 warning(s): 1478 InnoDB: ROW_FORMAT=DYNAMIC requires innodb_file_format > Antelope.
+1478 InnoDB: assuming ROW_FORMAT=COMPACT. Records: 0  Duplicates: 0  Warnings: 2
+
+
+
 
 
 
