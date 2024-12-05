@@ -11,10 +11,6 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
-    <!-- 设置类型别名 -->
-    <typeAliases>
-        <package name=""/>
-    </typeAliases>
 
 
 </configuration>
