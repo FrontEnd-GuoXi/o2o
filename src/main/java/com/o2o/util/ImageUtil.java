@@ -46,7 +46,16 @@ public class ImageUtil {
         return saveBasePath + imgName;
     }
 
-    public static String genImg () {
+    public static String genImg (File rawFile) {
+        try {
+            Thumbnails.of(rawFile).size(800, 800).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
+                    .outputQuality(0.8).toFile(new File(savePath(genImgName())));
+        } catch (RuntimeException e) {
+            logger.error(e.toString());
+        } catch (IOException e) {
+            logger.error(e.toString());
+        }
+
         return "";
     }
 
