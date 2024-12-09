@@ -12,20 +12,20 @@ public class ShopTransfer {
     private Shop shop;
     private List<Shop> shopList;
 
-    ShopTransfer () {}
+    public ShopTransfer () {}
 
-    ShopTransfer (ShopStateEnum shopStateEnum) {
+    public ShopTransfer (ShopStateEnum shopStateEnum) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
     }
 
-    ShopTransfer (ShopStateEnum shopStateEnum, Shop shop) {
+    public ShopTransfer (ShopStateEnum shopStateEnum, Shop shop) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
         this.shop = shop;
     }
 
-    ShopTransfer (ShopStateEnum shopStateEnum, List<Shop> shopList) {
+    public ShopTransfer (ShopStateEnum shopStateEnum, List<Shop> shopList) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
         this.shopList = shopList;

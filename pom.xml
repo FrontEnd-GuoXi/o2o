@@ -8,6 +8,46 @@
   <name>o2o Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+  <profiles>
+    <profile>
+      <id>home</id>
+      <properties>
+        <env>home</env>
+        <config.location>classpath:home/jdbc.properties</config.location>
+      </properties>
+      <activation>
+        <!-- 默认激活 -->
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+    <profile>
+      <id>company</id>
+      <properties>
+        <env>company</env>
+        <config.location>classpath:company/jdbc.properties</config.location>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <finalName>o2o</finalName>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/resources/env/${env}</directory>
+        <includes>
+          <include>*/*.xml</include>
+          <include>*/*.properties</include>
+          <include>*.xml</include>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+
+
+
+
   <properties>
     <spring.version>5.1.8.RELEASE</spring.version>
   </properties>
@@ -135,8 +175,4 @@
 
   </dependencies>
 
-
-  <build>
-    <finalName>o2o</finalName>
-  </build>
 </project>
