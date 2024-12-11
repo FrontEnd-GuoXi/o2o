@@ -13,7 +13,6 @@
       <id>home</id>
       <properties>
         <env>home</env>
-        <config.location>classpath:home/jdbc.properties</config.location>
       </properties>
       <activation>
         <!-- 默认激活 -->
@@ -24,7 +23,6 @@
       <id>company</id>
       <properties>
         <env>company</env>
-        <config.location>classpath:company/jdbc.properties</config.location>
       </properties>
     </profile>
   </profiles>
@@ -33,16 +31,33 @@
     <finalName>o2o</finalName>
     <resources>
       <resource>
-        <directory>${basedir}/src/resources/env/${env}</directory>
-        <includes>
-          <include>*/*.xml</include>
-          <include>*/*.properties</include>
-          <include>*.xml</include>
-          <include>*.properties</include>
-        </includes>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>env/*</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources/env/${env}</directory>
       </resource>
     </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
+          <delimiters>
+            <delimiter>#{*}</delimiter>
+          </delimiters>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+
+
 
 
 

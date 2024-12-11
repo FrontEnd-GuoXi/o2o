@@ -4,7 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="${config.location}" />
+
+    <context:property-placeholder location="classpath:env/#{env}/jdbc.properties" />
 
 
     <bean id="dataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -26,7 +27,7 @@
         <!--绑定mybatis配置文件-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--注册Mapper.xm映射器-->
-        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/AreaDaoMapper.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
