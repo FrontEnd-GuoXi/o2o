@@ -35,8 +35,8 @@ public class ImageUtil {
         return "o2o_" + curDate + "_" + randomNum;
     }
 
-    public static String savePath (String imgName) {
-        String saveBasePath = "D:/javaImages/process";
+    public static String saveImg (String imgName, Long shopId) {
+        String saveBasePath = "D:/javaImages/process" + shopId;
         File processDir = new File(saveBasePath);
         if (!processDir.exists()) {
              if (!processDir.mkdir()) {
@@ -46,17 +46,19 @@ public class ImageUtil {
         return saveBasePath + imgName;
     }
 
-    public static String genImg (File rawFile) {
+    public static String genImgAndSave (File rawFile, Long shopId) {
+        String dest = "";
         try {
-            Thumbnails.of(rawFile).size(800, 800).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
-                    .outputQuality(0.8).toFile(new File(savePath(genImgName())));
+            dest = saveImg(genImgName(), shopId);
+            Thumbnails.of(rawFile).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
+                    .outputQuality(0.8).toFile(new File(dest));
         } catch (RuntimeException e) {
             logger.error(e.toString());
         } catch (IOException e) {
             logger.error(e.toString());
         }
 
-        return "";
+        return dest;
     }
 
     /**
@@ -66,20 +68,20 @@ public class ImageUtil {
      *
      * **/
 
-    public static void main (String[] args) {
-
-        try {
-            Thumbnails.of(new File("D:/javaImages/raw/1.jpeg")).size(800, 800)
-                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
-                    .outputQuality(0.8)
-                    .toFile(new File(savePath(genImgName())));
-        } catch (RuntimeException rte) {
-            logger.error(rte.getMessage());
-        } catch (IOException ioe) {
-            logger.error(ioe.getMessage());
-        }
-
-
-
-    }
+//    public static void main (String[] args) {
+//
+//        try {
+//            Thumbnails.of(new File("D:/javaImages/raw/1.jpeg")).size(800, 800)
+//                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
+//                    .outputQuality(0.8)
+//                    .toFile(new File(savePath(genImgName())));
+//        } catch (RuntimeException rte) {
+//            logger.error(rte.getMessage());
+//        } catch (IOException ioe) {
+//            logger.error(ioe.getMessage());
+//        }
+//
+//
+//
+//    }
 }
