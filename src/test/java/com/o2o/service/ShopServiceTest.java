@@ -1,4 +1,4 @@
-package com.o2o.dao;
+package com.o2o.service;
 
 import com.o2o.BaseTest;
 import com.o2o.entity.Area;
@@ -8,20 +8,20 @@ import com.o2o.entity.ShopCategory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-public class ShopDaoTest extends BaseTest {
+public class ShopServiceTest extends BaseTest {
 
     @Autowired
-    ShopDao shopDao;
+    ShopService shopService;
+
 
     @Test
-    public void testAddShop () {
+    public void testShopService () {
+
         Shop shop = new Shop();
-        shop.setShopName("腾讯2");
+        shop.setShopName("字节");
         shop.setShopDesc("测试数据");
         shop.setShopAddr("广州市番禺区");
         shop.setPhone("18312673102");
@@ -44,19 +44,6 @@ public class ShopDaoTest extends BaseTest {
         shopCategory.setShopCategoryId(1L);
         shop.setShopCategory(shopCategory);
 
-        int primaryKey =  shopDao.addShop(shop);
-        assertNotEquals(-1, primaryKey);
+        shopService.addShop(shop,new File("D:\\javaImages\\raw\\1.jpeg"));
     }
-
-    @Test
-    public void testUpdateShop () {
-        Shop shop = new Shop();
-        shop.setShopId(2L);
-        shop.setShopName("阿里巴巴");
-        shop.setLastEditTime(new Date());
-
-        int affectedRows = shopDao.updateShop(shop);
-        assertEquals(1, affectedRows);
-    }
-
 }

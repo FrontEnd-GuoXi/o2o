@@ -29,27 +29,29 @@ public class ImageUtil {
         return resourcesPath;
     }
 
-    public static String genImgName () {
-        String curDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss").format(new Date());
+    public static String genImgName (File img) {
+        String fileName = img.getName();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        String curDate = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         int randomNum = new Random(666).nextInt(10000) + 1;
-        return "o2o_" + curDate + "_" + randomNum;
+        return "o2o_" + curDate + "_" + randomNum + "." + suffix;
     }
 
     public static String saveImg (String imgName, Long shopId) {
-        String saveBasePath = "D:/javaImages/process" + shopId;
+        String saveBasePath = "D:\\javaImages\\process\\" + shopId;
         File processDir = new File(saveBasePath);
         if (!processDir.exists()) {
              if (!processDir.mkdir()) {
                  throw new RuntimeException("文件创建失败");
              }
         }
-        return saveBasePath + imgName;
+        return saveBasePath + "\\" + imgName;
     }
 
     public static String genImgAndSave (File rawFile, Long shopId) {
         String dest = "";
         try {
-            dest = saveImg(genImgName(), shopId);
+            dest = saveImg(genImgName(rawFile), shopId);
             Thumbnails.of(rawFile).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
                     .outputQuality(0.8).toFile(new File(dest));
         } catch (RuntimeException e) {

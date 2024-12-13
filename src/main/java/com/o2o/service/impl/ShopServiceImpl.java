@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 @Service
@@ -35,14 +34,14 @@ public class ShopServiceImpl implements ShopService {
                 shop.setEnableStatus(0);
                 shop.setCreateTime(new Date());
                 shop.setLastEditTime(new Date());
-                long shopId = (long) shopDao.addShop(shop);
+                int affectedRows = shopDao.addShop(shop);
+                long shopId = shop.getShopId();
 
-                if (shopId != -1) {
+                if (affectedRows != -1) {
                     try {
                         String dest = ImageUtil.genImgAndSave(rawImg, shopId);
                         shop.setShopImg(dest);
                         shopDao.updateShop(shop);
-                        updateShop(shop, rawImg);
                         shopTransfer = new ShopTransfer(ShopStateEnum.CHECK, shop);
                     } catch (RuntimeException e) {
                         logger.error(e.toString());
