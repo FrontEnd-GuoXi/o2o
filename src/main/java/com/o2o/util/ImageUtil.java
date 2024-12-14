@@ -1,6 +1,7 @@
 package com.o2o.util;
 
 
+import com.o2o.exceptions.ShopOperationException;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
@@ -12,19 +13,21 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.nio.file.Paths;
 
 public class ImageUtil {
     private static final Logger logger = LoggerFactory.getLogger(ImageUtil.class);
-    private static String resourcesPath;
+    private static  String resourcesPath = getResourcesPath();
+    // private static final String resourcesPath = Paths.get("").toAbsolutePath().toString();
+
+
 
     public static String getResourcesPath () {
         if (resourcesPath == null) {
-            try {
-                resourcesPath = ImageUtil.class.getClassLoader().getResource("").getPath();
-            } catch (NullPointerException nulle) {
-                logger.error(nulle.getMessage());
+            resourcesPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+            if (resourcesPath.startsWith("/")) {
+                resourcesPath = resourcesPath.substring(1);
             }
-
         }
         return resourcesPath;
     }
@@ -38,26 +41,37 @@ public class ImageUtil {
     }
 
     public static String saveImg (String imgName, Long shopId) {
-        String saveBasePath = "D:\\javaImages\\process\\" + shopId;
-        File processDir = new File(saveBasePath);
-        if (!processDir.exists()) {
-             if (!processDir.mkdir()) {
-                 throw new RuntimeException("文件创建失败");
-             }
+        try{
+            String saveBasePath = "D:/javaImages/process/" + shopId;
+            File processDir = new File(saveBasePath);
+            if (!processDir.exists()) {
+                if (!processDir.mkdir()) {
+                    throw new ShopOperationException("图片存储路径创建失败");
+                }
+            }
+            return saveBasePath + "/" + imgName;
+        } catch (RuntimeException e) {
+            throw new ShopOperationException("图片存储路径创建失败");
         }
-        return saveBasePath + "\\" + imgName;
+
     }
 
     public static String genImgAndSave (File rawFile, Long shopId) {
         String dest = "";
         try {
             dest = saveImg(genImgName(rawFile), shopId);
-            Thumbnails.of(rawFile).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
+            Thumbnails.of(rawFile).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(resourcesPath + "/logo.png")), 0.5f)
                     .outputQuality(0.8).toFile(new File(dest));
-        } catch (RuntimeException e) {
-            logger.error(e.toString());
         } catch (IOException e) {
-            logger.error(e.toString());
+            logger.error(e.toString() + "path:" + dest);
+            logger.debug("resourcesPath----" + resourcesPath);
+            logger.debug("dest----" + dest);
+            throw new ShopOperationException("图片读取或生成失败");
+        } catch (RuntimeException e) {
+            logger.error(e.toString() + "path:" + dest);
+            logger.debug("resourcesPath-----" + resourcesPath);
+            logger.debug("dest----" + dest);
+            throw new ShopOperationException("图片写入失败");
         }
 
         return dest;

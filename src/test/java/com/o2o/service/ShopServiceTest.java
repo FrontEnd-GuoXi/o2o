@@ -44,6 +44,6 @@ public class ShopServiceTest extends BaseTest {
         shopCategory.setShopCategoryId(1L);
         shop.setShopCategory(shopCategory);
 
-        shopService.addShop(shop,new File("D:\\javaImages\\raw\\1.jpeg"));
+        shopService.addShop(shop,new File("D:/javaImages/raw/3.jpg"));
     }
 }
