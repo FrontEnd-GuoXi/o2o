@@ -58,10 +58,18 @@ public class ImageUtil {
 
     public static String genImgAndSave (File rawFile, Long shopId) {
         String dest = "";
+        String logoDir = resourcesPath + "logo.png";
         try {
+
             dest = saveImg(genImgName(rawFile), shopId);
-            Thumbnails.of(rawFile).size(200, 200).watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(resourcesPath + "/logo.png")), 0.5f)
-                    .outputQuality(0.8).toFile(new File(dest));
+            Thumbnails.of(rawFile)
+                    .size(500, 500)
+                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(logoDir)), 0.8f)
+                    .outputQuality(0.8)
+                    .toFile(new File(dest));
+            logger.debug("resourcesPath----" + resourcesPath);
+            logger.debug("dest----" + dest);
+            logger.debug("logoDir----" + logoDir);
         } catch (IOException e) {
             logger.error(e.toString() + "path:" + dest);
             logger.debug("resourcesPath----" + resourcesPath);
@@ -77,27 +85,4 @@ public class ImageUtil {
         return dest;
     }
 
-    /**
-     *
-     * 加载需要打水印的图片，然后设置大小，再设置水印的位置
-     * 水印的路径需要通过线程类去获取，合成之后就需要保存到特定的位置
-     *
-     * **/
-
-//    public static void main (String[] args) {
-//
-//        try {
-//            Thumbnails.of(new File("D:/javaImages/raw/1.jpeg")).size(800, 800)
-//                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(getResourcesPath() + "/logo.png")), 0.5f)
-//                    .outputQuality(0.8)
-//                    .toFile(new File(savePath(genImgName())));
-//        } catch (RuntimeException rte) {
-//            logger.error(rte.getMessage());
-//        } catch (IOException ioe) {
-//            logger.error(ioe.getMessage());
-//        }
-//
-//
-//
-//    }
 }
