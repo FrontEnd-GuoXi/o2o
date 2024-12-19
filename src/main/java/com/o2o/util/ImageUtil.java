@@ -6,6 +6,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -13,12 +14,29 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.nio.file.Paths;
+
 
 public class ImageUtil {
     private static final Logger logger = LoggerFactory.getLogger(ImageUtil.class);
     private static  String resourcesPath = getResourcesPath();
-    // private static final String resourcesPath = Paths.get("").toAbsolutePath().toString();
+
+
+    public static File MultipartFileToFile(MultipartFile multiFile) {
+        // 获取文件名
+        String fileName = multiFile.getOriginalFilename();
+
+        // 若需要防止生成的临时文件重复,可以在文件名后添加随机码
+        try {
+            // 获取文件后缀
+            String prefix = fileName.substring(fileName.lastIndexOf("."));
+            File file = File.createTempFile(fileName, prefix);
+            multiFile.transferTo(file);
+            return file;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 
