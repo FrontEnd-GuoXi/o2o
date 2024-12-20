@@ -43,8 +43,8 @@ public class ShopManagementController {
             ObjectMapper mapper = new ObjectMapper();
             Shop shop = mapper.readValue(shopStr, Shop.class);
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            List<MultipartFile> files = multipartRequest.getFiles("files");
-            MultipartFile img = files.get(0);
+            List<CommonsMultipartFile> files = multipartRequest.getFiles("files");
+            CommonsMultipartFile img = files.get(0);
             File imgFile = ImageUtil.MultipartFileToFile(img);
             ShopTransfer shopTransfer = shopService.addShop(shop, imgFile);
             resultMap.put("msg", shopTransfer.getStateInfo());
