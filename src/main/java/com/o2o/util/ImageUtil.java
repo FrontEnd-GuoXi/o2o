@@ -19,29 +19,8 @@ import java.util.Random;
 public class ImageUtil {
     private static final Logger logger = LoggerFactory.getLogger(ImageUtil.class);
     private static  String resourcesPath = getResourcesPath();
-    private static String temporaryImgDir;
 
 
-    public static File MultipartFileToFile(CommonsMultipartFile multiFile) {
-
-
-
-        try {
-
-            String saveBasePath = "D:/javaImages/temporary/" + genImgName();
-            InputStream inputStream =  multiFile.getInputStream();
-            OutputStream outputStream = new FileOutputStream(new File(""));
-            byte[] buffer = new byte[1024];
-            int byteNum;
-
-
-
-            return file;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
 
@@ -79,7 +58,7 @@ public class ImageUtil {
 
     }
 
-    public static String genImgAndSave (File rawFile, Long shopId) {
+    public static String genImgAndSave (InputStream rawFile, Long shopId) {
         String dest = "";
         String logoDir = resourcesPath + "logo.png";
         try {

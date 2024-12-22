@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -43,9 +44,9 @@ public class ShopManagementController {
             ObjectMapper mapper = new ObjectMapper();
             Shop shop = mapper.readValue(shopStr, Shop.class);
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            List<CommonsMultipartFile> files = multipartRequest.getFiles("files");
-            CommonsMultipartFile img = files.get(0);
-            File imgFile = ImageUtil.MultipartFileToFile(img);
+            List<MultipartFile> files = multipartRequest.getFiles("files");
+            CommonsMultipartFile img = (CommonsMultipartFile) files.get(0);
+            File imgFile = ImageUtil.MultipartFileToFile(img.getInputStream(), shop.getShopId(), img.getOriginalFilename());
             ShopTransfer shopTransfer = shopService.addShop(shop, imgFile);
             resultMap.put("msg", shopTransfer.getStateInfo());
             resultMap.put("success", true);
