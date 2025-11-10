@@ -3,6 +3,7 @@ package com.o2o.web.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.o2o.dto.ShopTransfer;
+import com.o2o.entity.PersonInfo;
 import com.o2o.entity.Shop;
 import com.o2o.service.ShopService;
 import com.o2o.service.impl.ShopServiceImpl;
@@ -43,11 +44,13 @@ public class ShopManagementController {
             String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
             ObjectMapper mapper = new ObjectMapper();
             Shop shop = mapper.readValue(shopStr, Shop.class);
+            PersonInfo owner = new PersonInfo();
+            owner.setUserId(1L);
+            shop.setOwner(owner);
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             List<MultipartFile> files = multipartRequest.getFiles("files");
-            CommonsMultipartFile img = (CommonsMultipartFile) files.get(0);
-            File imgFile = ImageUtil.MultipartFileToFile(img.getInputStream(), shop.getShopId(), img.getOriginalFilename());
-            ShopTransfer shopTransfer = shopService.addShop(shop, imgFile);
+            MultipartFile img =  files.get(0);
+            ShopTransfer shopTransfer = shopService.addShop(shop, img.getInputStream(), img.getOriginalFilename());
             resultMap.put("msg", shopTransfer.getStateInfo());
             resultMap.put("success", true);
         } catch (Exception e) {

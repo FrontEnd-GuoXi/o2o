@@ -34,8 +34,7 @@ public class ImageUtil {
         return resourcesPath;
     }
 
-    public static String genImgName (File img) {
-        String fileName = img.getName();
+    public static String genImgName (String fileName) {
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String curDate = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         int randomNum = new Random(666).nextInt(10000) + 1;
@@ -58,12 +57,11 @@ public class ImageUtil {
 
     }
 
-    public static String genImgAndSave (InputStream rawFile, Long shopId) {
+    public static String genThumbnail (InputStream rawFile, Long shopId, String rawImgName) {
         String dest = "";
         String logoDir = resourcesPath + "logo.png";
         try {
-
-            dest = genImgAddr(genImgName(rawFile), shopId);
+            dest = genImgAddr(genImgName(rawImgName), shopId);
             Thumbnails.of(rawFile)
                     .size(500, 500)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(logoDir)), 0.8f)

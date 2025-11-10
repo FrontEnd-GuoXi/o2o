@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 
 @Service
@@ -24,7 +25,7 @@ public class ShopServiceImpl implements ShopService {
     private ShopDao shopDao;
 
     @Transactional
-    public ShopTransfer addShop (Shop shop, File rawImg) {
+    public ShopTransfer addShop (Shop shop, InputStream rawImg, String imgName) {
         ShopTransfer shopTransfer;
 
         if (shop == null) {
@@ -39,7 +40,7 @@ public class ShopServiceImpl implements ShopService {
 
                 if (affectedRows != -1) {
                     try {
-                        String dest = ImageUtil.genImgAndSave(rawImg, shopId);
+                        String dest = ImageUtil.genThumbnail(rawImg, shopId, imgName);
                         shop.setShopImg(dest);
                         shopDao.updateShop(shop);
                         shopTransfer = new ShopTransfer(ShopStateEnum.CHECK, shop);
@@ -57,21 +58,19 @@ public class ShopServiceImpl implements ShopService {
 
         }
 
-
-
         return shopTransfer;
     }
 
-    public ShopTransfer updateShop (Shop shop, File rawImg) {
-        String dest = addImg(shop.getShopId(), rawImg);
+    public ShopTransfer updateShop (Shop shop, InputStream rawImg, String rawImgName) {
+        String dest = addImg(shop.getShopId(), rawImg, rawImgName);
         shop.setShopImg(dest);
         shopDao.updateShop(shop);
 
         return new ShopTransfer(ShopStateEnum.SUCCESS, shop);
     }
 
-    public String addImg (Long shopId, File rawImg) {
-        return ImageUtil.genImgAndSave(rawImg, shopId);
+    public String addImg (Long shopId, InputStream rawImg, String rawImgName) {
+        return ImageUtil.genThumbnail(rawImg, shopId, rawImgName);
     }
 
 }
