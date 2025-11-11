@@ -34,7 +34,7 @@ public class ShopServiceImpl implements ShopService {
             try {
                 shop.setEnableStatus(0);
                 shop.setCreateTime(new Date());
-                shop.setLastEditTime(new Date());
+                 shop.setLastEditTime(new Date());
                 int affectedRows = shopDao.addShop(shop);
                 long shopId = shop.getShopId();
 

@@ -40,4 +40,8 @@
         WHERE shop_id=#{shopId}
     </update>
 
+    <select id="queryShopById" parameterType="long" resultType="com.o2o.entity.Shop" >
+
+    </select>
+
 </mapper>
