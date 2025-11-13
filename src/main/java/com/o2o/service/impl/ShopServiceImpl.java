@@ -25,7 +25,7 @@ public class ShopServiceImpl implements ShopService {
     private ShopDao shopDao;
 
     @Transactional
-    public ShopTransfer addShop (Shop shop, InputStream rawImg, String imgName) {
+    public ShopTransfer addShop (Shop shop, InputStream rawImg, String filePath) {
         ShopTransfer shopTransfer;
 
         if (shop == null) {
@@ -34,13 +34,13 @@ public class ShopServiceImpl implements ShopService {
             try {
                 shop.setEnableStatus(0);
                 shop.setCreateTime(new Date());
-                 shop.setLastEditTime(new Date());
+                shop.setLastEditTime(new Date());
                 int affectedRows = shopDao.addShop(shop);
                 long shopId = shop.getShopId();
 
                 if (affectedRows != -1) {
                     try {
-                        String dest = ImageUtil.genThumbnail(rawImg, shopId, imgName);
+                        String dest = ImageUtil.genImgAndSave(rawImg, shopId, filePath);
                         shop.setShopImg(dest);
                         shopDao.updateShop(shop);
                         shopTransfer = new ShopTransfer(ShopStateEnum.CHECK, shop);
@@ -58,19 +58,21 @@ public class ShopServiceImpl implements ShopService {
 
         }
 
+
+
         return shopTransfer;
     }
 
-    public ShopTransfer updateShop (Shop shop, InputStream rawImg, String rawImgName) {
-        String dest = addImg(shop.getShopId(), rawImg, rawImgName);
+    public ShopTransfer updateShop (Shop shop, InputStream rawImg, String filePath) {
+        String dest = addImg(shop.getShopId(), rawImg, filePath);
         shop.setShopImg(dest);
         shopDao.updateShop(shop);
 
         return new ShopTransfer(ShopStateEnum.SUCCESS, shop);
     }
 
-    public String addImg (Long shopId, InputStream rawImg, String rawImgName) {
-        return ImageUtil.genThumbnail(rawImg, shopId, rawImgName);
+    public String addImg (Long shopId, InputStream rawImg, String filePath) {
+        return ImageUtil.genImgAndSave(rawImg, shopId, filePath);
     }
 
 }

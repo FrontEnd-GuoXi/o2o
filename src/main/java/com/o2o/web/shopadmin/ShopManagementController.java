@@ -44,12 +44,12 @@ public class ShopManagementController {
             String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
             ObjectMapper mapper = new ObjectMapper();
             Shop shop = mapper.readValue(shopStr, Shop.class);
-            PersonInfo owner = new PersonInfo();
-            owner.setUserId(1L);
-            shop.setOwner(owner);
+            PersonInfo personInfo = new PersonInfo();
+            personInfo.setUserId(1L);
+            shop.setOwner(personInfo);
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             List<MultipartFile> files = multipartRequest.getFiles("files");
-            MultipartFile img =  files.get(0);
+            CommonsMultipartFile img = (CommonsMultipartFile) files.get(0);
             ShopTransfer shopTransfer = shopService.addShop(shop, img.getInputStream(), img.getOriginalFilename());
             resultMap.put("msg", shopTransfer.getStateInfo());
             resultMap.put("success", true);

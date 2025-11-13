@@ -8,6 +8,6 @@ import java.io.InputStream;
 
 public interface ShopService {
 
-    public ShopTransfer addShop (Shop shop, InputStream rawImg, String imgName);
-    public ShopTransfer updateShop (Shop shop, InputStream rawImg, String imgName);
+    public ShopTransfer addShop (Shop shop, InputStream rawImg, String filePath);
+    public ShopTransfer updateShop (Shop shop, InputStream rawImg, String filePath);
 }

@@ -158,6 +158,7 @@ CREATE TABLE `tb_product_img`(
 
 ALTER TABLE tb_shop MODIFY shop_category_id int(5) NULL;
 ALTER TABLE tb_shop MODIFY area_id int(3) NULL;
+ALTER TABLE tb_shop MODIFY shop_img varchar(1024) NULL;
 
 
 
