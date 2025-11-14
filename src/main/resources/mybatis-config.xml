@@ -12,6 +12,10 @@
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 
-
-
+    <typeAliases>
+        <typeAlias type="com.o2o.entity.Shop" alias="Shop"/>
+        <typeAlias type="com.o2o.entity.Area" alias="Area" />
+        <typeAlias type="com.o2o.entity.PersonInfo" alias="PersonInfo"/>
+        <typeAlias type="com.o2o.entity.ShopCategory" alias="ShopCategory" />
+    </typeAliases>
 </configuration>

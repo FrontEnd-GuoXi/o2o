@@ -3,9 +3,50 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.o2o.dao.ShopDao">
 
-    <insert id="addShop" parameterType="com.o2o.entity.Shop"
+<mapper namespace="com.o2o.dao.ShopDao">
+    <resultMap id="shopResultMap" type="Shop">
+        <id property="shopId" column="shop_id"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="shopDesc" column="shop_desc"/>
+        <result property="shopAddr" column="shop_addr"/>
+        <result property="phone" column="phone"/>
+        <result property="shopImg" column="shop_img"/>
+        <result property="priority" column="priority"/>
+        <result property="createTime" column="create_time"/>
+        <result property="lastEditTime" column="last_edit_time"/>
+        <result property="enableStatus" column="enable_status"/>
+        <result property="advice" column="advice"/>
+        <association property="area" javaType="Area">
+            <id property="areaId" column="area_id" />
+            <result property="areaName" column="area_name"/>
+            <result property="priority" column="priority" />
+            <result property="createTime" column="create_time" />
+            <result property="lastEditTime" column="lastEditTime" />
+        </association>
+        <association property="owner" javaType="PersonInfo">
+            <id property="userId" column="user_id" />
+            <result property="name" column="name" />
+            <result property="profileImg" column="profile_img" />
+            <result property="gender" column="gender" />
+            <result property="enableStatus" column="enable_status" />
+            <result property="userType" column="user_type" />
+            <result property="createTime" column="create_time" />
+            <result property="lastEditTime" column="last_edit_time" />
+        </association>
+        <association property="shopCategory" javaType="ShopCategory">
+            <id property="shopCategoryId" column="shop_category_id" />
+            <result property="shopCategoryName" column="shop_category_name" />
+            <result property="shopCategoryDesc" column="shop_category_desc" />
+            <result property="shopCategoryImg" column="shop_category_img" />
+            <result property="priority" column="priority" />
+            <result property="createTime" column="create_time" />
+            <result property="lastEditTime" column="last_edit_time" />
+            <result property="parent" column="shop_category_id" />
+        </association>
+    </resultMap>
+
+    <insert id="addShop" parameterType="Shop"
             useGeneratedKeys="true" keyProperty="shopId" keyColumn="shop_id">
         INSERT INTO
             tb_shop
@@ -15,12 +56,12 @@
                 enable_status, advice, area_id, owner_id, shop_category_id
             ) VALUES (
                 #{shopName}, #{shopDesc}, #{shopAddr},#{phone},
-                #{shopImg},#{priority},#{createTime},#{lastEditTime},#{enableStatus},
+                #{shopImg},#{priority},#{createTime}, #{lastEditTime},#{enableStatus},
                 #{advice},#{area.areaId},#{owner.userId},#{shopCategory.shopCategoryId}
             )
     </insert>
 
-    <update id="updateShop" parameterType="com.o2o.entity.Shop">
+    <update id="updateShop" parameterType="Shop">
         UPDATE tb_shop
             <set>
                 <if test="shopName != null">shop_name=#{shopName},</if>
@@ -43,5 +84,6 @@
     <select id="queryShopById" parameterType="long" resultType="com.o2o.entity.Shop" >
 
     </select>
+
 
 </mapper>
