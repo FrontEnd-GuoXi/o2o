@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- 控制台输出 appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>logback---- %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{40} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 关键：设置你的 Mapper 接口所在包的日志级别为 DEBUG -->
+    <!-- 替换 com.yourcompany.mapper 为你的实际 Mapper 接口包路径 -->
+    <logger name="com.o2o.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- 可选：如果你想看到更详细的 JDBC 结果（如每列的值），开启 TRACE -->
+    <!--
+    <logger name="org.apache.ibatis.logging.jdbc.BaseJdbcLogger" level="TRACE" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    -->
+
+    <!-- 根日志级别设为 INFO，避免其他 DEBUG 日志干扰 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

@@ -59,4 +59,9 @@ public class ShopDaoTest extends BaseTest {
         assertEquals(1, affectedRows);
     }
 
+    @Test
+    public void testSelectShop () {
+        Shop shop = shopDao.queryShopById(2);
+    }
+
 }
