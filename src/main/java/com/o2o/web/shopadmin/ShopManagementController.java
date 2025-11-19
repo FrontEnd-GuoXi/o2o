@@ -55,7 +55,7 @@ public class ShopManagementController {
             resultMap.put("success", true);
         } catch (Exception e) {
             resultMap.put("success", false);
-            resultMap.put("errMsg", e.getMessage());
+            resultMap.put("msg", e.getMessage());
             return resultMap;
         }
 
