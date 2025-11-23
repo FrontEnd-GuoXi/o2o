@@ -9,8 +9,8 @@
 
     <select id="queryShopCategoryByParentId" parameterType="long" resultType="ShopCategory">
         SELECT shop_category_id, shop_category_name, shop_category_img,
-               priority, create_time, last_edit_time
-        FROM tb_shop_category WHERE parent_id = ${parentId}
+               priority, create_time, last_edit_time, parent_id
+        FROM tb_shop_category WHERE parent_id = #{parentId}
     </select>
 
 </mapper>

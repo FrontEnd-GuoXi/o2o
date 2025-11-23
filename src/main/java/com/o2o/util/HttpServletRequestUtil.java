@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 
 public class HttpServletRequestUtil {
-    private static final Logger logger = LoggerFactory.getLogger(ShopManagementController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpServletRequestUtil.class);
 
 
     public static Integer getInt (HttpServletRequest request, String key) {

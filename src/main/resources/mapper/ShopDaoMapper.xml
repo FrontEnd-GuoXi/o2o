@@ -42,7 +42,7 @@
             <result property="priority" column="priority" />
             <result property="createTime" column="create_time" />
             <result property="lastEditTime" column="last_edit_time" />
-            <result property="parent" column="shop_category_id" />
+<!--            <result property="parent" column="shop_category_id" />-->
         </association>
     </resultMap>
 
