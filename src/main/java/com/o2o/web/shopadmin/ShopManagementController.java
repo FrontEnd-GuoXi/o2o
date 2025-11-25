@@ -7,7 +7,7 @@ import com.o2o.entity.PersonInfo;
 import com.o2o.entity.Shop;
 import com.o2o.service.ShopService;
 import com.o2o.util.HttpServletRequestUtil;
-import com.o2o.util.ResponseResultUtil;
+import com.o2o.util.ResponseResultWrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ShopManagementController {
 
     @ResponseBody
     @RequestMapping(value = "/registeredshop", method = RequestMethod.POST)
-    public ResponseResultUtil<Object> addShop(HttpServletRequest request) {
+    public ResponseResultWrap<Object> addShop(HttpServletRequest request) {
         try{
             String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
             ObjectMapper mapper = new ObjectMapper();
@@ -46,10 +46,10 @@ public class ShopManagementController {
             List<MultipartFile> files = multipartRequest.getFiles("files");
             CommonsMultipartFile img = (CommonsMultipartFile) files.get(0);
             ShopTransfer shopTransfer = shopService.addShop(shop, img.getInputStream(), img.getOriginalFilename());
-            return ResponseResultUtil.success(shopTransfer.getStateInfo());
+            return ResponseResultWrap.success(shopTransfer.getStateInfo());
         } catch (Exception e) {
             logger.error(e.toString());
-            return ResponseResultUtil.fail("店铺创建失败");
+            return ResponseResultWrap.fail("店铺创建失败");
         }
     }
 

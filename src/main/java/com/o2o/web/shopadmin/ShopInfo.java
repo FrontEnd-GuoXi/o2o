@@ -4,7 +4,7 @@ package com.o2o.web.shopadmin;
 import com.o2o.entity.ShopCategory;
 import com.o2o.service.ShopCategoryService;
 import com.o2o.util.HttpServletRequestUtil;
-import com.o2o.util.ResponseResultUtil;
+import com.o2o.util.ResponseResultWrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,14 @@ public class ShopInfo {
 
     @ResponseBody
     @RequestMapping(value = "/getShopCategoryByParentId", method = RequestMethod.GET)
-    public ResponseResultUtil<List<ShopCategory>> getShopCategoryByParentId (HttpServletRequest request) {
+    public ResponseResultWrap<List<ShopCategory>> getShopCategoryByParentId (HttpServletRequest request) {
         try {
             long parentId = HttpServletRequestUtil.getInt(request,"parentId");
             List<ShopCategory> shopCategoryList = shopCategoryService.queryShopCategoryByParentId(parentId);
-            return ResponseResultUtil.success(shopCategoryList);
+            return ResponseResultWrap.success(shopCategoryList);
         } catch (Exception e) {
             logger.error(e.toString());
-            return ResponseResultUtil.fail(e.toString());
+            return ResponseResultWrap.fail(e.toString());
         }
 
     }
