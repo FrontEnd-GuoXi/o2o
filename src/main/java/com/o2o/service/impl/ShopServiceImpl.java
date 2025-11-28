@@ -1,7 +1,7 @@
 package com.o2o.service.impl;
 
 import com.o2o.dao.ShopDao;
-import com.o2o.dto.ShopTransfer;
+import com.o2o.dto.ShopDTO;
 import com.o2o.entity.Shop;
 import com.o2o.enums.ShopStateEnum;
 import com.o2o.exceptions.ShopOperationException;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -25,11 +24,11 @@ public class ShopServiceImpl implements ShopService {
     private ShopDao shopDao;
 
     @Transactional
-    public ShopTransfer addShop (Shop shop, InputStream rawImg, String filePath) {
-        ShopTransfer shopTransfer;
+    public ShopDTO addShop (Shop shop, InputStream rawImg, String filePath) {
+        ShopDTO shopTransfer;
 
         if (shop == null) {
-            shopTransfer = new ShopTransfer(ShopStateEnum.NULL_SHOP);
+            shopTransfer = new ShopDTO(ShopStateEnum.NULL_SHOP);
         } else {
             try {
                 shop.setEnableStatus(0);
@@ -43,7 +42,7 @@ public class ShopServiceImpl implements ShopService {
                         String dest = ImageUtil.genImgAndSave(rawImg, shopId, filePath);
                         shop.setShopImg(dest);
                         shopDao.updateShop(shop);
-                        shopTransfer = new ShopTransfer(ShopStateEnum.CHECK, shop);
+                        shopTransfer = new ShopDTO(ShopStateEnum.CHECK, shop);
                     } catch (RuntimeException e) {
                         logger.error(e.toString());
                         throw new ShopOperationException("店铺新建失败");
@@ -58,17 +57,15 @@ public class ShopServiceImpl implements ShopService {
 
         }
 
-
-
         return shopTransfer;
     }
 
-    public ShopTransfer updateShop (Shop shop, InputStream rawImg, String filePath) {
+    public ShopDTO updateShop (Shop shop, InputStream rawImg, String filePath) {
         String dest = addImg(shop.getShopId(), rawImg, filePath);
         shop.setShopImg(dest);
         shopDao.updateShop(shop);
 
-        return new ShopTransfer(ShopStateEnum.SUCCESS, shop);
+        return new ShopDTO(ShopStateEnum.SUCCESS, shop);
     }
 
     public String addImg (Long shopId, InputStream rawImg, String filePath) {

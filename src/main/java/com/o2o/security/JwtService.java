@@ -2,6 +2,8 @@ package com.o2o.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.o2o.entity.PersonInfo;
 import com.o2o.util.ReadFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
+import java.util.Date;
 
 public class JwtService {
     private static final Logger logger = LoggerFactory.getLogger(ReadFile.class);
@@ -66,9 +69,23 @@ public class JwtService {
     }
 
 
-    public String genToken () {
-        Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
-        String token = JWT.create()
+    public String genToken (PersonInfo personInfo) {
+        try {
+            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            Date date = new Date();
+            long currentTime = date.getTime();
+            date.setTime(currentTime + expirationTime);
+            return JWT.create()
+                    .withIssuer("o2o")
+                    .withExpiresAt(date)
+                    .withClaim("userId", personInfo.getUserId())
+                    .withClaim("userType", personInfo.getUserType())
+                    .sign(algorithm);
+        } catch (JWTCreationException e) {
+            logger.error(e.toString());
+            return null;
+        }
+
     }
 
 }

@@ -5,27 +5,27 @@ import com.o2o.enums.ShopStateEnum;
 
 import java.util.List;
 
-public class ShopTransfer {
+public class ShopDTO {
 
     private int state;
     private String stateInfo;
     private Shop shop;
     private List<Shop> shopList;
 
-    public ShopTransfer () {}
+    public ShopDTO() {}
 
-    public ShopTransfer (ShopStateEnum shopStateEnum) {
+    public ShopDTO(ShopStateEnum shopStateEnum) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
     }
 
-    public ShopTransfer (ShopStateEnum shopStateEnum, Shop shop) {
+    public ShopDTO(ShopStateEnum shopStateEnum, Shop shop) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
         this.shop = shop;
     }
 
-    public ShopTransfer (ShopStateEnum shopStateEnum, List<Shop> shopList) {
+    public ShopDTO(ShopStateEnum shopStateEnum, List<Shop> shopList) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
         this.shopList = shopList;
