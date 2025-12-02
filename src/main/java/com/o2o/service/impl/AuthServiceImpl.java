@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserServiceImpl {
+public class AuthServiceImpl {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Autowired
     private  UserDao userDao;

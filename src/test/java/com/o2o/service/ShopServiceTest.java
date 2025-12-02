@@ -8,7 +8,6 @@ import com.o2o.entity.ShopCategory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.File;
 import java.util.Date;
 
 public class ShopServiceTest extends BaseTest {

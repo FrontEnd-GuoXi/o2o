@@ -20,9 +20,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/shopInfo")
-public class ShopInfo {
+public class ShopInfoController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShopInfo.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShopInfoController.class);
 
     @Autowired
     ShopCategoryService shopCategoryService;

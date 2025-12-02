@@ -1,6 +1,6 @@
 package com.o2o.service;
 
-public interface UserService {
+public interface AuthService {
 
     public Boolean registerUser ();
 
