@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <!-- 引入properties文件 -->
-    <properties resource="jdbc.properties"/>
+    <properties resource="env/%env%/jdbc.properties"/>
 
     <!-- 将下划线映射为驼峰 -->
     <settings>

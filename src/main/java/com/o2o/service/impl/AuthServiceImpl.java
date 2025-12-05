@@ -4,6 +4,7 @@ import com.o2o.dao.UserDao;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
 import com.o2o.exceptions.BusinessException;
+import com.o2o.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
@@ -19,10 +20,9 @@ public class AuthServiceImpl {
     private  UserDao userDao;
 
     @Transactional
-    public Boolean registerUser (PersonInfo personInfo, UserIdentity userIdentity) {
+    public void registerUser (PersonInfo personInfo, UserIdentity userIdentity) {
         try {
             int effectedRowOfInfo = userDao.insertUserInfo(personInfo);
-
 
             if (effectedRowOfInfo <= 0) {
                 throw new BusinessException("创建用户基本信息失败");
@@ -39,9 +39,6 @@ public class AuthServiceImpl {
             if (effectedRowOfIdentity <= 0) {
                 throw new BusinessException("创建用户身份信息失败");
             }
-
-            return true;
-
 
         } catch (BusinessException e) {
             // 业务异常：记录日志并重新抛出（保持语义）

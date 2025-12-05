@@ -26,4 +26,16 @@
         <appender-ref ref="CONSOLE"/>
     </root>
 
+
+    <logger name="org.apache.ibatis" level="DEBUG"/>
+    <logger name="com.o2o.dao" level="DEBUG"/>
+    <logger name="org.apache.ibatis.executor.Executor" level="DEBUG"/>
+
+    <logger name="org.apache.ibatis.executor.statement.StatementHandler" level="DEBUG"/>
+
+    <logger name="org.apache.ibatis.executor.parameter.ParameterHandler" level="DEBUG"/>
+
+    <logger name="org.apache.ibatis.executor.resultset.ResultSetHandler" level="DEBUG"/>
+
+
 </configuration>

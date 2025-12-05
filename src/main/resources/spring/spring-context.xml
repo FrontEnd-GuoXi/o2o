@@ -13,5 +13,7 @@
     <context:component-scan base-package="com.o2o.security, com.o2o.util" />
 
     <!-- 关键：注册属性占位符解析器 -->
-    <context:property-placeholder location="classpath:env/#{env}/application.properties" />
+    <context:property-placeholder location="
+    classpath:env/%env%/application.properties,
+    classpath:env/%env%/jdbc.properties"/>
 </beans>

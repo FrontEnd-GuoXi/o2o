@@ -1,7 +1,10 @@
 package com.o2o.service;
 
+import com.o2o.entity.PersonInfo;
+import com.o2o.entity.UserIdentity;
+
 public interface AuthService {
 
-    public Boolean registerUser ();
+     void registerUser (PersonInfo personInfo, UserIdentity userIdentity);
 
 }
