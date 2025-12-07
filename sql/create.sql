@@ -209,12 +209,12 @@ ALTER TABLE tb_shop
     MODIFY shop_img varchar(1024) NULL;
 
 
-CREATE TABLE `tb_user_indentity`
+CREATE TABLE `tb_user_identity`
 (
     `id`             int(10)      NOT NULL AUTO_INCREMENT,
     `user_id`        int(10)      NOT NULL,
-    `indentity_type` varchar(20)  NOT NULL COMMENT '登录类型：password，wechat等',
-    `indentifier`    varchar(100) NOT NULL COMMENT '唯一标识：如账号、微信openid',
+    `identity_type` varchar(20)  NOT NULL COMMENT '登录类型：password，wechat等',
+    `identifier`    varchar(100) NOT NULL COMMENT '唯一标识：如账号、微信openid',
     `credential`     varchar(255) COMMENT '凭证：密码哈希值或者access_token',
     `create_time`    datetime     NOT NULL,
     primary key (`id`),

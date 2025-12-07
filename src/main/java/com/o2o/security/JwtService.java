@@ -1,13 +1,17 @@
 package com.o2o.security;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.*;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.o2o.entity.PersonInfo;
+import com.o2o.exceptions.BusinessException;
 import com.o2o.util.ReadFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -18,6 +22,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
 
+@Component
 public class JwtService {
     private static final Logger logger = LoggerFactory.getLogger(ReadFile.class);
     private static final long expirationTime = 60 * 60 * 1000;
@@ -79,7 +84,6 @@ public class JwtService {
                     .withIssuer("o2o")
                     .withExpiresAt(date)
                     .withClaim("userId", personInfo.getUserId())
-                    .withClaim("userType", personInfo.getUserType())
                     .sign(algorithm);
         } catch (JWTCreationException e) {
             logger.error(e.toString());
@@ -87,6 +91,29 @@ public class JwtService {
         }
 
     }
+
+
+    public DecodedJWT validateToken (String token) {
+        try {
+            DecodedJWT decodedJWT;
+            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("o2o")
+                    .build();
+
+            decodedJWT = verifier.verify(token);
+            return decodedJWT;
+        } catch (TokenExpiredException e) {
+            logger.error(e.toString());
+            throw new BusinessException("token过期");
+        } catch (JWTVerificationException e) {
+            logger.error(e.toString());
+            throw new BusinessException("token校验失败");
+        }
+    }
+
+
+
 
 }
 

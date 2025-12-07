@@ -8,6 +8,7 @@ import com.o2o.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private  UserDao userDao;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
 
     @Transactional
     public void registerUser (PersonInfo personInfo, UserIdentity userIdentity) {
@@ -34,6 +37,9 @@ public class AuthServiceImpl implements AuthService {
             }
 
             userIdentity.setUserId(userId);
+            // 密码明文编码
+            String pwd = encoder.encode(userIdentity.getCredential());
+            userIdentity.setCredential(pwd);
             int effectedRowOfIdentity = userDao.insertUserIdentity(userIdentity);
 
             if (effectedRowOfIdentity <= 0) {
