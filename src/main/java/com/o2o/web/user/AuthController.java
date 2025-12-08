@@ -1,5 +1,6 @@
 package com.o2o.web.user;
 
+import com.o2o.dto.LoginRequestDTO;
 import com.o2o.dto.RegisterRequestDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
@@ -29,8 +30,8 @@ public class AuthController {
     AuthService authService;
 
     @ResponseBody
-    @RequestMapping(value = "/register" , method = RequestMethod.POST)
-    public ResponseResultWrap<Object> userRegister (@Valid @RequestBody RegisterRequestDTO registerRequestDTO, BindingResult result) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseResultWrap<Object> userRegister(@Valid @RequestBody RegisterRequestDTO registerRequestDTO, BindingResult result) {
         try {
             if (result.hasErrors()) {
                 String errStr = result
@@ -59,12 +60,30 @@ public class AuthController {
             userIdentity.setLastEditTime(new Date());
 
             authService.registerUser(personInfo, userIdentity);
-            return ResponseResultWrap.success(null, "注册成功");
+            return ResponseResultWrap.success("注册成功");
         } catch (Exception e) {
             logger.error(e.toString());
-            return ResponseResultWrap.fail(null, e.toString());
+            return ResponseResultWrap.fail(e.toString());
         }
 
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseResultWrap<String> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO, BindingResult result) {
+        try {
+            String token = authService.login(loginRequestDTO.getIdentifier(), loginRequestDTO.getCredential());
+            if (token != null) {
+                return ResponseResultWrap.success(token, "登录成功");
+            } else {
+                return ResponseResultWrap.fail("登录失败");
+            }
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return ResponseResultWrap.fail("登录失败");
+        }
+
+    }
+
 
 }

@@ -26,4 +26,10 @@
         FROM tb_user_identity WHERE identifier = #{identifier}
     </select>
 
+    <select id="queryUserInfoByUserId" parameterType="String" resultType="PersonInfo">
+        SELECT
+               name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+        FROM   tb_person_info WHERE user_id = #{userId}
+    </select>
+
 </mapper>

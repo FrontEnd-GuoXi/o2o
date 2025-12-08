@@ -2,9 +2,11 @@ package com.o2o.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.o2o.dao.UserDao;
+import com.o2o.entity.PersonInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +15,18 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtFilter implements HandlerInterceptor {
+    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
     @Autowired
-    JwtService jwtService;
+    private JwtService jwtService;
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
 
     @Override
-    public Boolean preHandle (HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle (HttpServletRequest request, HttpServletResponse response, Object handler) {
+        try {
             String authHeader = request.getHeader("Authorization");
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -31,8 +35,14 @@ public class JwtFilter implements HandlerInterceptor {
 
             String token = authHeader.substring(7); // 去掉 "Bearer "
             DecodedJWT decodedJWT = jwtService.validateToken(token);
-            String userId = String.valueOf(decodedJWT.getClaim("userId"));
+            int userId = decodedJWT.getClaim("userId").asInt();
+            PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
 
+            return userInfo != null;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return false;
+        }
 
     }
 

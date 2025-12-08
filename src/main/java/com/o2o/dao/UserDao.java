@@ -9,4 +9,7 @@ public interface UserDao {
     int insertUserIdentity (UserIdentity userIdentity);
 
     UserIdentity queryUserIdentityByIdentifier (String identifier);
+
+    PersonInfo queryUserInfoByUserId (int userId);
+
 }

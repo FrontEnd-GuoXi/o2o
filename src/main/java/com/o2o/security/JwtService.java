@@ -24,7 +24,7 @@ import java.util.Date;
 
 @Component
 public class JwtService {
-    private static final Logger logger = LoggerFactory.getLogger(ReadFile.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
     private static final long expirationTime = 60 * 60 * 1000;
     private final RSAPrivateKey privateKey;
     private final RSAPublicKey publicKey;
@@ -74,7 +74,7 @@ public class JwtService {
     }
 
 
-    public String genToken (PersonInfo personInfo) {
+    public String genToken (long userId) {
         try {
             Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
             Date date = new Date();
@@ -83,7 +83,7 @@ public class JwtService {
             return JWT.create()
                     .withIssuer("o2o")
                     .withExpiresAt(date)
-                    .withClaim("userId", personInfo.getUserId())
+                    .withClaim("userId", userId)
                     .sign(algorithm);
         } catch (JWTCreationException e) {
             logger.error(e.toString());

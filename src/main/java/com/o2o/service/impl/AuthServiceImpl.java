@@ -4,6 +4,7 @@ import com.o2o.dao.UserDao;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
 import com.o2o.exceptions.BusinessException;
+import com.o2o.security.JwtService;
 import com.o2o.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private  UserDao userDao;
+
+    private JwtService jwtService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
 
@@ -54,6 +57,27 @@ public class AuthServiceImpl implements AuthService {
             logger.error(e.toString());
             throw new BusinessException("注册服务暂时不可用，请稍后再试"); // 脱敏后抛出
         }
+    }
+
+    public String login (String identity, String credential) {
+        try {
+            UserIdentity userIdentity = userDao.queryUserIdentityByIdentifier(identity);
+            boolean pass = encoder.matches(credential, userIdentity.getCredential());
+            String token;
+            if (pass) {
+                token = jwtService.genToken(userIdentity.getUserId());
+            } else {
+                token = null;
+            }
+            return token;
+        } catch (BusinessException e) {
+            logger.warn("登录失败：{}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            throw new BusinessException("登录服务异常");
+        }
+
     }
 
 
