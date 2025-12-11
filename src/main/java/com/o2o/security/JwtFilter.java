@@ -1,8 +1,11 @@
 package com.o2o.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.o2o.dao.UserDao;
 import com.o2o.entity.PersonInfo;
+import com.o2o.enums.HttpApiCode;
+import com.o2o.util.ResponseResultWrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 @Component
@@ -22,6 +26,9 @@ public class JwtFilter implements HandlerInterceptor {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
     @Override
@@ -38,10 +45,38 @@ public class JwtFilter implements HandlerInterceptor {
             int userId = decodedJWT.getClaim("userId").asInt();
             PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
 
-            return userInfo != null;
+
+            if (userInfo != null) {
+                return true;
+            } else {
+                writeResponse(response, HttpApiCode.NOT_FOUND_USER);
+                return false;
+            }
         } catch (Exception e) {
             logger.error(e.toString());
+            // 区分不同异常类型（可选）
+            if (e.getMessage().contains("Expired")) {
+                writeResponse(response, HttpApiCode.TOKEN_EXPIRED);
+            } else if (e.getMessage().contains("Invalid")) {
+                writeResponse(response, HttpApiCode.INVALID_TOKEN);
+            } else {
+                writeResponse(response, HttpApiCode.UNAUTHORIZED);
+            }
             return false;
+        }
+
+    }
+
+    /**
+     * 向响应中写入 JSON 格式的错误信息
+     */
+    private void writeResponse(HttpServletResponse response, HttpApiCode code)  {
+        try {
+            response.setContentType("application/json;charset=UTF-8");
+            ResponseResultWrap<Object> result =  ResponseResultWrap.getResultByHttpCode(code, null);
+            objectMapper.writeValue(response.getWriter(), result);
+        } catch (IOException e) {
+            logger.error(e.toString());
         }
 
     }

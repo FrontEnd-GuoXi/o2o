@@ -76,7 +76,7 @@ public class AuthController {
             if (token != null) {
                 return ResponseResultWrap.success(token, "登录成功");
             } else {
-                return ResponseResultWrap.fail("登录失败");
+                return ResponseResultWrap.fail("密码或账号错误");
             }
         } catch (Exception e) {
             logger.error(e.toString());

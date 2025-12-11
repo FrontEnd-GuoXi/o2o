@@ -12,4 +12,6 @@ public interface UserDao {
 
     PersonInfo queryUserInfoByUserId (int userId);
 
+    int countByIdentifier (String identifier);
+
 }

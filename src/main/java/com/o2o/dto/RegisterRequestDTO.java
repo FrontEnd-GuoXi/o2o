@@ -30,8 +30,4 @@ public class RegisterRequestDTO {
     @NotNull(message = "请选择用户类型！")
     private Integer userType;
 
-
-
-
-
 }

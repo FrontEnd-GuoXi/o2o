@@ -19,6 +19,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
 
@@ -63,7 +64,7 @@ public class JwtService {
                     .replace("-----END PUBLIC KEY-----", "")
                     .replaceAll("\\s", "");
             byte[] byteKey = Base64.getDecoder().decode(keyStr);
-            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(byteKey);
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(byteKey);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             return (RSAPublicKey) keyFactory.generatePublic(keySpec);
 
@@ -105,10 +106,10 @@ public class JwtService {
             return decodedJWT;
         } catch (TokenExpiredException e) {
             logger.error(e.toString());
-            throw new BusinessException("token过期");
+            throw new BusinessException("Expired：token过期");
         } catch (JWTVerificationException e) {
             logger.error(e.toString());
-            throw new BusinessException("token校验失败");
+            throw new BusinessException("Invalid：token校验失败");
         }
     }
 

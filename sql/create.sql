@@ -109,20 +109,7 @@ ALTER TABLE `head_line` RENAME TO `tb_head_line`;
 
 
 
-CREATE TABLE `tb_shop_category`
-(
-    `shop_category_id`   int(3)        NOT NULL AUTO_INCREMENT,
-    `shop_category_name` varchar(200)  NOT NULL,
-    `shop_category_img`  varchar(2000) NOT NULL,
-    `priority`           int(2)        NOT NULL,
-    `create_time`        datetime      NOT NULL,
-    `last_edit_time`     datetime      NOT NULL,
-    `parent_id`          int(3),
-    primary key (`shop_category_id`),
-    CONSTRAINT `fk_shop_category_id` FOREIGN KEY (`parent_id`) REFERENCES tb_shop_category (`shop_category_id`)
-) ENGINE = InnoDB
-  auto_increment = 1
-  default charset = utf8;
+
 
 
 CREATE TABLE `tb_shop`
@@ -151,18 +138,7 @@ CREATE TABLE `tb_shop`
 
 
 
-CREATE TABLE `tb_product_category`
-(
-    `product_category_id`   int(3)      NOT NULL AUTO_INCREMENT,
-    `shop_id`               int(10)     NOT NULL,
-    `product_category_name` varchar(50) NOT NULL,
-    `priority`              int(3)      NOT NULL,
-    `create_time`           datetime    NOT NULL,
-    PRIMARY KEY (`product_category_id`),
-    CONSTRAINT `fk_shop_owner` FOREIGN KEY (`shop_id`) REFERENCES tb_shop (`shop_id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = utf8;
+
 
 
 CREATE TABLE `tb_product`
@@ -209,30 +185,15 @@ ALTER TABLE tb_shop
     MODIFY shop_img varchar(1024) NULL;
 
 
-CREATE TABLE `tb_user_identity`
-(
-    `id`             int(10)      NOT NULL AUTO_INCREMENT,
-    `user_id`        int(10)      NOT NULL,
-    `identity_type` varchar(20)  NOT NULL COMMENT '登录类型：password，wechat等',
-    `identifier`    varchar(100) NOT NULL COMMENT '唯一标识：如账号、微信openid',
-    `credential`     varchar(255) COMMENT '凭证：密码哈希值或者access_token',
-    `create_time`    datetime     NOT NULL,
-    primary key (`id`),
-    CONSTRAINT `fk_user_info` FOREIGN KEY (`user_id`) REFERENCES tb_person_info (`user_id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = utf8;
 
-RENAME TABLE `tb_user_indentity` TO `tb_user_identity`;
-ALTER TABLE `tb_user_identity`
-    CHANGE indentity_type identity_type varchar(20) not null COMMENT '登录类型：password，wechat等',
-    CHANGE indentifier identifier varchar(100) not null COMMENT '唯一标识：如账号、微信openid';
+
+
 
 ALTER TABLE `tb_person_info` MODIFY COLUMN user_id int(10) AUTO_INCREMENT;
 
 DROP TABLE tb_local_auth;
 
-ALTER TABLE `tb_user_identity` ADD COLUMN last_edit_time datetime;
+
 
 
 

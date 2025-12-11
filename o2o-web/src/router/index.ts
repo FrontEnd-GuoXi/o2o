@@ -4,8 +4,27 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/home'
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: () => import('@/pages/O2oLogin/index.vue')
+  },
+  {
+    name: 'Register',
+    path: '/register',
+    component: () => import('@/pages/O2oRegister/index.vue')
+  },
+  {
+    name: 'Home',
+    path: '/home',
+    component: () => import('@/pages/O2oHome/index.vue')
+  },
+  {
     name: 'AddShop',
-    path: '/addShop', 
+    path: '/addShop',
     component: () => import('@/pages/AddShop/index.vue')
   }
 ]

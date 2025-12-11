@@ -1,0 +1,26 @@
+.shop-form-page {
+  min-height: 100vh;
+  background: #f5f6f8;
+  padding: 0;
+}
+
+.form-content {
+  padding: 16px 12px 60px;
+}
+.uploader-box {
+  margin: 12px 0;
+}
+.uploader-label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #666;
+}
+.submit-box {
+  margin-top: 24px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: center;
+}
+.submit-box :deep(.van-button) {
+  width: 100%;
+}

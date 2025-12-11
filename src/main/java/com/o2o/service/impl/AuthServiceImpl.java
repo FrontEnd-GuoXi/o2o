@@ -9,6 +9,7 @@ import com.o2o.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private  UserDao userDao;
 
+    @Autowired
     private JwtService jwtService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
@@ -40,6 +42,13 @@ public class AuthServiceImpl implements AuthService {
             }
 
             userIdentity.setUserId(userId);
+
+            int identifierCount = userDao.countByIdentifier(userIdentity.getIdentifier());
+            if (identifierCount > 0) {
+                throw new BusinessException("账号已存在");
+            }
+
+
             // 密码明文编码
             String pwd = encoder.encode(userIdentity.getCredential());
             userIdentity.setCredential(pwd);
@@ -49,6 +58,9 @@ public class AuthServiceImpl implements AuthService {
                 throw new BusinessException("创建用户身份信息失败");
             }
 
+        } catch (DuplicateKeyException e) {
+            logger.error(e.toString());
+            throw new BusinessException("账号已存在"); // 脱敏后抛出
         } catch (BusinessException e) {
             // 业务异常：记录日志并重新抛出（保持语义）
             logger.warn("用户注册业务失败: {}", e.getMessage());

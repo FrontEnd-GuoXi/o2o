@@ -1,7 +1,8 @@
 <template>
     <div class="shop-form-page">
-      <div class="header">新建商铺</div>
+      <O2oHeader title="新建商铺" />
 
+      <div class="form-content">
       <van-form @submit="onSubmit">
         <!-- 商铺名称 -->
         <van-field v-model="form.name" label="商铺名称" placeholder="请输入商铺名称" required />
@@ -68,7 +69,7 @@
           <van-button round block type="primary" native-type="submit">提交</van-button>
         </div>
       </van-form>
-
+      </div>
 
           <!-- 商铺大类弹出层 -->
     <van-popup v-model:show="showMainCategoryPopup" position="bottom">
@@ -93,8 +94,9 @@
   </template>
 
   <script setup lang="ts">
-  import { ref } from 'vue';
-  import { showToast } from 'vant';
+import { ref } from 'vue';
+import { showToast } from 'vant';
+import O2oHeader from '@/components/O2oHeader.vue';
 
   interface ShopForm {
     name: string;
@@ -225,26 +227,5 @@ const onSubCategoryConfirm = ({ selectedOptions }) => {
   </script>
 
   <style scoped>
-  .shop-form-page {
-    min-height: 100vh;
-    background: #f5f6f8;
-    padding: 16px 12px 60px;
-  }
-  .header {
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-    padding: 12px 0 20px;
-  }
-  .uploader-box {
-    margin: 12px 0;
-  }
-  .uploader-label {
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: #666;
-  }
-  .submit-box {
-    margin-top: 24px;
-  }
+  @import './style.css';
   </style>

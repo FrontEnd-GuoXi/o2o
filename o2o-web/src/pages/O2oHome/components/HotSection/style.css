@@ -1,0 +1,147 @@
+/* 热门头条区域 */
+.hot-section {
+  background-color: white;
+  margin-bottom: 12px;
+  padding: 16px;
+}
+
+/* 通用区域样式 */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #303133;
+}
+
+.section-tag {
+  font-size: 12px;
+  color: #909399;
+  background-color: #f0f9eb;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* 商铺卡片列表 */
+.shop-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shop-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shop-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shop-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.shop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.shop-card:hover .shop-image {
+  transform: scale(1.05);
+}
+
+.headline-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #f56c6c;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+.shop-info {
+  padding: 12px;
+}
+
+.shop-name-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.shop-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #303133;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shop-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-score {
+  font-size: 14px;
+  color: #e6a23c;
+  font-weight: 500;
+}
+
+.shop-description {
+  font-size: 14px;
+  color: #606266;
+  margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+}
+
+.shop-category {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #909399;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .hot-section {
+    padding: 12px;
+  }
+
+  .shop-image-wrapper {
+    height: 160px;
+  }
+}

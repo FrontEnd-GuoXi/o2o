@@ -1,0 +1,54 @@
+/* 登录页面特定样式 */
+
+/* 页面容器样式 */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+/* 移动端适配 */
+@media (min-width: 768px) {
+  .auth-container {
+    max-width: 100%;
+    padding: 40px;
+  }
+}
+
+/* 平板及以上设备适配 */
+@media (min-width: 1024px) {
+  .auth-container {
+    max-width: 100%;
+  }
+}
+
+/* 表单盒子样式 */
+.auth-box {
+  width: 100%;
+  padding: 30px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+/* 标题样式 */
+.auth-box h2 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* 登录按钮样式 */
+.login-btn {
+  background-color: #409eff;
+  color: #fff;
+}
+
+.login-btn:active {
+  background-color: #337ecc;
+}
