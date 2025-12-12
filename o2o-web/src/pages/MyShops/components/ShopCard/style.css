@@ -1,0 +1,154 @@
+/* 店铺卡片 */
+.shop-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+}
+
+/* 店铺头部 */
+.shop-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+/* 店铺信息 */
+.shop-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 店铺名称和类型 */
+.shop-name-type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.shop-icon {
+  color: #667eea;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.shop-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #303133;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shop-type {
+  font-size: 12px;
+  color: #909399;
+  background-color: #f0f9eb;
+  padding: 3px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* 店铺操作按钮 */
+.shop-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.action-icon {
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.action-icon:hover {
+  background-color: #f5f7fa;
+}
+
+.edit-icon {
+  color: #667eea;
+}
+
+.edit-icon:active {
+  color: #556bda;
+}
+
+.delete-icon {
+  color: #f56c6c;
+}
+
+.delete-icon:active {
+  color: #e64980;
+}
+
+/* 店铺详情 */
+.shop-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 30px;
+}
+
+/* 详情项 */
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #606266;
+  line-height: 1.5;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-icon {
+  color: #909399;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.detail-item span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .shop-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .shop-actions {
+    align-self: flex-end;
+    gap: 12px;
+  }
+
+  .shop-name {
+    font-size: 15px;
+  }
+
+  .shop-details {
+    padding-left: 0;
+  }
+
+  .detail-item {
+    font-size: 12px;
+  }
+}

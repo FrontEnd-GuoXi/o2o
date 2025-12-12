@@ -1,11 +1,7 @@
 <template>
   <div class="o2o-header">
     <div class="header-content">
-      <van-icon
-        name="arrow-left"
-        class="back-icon"
-        @click="handleBack"
-      />
+      <van-icon name="arrow-left" class="back-icon" @click="handleBack" />
       <h1 class="header-title">{{ title }}</h1>
       <div class="header-right"></div>
     </div>
@@ -13,18 +9,18 @@
 </template>
 
 <script setup lang="ts">
-import { Icon as VanIcon } from 'vant';
-import { useRouter } from 'vue-router';
+import { Icon as VanIcon } from 'vant'
+import { useRouter } from 'vue-router'
 
 defineProps<{
-  title: string;
-}>();
+  title: string
+}>()
 
-const router = useRouter();
+const router = useRouter()
 
 const handleBack = () => {
-  router.back();
-};
+  router.back()
+}
 </script>
 
 <style scoped>

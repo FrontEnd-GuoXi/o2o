@@ -1,0 +1,102 @@
+/* 我的店铺页面容器 */
+.my-shops-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding-bottom: 20px;
+}
+
+/* 主内容区 */
+.main-content {
+  background-color: white;
+  margin: 16px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 新建店铺按钮容器 */
+.new-shop-btn-container {
+  padding: 20px 16px;
+  background-color: white;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.new-shop-btn {
+  border-radius: 12px;
+  font-size: 16px;
+  height: 48px;
+  font-weight: 600;
+  background-color: #1989fa;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(25, 137, 250, 0.3);
+}
+
+.new-shop-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(25, 137, 250, 0.3);
+}
+
+/* 店铺列表 */
+.shop-list {
+  padding: 0;
+  background-color: white;
+}
+
+/* 店铺列表标题 */
+.shop-list-title {
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #303133;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+/* 店铺卡片容器 */
+.shop-card-wrapper {
+  padding: 16px;
+  border-bottom: 1px solid #f0f2f5;
+  transition: background-color 0.2s ease;
+}
+
+.shop-card-wrapper:last-child {
+  border-bottom: none;
+}
+
+.shop-card-wrapper:active {
+  background-color: #f8f9fa;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .my-shops-container {
+    padding-bottom: 16px;
+  }
+
+  .main-content {
+    margin: 12px;
+    border-radius: 12px;
+  }
+
+  .new-shop-btn-container {
+    padding: 16px 12px;
+  }
+
+  .new-shop-btn {
+    font-size: 15px;
+    height: 44px;
+  }
+
+  .shop-card-wrapper {
+    padding: 12px;
+  }
+
+  .shop-list-title {
+    padding: 12px;
+    font-size: 15px;
+  }
+}

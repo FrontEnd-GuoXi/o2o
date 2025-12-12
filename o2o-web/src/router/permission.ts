@@ -1,24 +1,31 @@
 // 路由权限控制
-import router from './index';
+import router from './index'
 
 // 全局路由拦截器：检查token是否存在
 router.beforeEach((to, from, next) => {
   // 白名单：不需要token的页面
-  const whiteList = ['/login', '/register'];
-  
-  // 如果是白名单中的页面，直接放行
-  if (whiteList.includes(to.path)) {
-    next();
-    return;
-  }
-  
+  const whiteList = ['/login', '/register']
+
   // 检查token是否存在
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
+
+  // 如果有token
   if (token) {
-    // token存在，放行
-    next();
+    if (whiteList.includes(to.path)) {
+      // 已登录用户访问白名单页面，跳转到首页
+      next('/home')
+    } else {
+      // 已登录用户访问非白名单页面，直接通过
+      next()
+    }
   } else {
-    // token不存在，跳转到登录页
-    next('/login');
+    // 如果没有token
+    if (whiteList.includes(to.path)) {
+      // 未登录用户访问白名单页面，直接通过
+      next()
+    } else {
+      // 未登录用户访问非白名单页面，跳转到登录页
+      next('/login')
+    }
   }
-});
+})

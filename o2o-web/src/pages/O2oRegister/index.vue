@@ -13,7 +13,7 @@
             required
             minlength="6"
             maxlength="20"
-          >
+          />
         </div>
         <div class="form-item">
           <label for="password">密码</label>
@@ -25,7 +25,7 @@
             required
             minlength="6"
             maxlength="20"
-          >
+          />
         </div>
         <div class="form-item">
           <label for="confirmPassword">确认密码</label>
@@ -37,7 +37,7 @@
             required
             minlength="6"
             maxlength="20"
-          >
+          />
         </div>
         <div class="form-item">
           <label for="name">名称</label>
@@ -49,27 +49,17 @@
             required
             minlength="1"
             maxlength="50"
-          >
+          />
         </div>
         <div class="form-item">
           <label>性别</label>
           <div class="gender-selector">
             <label class="gender-option">
-              <input
-                type="radio"
-                v-model="form.gender"
-                value="男"
-                required
-              >
+              <input type="radio" v-model="form.gender" value="男" required />
               <span>男</span>
             </label>
             <label class="gender-option">
-              <input
-                type="radio"
-                v-model="form.gender"
-                value="女"
-                required
-              >
+              <input type="radio" v-model="form.gender" value="女" required />
               <span>女</span>
             </label>
           </div>
@@ -78,33 +68,18 @@
           <label>用户类型</label>
           <div class="user-type-selector">
             <label class="user-type-option">
-              <input
-                type="radio"
-                v-model="form.userType"
-                :value="1"
-                required
-              >
+              <input type="radio" v-model="form.userType" :value="1" required />
               <span>顾客</span>
             </label>
             <label class="user-type-option">
-              <input
-                type="radio"
-                v-model="form.userType"
-                :value="2"
-                required
-              >
+              <input type="radio" v-model="form.userType" :value="2" required />
               <span>店家</span>
             </label>
           </div>
         </div>
         <div class="form-item">
           <label for="profileImg">头像（可选）</label>
-          <input
-            type="url"
-            id="profileImg"
-            v-model="form.profileImg"
-            placeholder="请输入头像URL"
-          >
+          <input type="url" id="profileImg" v-model="form.profileImg" placeholder="请输入头像URL" />
         </div>
         <button type="submit" class="auth-btn register-btn" :disabled="isLoading">
           {{ isLoading ? '注册中...' : '注册' }}
@@ -132,7 +107,7 @@ const form = ref({
   name: '',
   gender: '',
   userType: 1,
-  profileImg: ''
+  profileImg: '',
 } as RegisterRequest & { confirmPassword: string })
 
 const isLoading = ref(false)
@@ -143,7 +118,7 @@ const handleRegister = async () => {
     showToast({
       message: '两次输入的密码不一致，请重新输入',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -152,7 +127,7 @@ const handleRegister = async () => {
     showToast({
       message: '账号长度必须在6-20字符之间',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -161,7 +136,7 @@ const handleRegister = async () => {
     showToast({
       message: '密码长度必须在6-20字符之间',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -170,7 +145,7 @@ const handleRegister = async () => {
     showToast({
       message: '名称长度必须在1-50字符之间',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -179,7 +154,7 @@ const handleRegister = async () => {
     showToast({
       message: '请选择性别',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -194,7 +169,7 @@ const handleRegister = async () => {
       name: form.value.name,
       gender: form.value.gender,
       userType: form.value.userType,
-      profileImg: form.value.profileImg
+      profileImg: form.value.profileImg,
     }
 
     const response = await register(registerData)
@@ -205,7 +180,7 @@ const handleRegister = async () => {
     showToast({
       message: '注册成功，请登录',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     setTimeout(() => {
       router.push('/login')

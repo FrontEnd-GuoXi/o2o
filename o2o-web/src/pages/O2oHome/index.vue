@@ -15,9 +15,9 @@
 </template>
 
 <script setup lang="ts">
-import HomeHeader from './components/HomeHeader/index.vue';
-import HotSection from './components/HotSection/index.vue';
-import CategorySection from './components/CategorySection/index.vue';
+import HomeHeader from './components/HomeHeader/index.vue'
+import HotSection from './components/HotSection/index.vue'
+import CategorySection from './components/CategorySection/index.vue'
 </script>
 
 <style scoped>

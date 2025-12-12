@@ -94,14 +94,8 @@
 </template>
 
 <script setup lang="ts">
-import { Icon as VanIcon } from 'vant';
-
-// 处理图片加载错误的函数
-const handleImageError = (event: Event) => {
-  const target = event.target as HTMLImageElement;
-  target.onerror = null;
-  target.src = 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c';
-};
+import { Icon as VanIcon } from 'vant'
+import { handleImageError } from '@/utils/image'
 </script>
 
 <style scoped>

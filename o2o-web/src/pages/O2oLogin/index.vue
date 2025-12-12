@@ -13,7 +13,7 @@
             required
             minlength="6"
             maxlength="20"
-          >
+          />
         </div>
         <div class="form-item">
           <label for="password">密码</label>
@@ -25,7 +25,7 @@
             required
             minlength="6"
             maxlength="20"
-          >
+          />
         </div>
         <button type="submit" class="auth-btn login-btn" :disabled="isLoading">
           {{ isLoading ? '登录中...' : '登录' }}
@@ -48,7 +48,7 @@ import { showToast } from 'vant'
 const router = useRouter()
 const form = ref<LoginRequest>({
   identifier: '',
-  credential: ''
+  credential: '',
 })
 
 const isLoading = ref(false)
@@ -59,7 +59,7 @@ const handleLogin = async () => {
     showToast({
       message: '账号长度必须在6-20字符之间',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -68,7 +68,7 @@ const handleLogin = async () => {
     showToast({
       message: '密码长度必须在6-20字符之间',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     return
   }
@@ -78,18 +78,16 @@ const handleLogin = async () => {
 
     // 调用登录接口
     const response = await login(form.value)
-    localStorage.setItem('token', response.data);
+    localStorage.setItem('token', response.data)
 
     // 登录成功后跳转到首页或其他页面
     showToast({
       message: '登录成功',
       position: 'top',
-      duration: 2000
+      duration: 2000,
     })
     // 这里可以根据实际需求修改跳转路径
-    setTimeout(() => {
-      router.push('/addShop')
-    }, 1500)
+    router.push('/home')
   } catch (error) {
     console.error('登录失败:', error)
     // 错误提示已在拦截器中处理，这里不需要重复提示

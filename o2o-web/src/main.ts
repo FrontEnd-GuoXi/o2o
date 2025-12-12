@@ -1,12 +1,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { Button, Field, Form, Uploader, Switch, Toast, CellGroup, Cell, Icon} from 'vant';
-
+import { Button, Field, Form, Uploader, Switch, Toast, CellGroup, Cell, Icon } from 'vant'
 
 import App from './App.vue'
 import router from './router'
 import './router/permission' // 引入路由权限控制
-import 'vant/lib/index.css';
+import 'vant/lib/index.css'
 
 const app = createApp(App)
 

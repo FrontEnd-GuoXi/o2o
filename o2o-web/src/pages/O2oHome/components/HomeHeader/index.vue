@@ -10,20 +10,23 @@
         alt="用户头像"
         class="user-avatar"
         @error="handleImageError"
+        @click="goToPersonalInfo"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Icon as VanIcon } from 'vant';
+import { Icon as VanIcon } from 'vant'
+import { useRouter } from 'vue-router'
+import { handleImageError } from '@/utils/image'
 
-// 处理图片加载错误的函数
-const handleImageError = (event: Event) => {
-  const target = event.target as HTMLImageElement;
-  target.onerror = null;
-  target.src = 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c';
-};
+const router = useRouter()
+
+// 跳转到个人信息页面
+const goToPersonalInfo = () => {
+  router.push('/personalInfo')
+}
 </script>
 
 <style scoped>

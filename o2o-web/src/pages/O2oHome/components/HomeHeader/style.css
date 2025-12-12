@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 0 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
@@ -37,6 +37,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #ebeef5;
+  cursor: pointer;
 }
 
 /* 移动端适配 */

@@ -1,231 +1,263 @@
 <template>
-    <div class="shop-form-page">
-      <O2oHeader title="新建商铺" />
+  <div class="add-shop-container">
+    <!-- 顶部公共头部 -->
+    <O2oHeader title="新建店铺" />
 
-      <div class="form-content">
+    <!-- 主要内容区 -->
+    <div class="add-shop-content">
       <van-form @submit="onSubmit">
-        <!-- 商铺名称 -->
-        <van-field v-model="form.name" label="商铺名称" placeholder="请输入商铺名称" required />
-
-              <van-field
-        v-model="form.categoryMain"
-        is-link
-        readonly
-        name="categoryMain"
-        label="商铺大类"
-        placeholder="请选择商铺大类"
-        :rules="[{ required: true, message: '请选择商铺大类' }]"
-        @click="showMainCategoryPopup = true"
-      />
-
-            <van-field
-        v-model="form.categorySub"
-        is-link
-        readonly
-        name="categorySub"
-        label="商铺类别"
-        placeholder="请选择商铺类别"
-        :rules="[{ required: true, message: '请选择商铺类别' }]"
-        @click="showSubCategoryPopup = true"
-        :disabled="!form.categoryMain"
-      />
-
-        <!-- 商铺描述 -->
-        <van-field v-model="form.desc" label="商铺描述" placeholder="请输入商铺描述" type="textarea" rows="3" />
-
-        <!-- 商铺地址 -->
-        <van-field v-model="form.address" label="商铺地址" placeholder="请输入商铺地址" />
-
-        <!-- 手机号码 -->
-        <van-field v-model="form.phone" label="手机号码" placeholder="请输入手机号码" type="tel" />
-
-        <!-- 权重 -->
-        <van-field v-model.number="form.weight" label="权重" placeholder="请输入权重" type="number" />
-
-        <!-- 启用/禁用 -->
-        <van-field label="状态">
-          <template #input>
-            <van-switch v-model="form.enabled" />
-          </template>
-        </van-field>
-
-        <!-- 上传图片 -->
-        <div class="uploader-box">
-          <div class="uploader-label">上传图片</div>
-          <van-uploader v-model="form.images" multiple />
+        <!-- 店铺名称 -->
+        <div class="form-section">
+          <van-field
+            v-model="form.name"
+            label="店铺名称"
+            placeholder="请输入店铺名称"
+            required
+            :rules="[{ required: true, message: '请输入店铺名称' }]"
+          />
         </div>
 
-        <!-- 验证码 -->
-        <van-field v-model="form.code" label="验证码" placeholder="请输入验证码">
-          <template #button>
-            <van-button size="small" type="primary" :disabled="countdown > 0" @click="sendCode">
-              {{ countdown > 0 ? `${countdown}s` : '获取验证码' }}
-            </van-button>
-          </template>
-        </van-field>
+        <!-- 主要类别和店铺类别 - 横向排列 -->
+        <div class="form-section">
+          <van-dropdown-menu>
+            <van-dropdown-item
+              v-model="form.categoryMain"
+              :options="mainCategoryOptions"
+            />
+            <van-dropdown-item
+              v-model="form.categorySub"
+              :options="subCategoryOptions"
+            />
+          </van-dropdown-menu>
+        </div>
 
-        <!-- 提交按钮 -->
-        <div class="submit-box">
-          <van-button round block type="primary" native-type="submit">提交</van-button>
+        <!-- 店铺描述 -->
+        <div class="form-section">
+          <van-field
+            v-model="form.desc"
+            label="店铺描述"
+            placeholder="请输入店铺描述"
+            type="textarea"
+            rows="3"
+          />
+        </div>
+
+        <!-- 店铺地址 -->
+        <div class="form-section">
+          <van-field
+            v-model="form.address"
+            label="店铺地址"
+            placeholder="请输入店铺地址"
+            required
+            :rules="[{ required: true, message: '请输入店铺地址' }]"
+          />
+        </div>
+
+        <!-- 联系电话和权重 - 横向排列 -->
+        <div class="form-section">
+          <div class="field-row">
+            <div class="field-half">
+              <van-field
+                v-model="form.phone"
+                label="联系电话"
+                placeholder="请输入联系电话"
+                type="tel"
+                required
+                :rules="[{ required: true, message: '请输入联系电话' }]"
+              />
+            </div>
+            <div class="field-half">
+              <van-field v-model.number="form.weight" label="权重" placeholder="0" type="number" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 启用状态 -->
+        <div class="form-section">
+          <van-cell-group>
+            <van-cell title="启用状态" center>
+              <template #right-icon>
+                <van-switch v-model="form.enabled" size="24" />
+              </template>
+            </van-cell>
+          </van-cell-group>
+        </div>
+
+        <!-- 店铺图片 -->
+        <div class="form-section">
+          <van-field
+            name="images"
+            label="店铺图片"
+            placeholder="选择文件: 未选择任何文件"
+            readonly
+            is-link
+          >
+            <template #button>
+              <van-uploader v-model="form.images" :max-count="1" :after-read="afterRead" />
+            </template>
+          </van-field>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="form-section">
+          <div class="button-box">
+            <van-button round block type="default" @click="handleCancel">取消</van-button>
+            <van-button round block type="primary" native-type="submit">创建店铺</van-button>
+          </div>
         </div>
       </van-form>
-      </div>
-
-          <!-- 商铺大类弹出层 -->
-    <van-popup v-model:show="showMainCategoryPopup" position="bottom">
-      <van-picker
-        :columns="mainCategories"
-        @confirm="onMainCategoryConfirm"
-        @cancel="showMainCategoryPopup = false"
-        :default-index="getMainCategoryIndex()"
-      />
-    </van-popup>
-
-    <!-- 商铺类别弹出层 -->
-    <van-popup v-model:show="showSubCategoryPopup" position="bottom">
-      <van-picker
-        :columns="currentSubCategories"
-        @confirm="onSubCategoryConfirm"
-        @cancel="showSubCategoryPopup = false"
-        :default-index="getSubCategoryIndex()"
-      />
-    </van-popup>
     </div>
-  </template>
+  </div>
+</template>
 
-  <script setup lang="ts">
-import { ref } from 'vue';
-import { showToast } from 'vant';
-import O2oHeader from '@/components/O2oHeader.vue';
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue'
+import {
+  Form as VanForm,
+  Field as VanField,
+  DropdownMenu as VanDropdownMenu,
+  DropdownItem as VanDropdownItem,
+  CellGroup as VanCellGroup,
+  Cell as VanCell,
+  Switch as VanSwitch,
+  Uploader as VanUploader,
+  Button as VanButton,
+  showToast,
+  showLoadingToast,
+  closeToast,
+} from 'vant'
+import O2oHeader from '@/components/O2oHeader.vue'
+import { getShopCategoryByParentId, type CategoryOption } from '@/api/shop'
 
-  interface ShopForm {
-    name: string;
-    desc: string;
-    address: string;
-    phone: string;
-    weight: number;
-    enabled: boolean;
-    images: File[];
-    code: string;
-    categoryMain: string; // 商铺大类
-    categorySub: string;  // 商铺类别
+interface ShopForm {
+  name: string;
+  desc: string;
+  address: string;
+  phone: string;
+  weight: number;
+  enabled: boolean;
+  images: any[];
+  categoryMain: string; // 主要类别
+  categorySub: string;  // 店铺类别
+}
+
+const form = ref<ShopForm>({
+  name: '',
+  desc: '',
+  address: '',
+  phone: '',
+  weight: 0,
+  enabled: true,
+  images: [],
+  categoryMain: '', // 初始为空，动态加载后设置默认值
+  categorySub: '',  // 初始为空
+})
+
+// 主要类别选项 - 动态加载
+const mainCategoryOptions = ref<CategoryOption[]>([])
+
+// 店铺类别选项 - 动态加载
+const subCategoryOptions = ref<CategoryOption[]>([])
+
+// 获取类别数据的函数
+const fetchShopCategories = async (parentId: string | null = null) => {
+  try {
+    showLoadingToast({
+      message: '加载中...',
+      forbidClick: true,
+    })
+
+    const response = await getShopCategoryByParentId(parentId)
+
+    closeToast()
+    return response.data
+  } catch (error) {
+    closeToast()
+    showToast('加载类别失败')
+    return []
   }
+}
 
-  const form = ref<ShopForm>({
+// 初始化加载主要类别
+const initMainCategories = async () => {
+  const categories = await fetchShopCategories(null)
+  mainCategoryOptions.value = categories
+
+  // 设置默认选中第一个主要类别
+  if (categories.length > 0 && categories[0]) {
+    form.value.categoryMain = categories[0].value
+    // 加载第一个主要类别的子类别
+    await fetchSubCategories(categories[0].value)
+  }
+}
+
+// 根据主要类别加载店铺类别
+const fetchSubCategories = async (parentId: string) => {
+  const categories = await fetchShopCategories(parentId)
+  subCategoryOptions.value = categories
+
+  // 设置默认选中第一个店铺类别
+  if (categories.length > 0 && categories[0]) {
+    form.value.categorySub = categories[0].value
+  } else {
+    form.value.categorySub = ''
+  }
+}
+
+// 监听主要类别变化，动态加载店铺类别
+watch(
+  () => form.value.categoryMain,
+  (newValue) => {
+    if (newValue) {
+      fetchSubCategories(newValue)
+    }
+  },
+  { immediate: false }
+)
+
+// 页面加载时初始化数据
+onMounted(() => {
+  initMainCategories()
+})
+
+// 图片上传处理
+const afterRead = (file: any) => {
+  form.value.images = [file.file]
+  console.log('上传文件:', file)
+}
+
+// 提交表单
+const onSubmit = () => {
+  showToast('创建店铺成功')
+  console.log('提交参数：', form.value)
+}
+
+// 取消按钮处理
+const handleCancel = () => {
+  // 重置表单
+  form.value = {
     name: '',
     desc: '',
-     categoryMain: '', // 商铺大类
-  categorySub: '',  // 商铺类别
+    categoryMain: '',
+    categorySub: '',
     address: '',
     phone: '',
     weight: 0,
     enabled: true,
     images: [],
-    code: ''
-  });
+  }
 
-  const countdown = ref(0);
-  let timer: number | null = null;
+  // 如果有主要类别数据，重置为第一个选项
+  if (mainCategoryOptions.value.length > 0 && mainCategoryOptions.value[0]) {
+    form.value.categoryMain = mainCategoryOptions.value[0].value
+    // 重新加载对应的子类别
+    fetchSubCategories(form.value.categoryMain)
+  }
 
-  const sendCode = () => {
-    if (countdown.value > 0) return;
-    countdown.value = 60;
-    timer = window.setInterval(() => {
-      countdown.value--;
-      if (countdown.value <= 0 && timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    }, 1000);
-    showToast('验证码已发送');
-  };
-
-  const onSubmit = () => {
-    showToast('提交成功');
-    console.log('提交参数：', form.value);
-  };
-
-
-  // 商铺大类选项
-const mainCategories = [
-  { text: '餐饮美食', value: 'food' },
-  { text: '购物零售', value: 'retail' },
-  { text: '生活服务', value: 'service' },
-  { text: '休闲娱乐', value: 'entertainment' },
-  { text: '教育培训', value: 'education' }
-]
-
-// 商铺类别选项（根据大类动态变化）
-const subCategories = {
-  food: [
-    { text: '中餐厅', value: 'chinese_restaurant' },
-    { text: '西餐厅', value: 'western_restaurant' },
-    { text: '快餐', value: 'fast_food' },
-    { text: '饮品店', value: 'beverage' }
-  ],
-  retail: [
-    { text: '服装鞋帽', value: 'clothing' },
-    { text: '超市', value: 'supermarket' },
-    { text: '便利店', value: 'convenience_store' },
-    { text: '电子产品', value: 'electronics' }
-  ],
-  service: [
-    { text: '美容美发', value: 'beauty' },
-    { text: '洗衣店', value: 'laundry' },
-    { text: '维修服务', value: 'repair' },
-    { text: '快递服务', value: 'express' }
-  ],
-  entertainment: [
-    { text: '电影院', value: 'cinema' },
-    { text: 'KTV', value: 'ktv' },
-    { text: '健身房', value: 'gym' },
-    { text: '网吧', value: 'internet_cafe' }
-  ],
-  education: [
-    { text: '培训机构', value: 'training' },
-    { text: '幼儿园', value: 'kindergarten' },
-    { text: '学校', value: 'school' },
-    { text: '图书馆', value: 'library' }
-  ]
+  showToast('已取消')
 }
+</script>
 
-// 子类别选项，根据大类选择动态更新
-const currentSubCategories = ref([])
-
-// 当大类改变时更新子类别选项
-const onMainCategoryChange = (value) => {
-  form.value.categorySub = '' // 重置子类别选择
-  currentSubCategories.value = subCategories[value] || []
-}
-
-  // 弹出层显示控制
-const showMainCategoryPopup = ref(false)
-const showSubCategoryPopup = ref(false)
-
-// 获取当前大类索引
-const getMainCategoryIndex = () => {
-  return mainCategories.findIndex(item => item.value === form.value.categoryMain)
-}
-
-// 获取当前子类索引
-const getSubCategoryIndex = () => {
-  return currentSubCategories.value.findIndex(item => item.value === form.value.categorySub)
-}
-
-// 确认选择大类
-const onMainCategoryConfirm = ({ selectedOptions }) => {
-  form.value.categoryMain = selectedOptions[0].value
-  showMainCategoryPopup.value = false
-  onMainCategoryChange(selectedOptions[0].value)
-}
-
-// 确认选择子类
-const onSubCategoryConfirm = ({ selectedOptions }) => {
-  form.value.categorySub = selectedOptions[0].value
-  showSubCategoryPopup.value = false
-}
-  </script>
-
-  <style scoped>
-  @import './style.css';
-  </style>
+<style scoped>
+@import './style.css';
+</style>
