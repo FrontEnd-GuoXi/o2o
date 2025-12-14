@@ -1,10 +1,11 @@
 package com.o2o.dao;
 
 import com.o2o.entity.ShopCategory;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ShopCategoryDao {
 
-    List<ShopCategory> queryShopCategoryByParentId (long parentId);
+    List<ShopCategory> queryShopCategoryByParentId (@Param("parentId") int parentId);
 }

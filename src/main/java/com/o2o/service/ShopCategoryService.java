@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ShopCategoryService {
 
-    public List<ShopCategory> queryShopCategoryByParentId (long parentId);
+    public List<ShopCategory> queryShopCategoryByParentId (int parentId);
 
 }

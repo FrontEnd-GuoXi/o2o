@@ -14,7 +14,7 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
     @Autowired
     ShopCategoryDao shopCategoryDao;
 
-    public List<ShopCategory> queryShopCategoryByParentId(long parentId) {
+    public List<ShopCategory> queryShopCategoryByParentId(int parentId) {
         List<ShopCategory> shopCategoryList;
         shopCategoryList = shopCategoryDao.queryShopCategoryByParentId(parentId);
         return shopCategoryList;

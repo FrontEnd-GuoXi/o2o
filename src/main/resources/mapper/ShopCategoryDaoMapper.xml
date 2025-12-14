@@ -7,7 +7,7 @@
     <!-- namespace对应Mapper接口的全限定名 -->
 
 
-    <select id="queryShopCategoryByParentId" parameterType="long" resultType="ShopCategory">
+    <select id="queryShopCategoryByParentId" parameterType="int" resultType="ShopCategory">
         SELECT shop_category_id, shop_category_name, shop_category_img,
                priority, create_time, last_edit_time, parent_id
         FROM tb_shop_category WHERE

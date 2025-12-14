@@ -112,6 +112,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   Form as VanForm,
   Field as VanField,
@@ -127,7 +128,7 @@ import {
   closeToast,
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
-import { getShopCategoryByParentId, type CategoryOption } from '@/api/shop'
+import { getShopCategoryByParentId, registerShop, type CategoryOption } from '@/api/shop'
 
 interface ShopForm {
   name: string;
@@ -153,6 +154,9 @@ const form = ref<ShopForm>({
   categorySub: '',  // 初始为空
 })
 
+// 创建router实例
+const router = useRouter()
+
 // 主要类别选项 - 动态加载
 const mainCategoryOptions = ref<CategoryOption[]>([])
 
@@ -170,7 +174,11 @@ const fetchShopCategories = async (parentId: string | null = null) => {
     const response = await getShopCategoryByParentId(parentId)
 
     closeToast()
-    return response.data
+    // 将API返回的数据转换为组件期望的CategoryOption格式
+    return response.data.map((category: any) => ({
+      text: category.shopCategoryName,
+      value: category.shopCategoryId.toString()
+    }))
   } catch (error) {
     closeToast()
     showToast('加载类别失败')
@@ -227,34 +235,38 @@ const afterRead = (file: any) => {
 }
 
 // 提交表单
-const onSubmit = () => {
-  showToast('创建店铺成功')
-  console.log('提交参数：', form.value)
+const onSubmit = async () => {
+  try {
+    showLoadingToast({
+      message: '创建中...',
+      forbidClick: true,
+    })
+    
+    // 准备提交数据
+    const submitData = {
+      ...form.value,
+      shopCategoryId: form.value.categorySub, // 使用子类别ID作为店铺类别
+    }
+    
+    // 调用注册店铺接口
+    await registerShop(submitData)
+    
+    closeToast()
+    showToast('创建店铺成功')
+    
+    // 跳转到MyShops页面
+    router.push('/MyShops')
+  } catch (error) {
+    closeToast()
+    showToast('创建店铺失败，请重试')
+    console.error('创建店铺失败：', error)
+  }
 }
 
 // 取消按钮处理
 const handleCancel = () => {
-  // 重置表单
-  form.value = {
-    name: '',
-    desc: '',
-    categoryMain: '',
-    categorySub: '',
-    address: '',
-    phone: '',
-    weight: 0,
-    enabled: true,
-    images: [],
-  }
-
-  // 如果有主要类别数据，重置为第一个选项
-  if (mainCategoryOptions.value.length > 0 && mainCategoryOptions.value[0]) {
-    form.value.categoryMain = mainCategoryOptions.value[0].value
-    // 重新加载对应的子类别
-    fetchSubCategories(form.value.categoryMain)
-  }
-
-  showToast('已取消')
+  // 直接跳转到MyShops页面
+  router.push('/MyShops')
 }
 </script>
 

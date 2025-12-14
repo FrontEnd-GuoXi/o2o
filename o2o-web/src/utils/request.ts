@@ -20,7 +20,7 @@ export interface ResponseData<T = any> {
 
 // 创建请求实例
 const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>> => {
-  const { url, method = 'GET', data, headers = {}, ...otherOptions } = config
+  const { url, method = 'GET', data, headers = {}, params, ...otherOptions } = config
 
   try {
     // 请求拦截器：添加通用请求头
@@ -28,9 +28,24 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
       'Content-Type': 'application/json',
       ...headers,
     }
+    
+    // 处理GET请求的params参数，转换为URL查询字符串
+    let finalUrl = url
+    if (method === 'GET' && params) {
+      const queryParams = new URLSearchParams()
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          queryParams.append(key, String(value))
+        }
+      })
+      const queryString = queryParams.toString()
+      if (queryString) {
+        finalUrl = `${url}${url.includes('?') ? '&' : '?'}${queryString}`
+      }
+    }
 
     // 为除login和register之外的接口添加Authorization请求头
-    const isAuthApi = url.includes('/auth/login') || url.includes('/auth/register')
+    const isAuthApi = finalUrl.includes('/auth/login') || finalUrl.includes('/auth/register')
     if (!isAuthApi) {
       const token = localStorage.getItem('token')
       if (token) {
@@ -51,7 +66,7 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
     }
 
     // 发送请求
-    const response = await fetch(url, requestOptions)
+    const response = await fetch(finalUrl, requestOptions)
 
     // 解析响应数据
     let responseData: any

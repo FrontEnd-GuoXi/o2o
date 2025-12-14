@@ -31,7 +31,7 @@ public class ShopInfoController {
     @RequestMapping(value = "/getShopCategoryByParentId", method = RequestMethod.GET)
     public ResponseResultWrap<List<ShopCategory>> getShopCategoryByParentId (HttpServletRequest request) {
         try {
-            long parentId = HttpServletRequestUtil.getInt(request,"parentId");
+            int parentId = HttpServletRequestUtil.getInt(request,"parentId");
             List<ShopCategory> shopCategoryList = shopCategoryService.queryShopCategoryByParentId(parentId);
             return ResponseResultWrap.success(shopCategoryList);
         } catch (Exception e) {
