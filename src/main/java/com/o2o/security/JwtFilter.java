@@ -3,6 +3,7 @@ package com.o2o.security;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.o2o.dao.UserDao;
+import com.o2o.dto.PersonInfoDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.enums.HttpApiCode;
 import com.o2o.util.ResponseResultWrap;
@@ -30,6 +31,9 @@ public class JwtFilter implements HandlerInterceptor {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private PersonInfoDTO personInfoDTO;
+
 
     @Override
     public boolean preHandle (HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -47,6 +51,11 @@ public class JwtFilter implements HandlerInterceptor {
 
 
             if (userInfo != null) {
+                personInfoDTO.setUserId(userInfo.getUserId());
+                personInfoDTO.setGender(userInfo.getGender());
+                personInfoDTO.setEnableStatus(userInfo.getEnableStatus());
+                personInfoDTO.setUserType(userInfo.getUserType());
+                UserContextHolder.setUserInfo(personInfoDTO);
                 return true;
             } else {
                 writeResponse(response, HttpApiCode.NOT_FOUND_USER);
@@ -65,6 +74,12 @@ public class JwtFilter implements HandlerInterceptor {
             return false;
         }
 
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+                                Object handler, Exception ex) {
+        UserContextHolder.clear();
     }
 
     /**
