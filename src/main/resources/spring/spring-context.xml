@@ -12,6 +12,7 @@
     <!-- 启用组件扫描（如果你用 @Component） -->
     <context:component-scan base-package="com.o2o.security, com.o2o.util, com.o2o.dto" />
 
+
     <!-- 关键：注册属性占位符解析器 -->
     <context:property-placeholder location="
     classpath:env/%env%/application.properties,

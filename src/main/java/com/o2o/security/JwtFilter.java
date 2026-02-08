@@ -28,11 +28,7 @@ public class JwtFilter implements HandlerInterceptor {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    @Autowired
-    private PersonInfoDTO personInfoDTO;
 
 
     @Override
@@ -51,6 +47,7 @@ public class JwtFilter implements HandlerInterceptor {
 
 
             if (userInfo != null) {
+                PersonInfoDTO personInfoDTO = new PersonInfoDTO();
                 personInfoDTO.setUserId(userInfo.getUserId());
                 personInfoDTO.setGender(userInfo.getGender());
                 personInfoDTO.setEnableStatus(userInfo.getEnableStatus());
@@ -89,7 +86,11 @@ public class JwtFilter implements HandlerInterceptor {
         try {
             response.setContentType("application/json;charset=UTF-8");
             ResponseResultWrap<Object> result =  ResponseResultWrap.getResultByHttpCode(code, null);
+            ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(response.getWriter(), result);
+
+
+
         } catch (IOException e) {
             logger.error(e.toString());
         }
