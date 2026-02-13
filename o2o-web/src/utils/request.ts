@@ -13,7 +13,7 @@ export interface RequestConfig {
 // 响应数据接口
 export interface ResponseData<T = any> {
   code: string
-  message: string
+  msg: string
   data: T
   [key: string]: any
 }
@@ -25,10 +25,14 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
   try {
     // 请求拦截器：添加通用请求头
     const requestHeaders: Record<string, string> = {
-      'Content-Type': 'application/json',
       ...headers,
     }
-    
+
+    // 只有在有数据且不是 FormData 时才设置默认的 Content-Type 为 application/json
+    if (data && !(data instanceof FormData)) {
+      requestHeaders['Content-Type'] = 'application/json'
+    }
+
     // 处理GET请求的params参数，转换为URL查询字符串
     let finalUrl = url
     if (method === 'GET' && params) {
@@ -62,7 +66,7 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
 
     // 如果有请求体，添加到请求中
     if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
-      requestOptions.body = JSON.stringify(data)
+      requestOptions.body = data instanceof FormData ? data : JSON.stringify(data)
     }
 
     // 发送请求
@@ -73,12 +77,12 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
     try {
       responseData = await response.json()
     } catch (error) {
-      throw new Error(`响应数据解析失败: ${error instanceof Error ? error.message : '未知错误'}`)
+      throw new Error(`响应数据解析失败: ${error instanceof Error ? error.msg : '未知错误'}`)
     }
 
     // 响应拦截器：统一处理错误
     if (!response.ok) {
-      throw new Error(responseData.message || `请求失败：${response.status}`)
+      throw new Error(responseData.msg || `请求失败：${response.status}`)
     }
 
     // 业务逻辑判断：根据code判断请求是否真正成功
@@ -87,9 +91,9 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
       const { showToast } = await import('vant')
       // 显示错误提示
       showToast({
-        message: responseData.message || '请求失败',
+        message: responseData.msg || '请求失败',
         position: 'top',
-        duration: 2000,
+        duration: 5000,
       })
 
       // 处理特定错误码：清除token并刷新页面
@@ -100,11 +104,11 @@ const request = async <T = any>(config: RequestConfig): Promise<ResponseData<T>>
         // 等待3秒后刷新页面
         setTimeout(() => {
           location.reload()
-        }, 3000)
+        }, 5000)
       }
 
       // 抛出错误，让调用方可以处理
-      throw new Error(responseData.message || '请求失败')
+      throw new Error(responseData.msg || '请求失败')
     }
 
     // 可以在这里添加全局响应处理逻辑

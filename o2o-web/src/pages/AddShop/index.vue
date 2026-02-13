@@ -1,7 +1,7 @@
 <template>
   <div class="add-shop-container">
     <!-- 顶部公共头部 -->
-    <O2oHeader title="新建店铺" />
+    <O2oHeader :title="isEdit ? '编辑店铺' : '新建店铺'" />
 
     <!-- 主要内容区 -->
     <div class="add-shop-content">
@@ -42,6 +42,27 @@
           />
         </div>
 
+        <!-- 所在区域 -->
+        <div class="form-section">
+          <van-field
+            v-model="selectedAreaName"
+            label="所在区域"
+            placeholder="请选择所在区域"
+            required
+            readonly
+            is-link
+            @click="showAreaPicker = true"
+            :rules="[{ required: true, message: '请选择所在区域' }]"
+          />
+          <van-popup v-model:show="showAreaPicker" position="bottom">
+            <van-picker
+              :columns="areaOptions"
+              @confirm="onAreaConfirm"
+              @cancel="showAreaPicker = false"
+            />
+          </van-popup>
+        </div>
+
         <!-- 店铺地址 -->
         <div class="form-section">
           <van-field
@@ -52,6 +73,8 @@
             :rules="[{ required: true, message: '请输入店铺地址' }]"
           />
         </div>
+
+
 
         <!-- 联系电话和权重 - 横向排列 -->
         <div class="form-section">
@@ -112,7 +135,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import {
   Form as VanForm,
   Field as VanField,
@@ -123,17 +146,21 @@ import {
   Switch as VanSwitch,
   Uploader as VanUploader,
   Button as VanButton,
+  Popup as VanPopup,
+  Picker as VanPicker,
   showToast,
   showLoadingToast,
-  closeToast,
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
-import { getShopCategoryByParentId, registerShop, type CategoryOption } from '@/api/shop'
+import { getShopCategoryByParentId, registerShop, getShopById, type CategoryOption } from '@/api/shop'
+import { getAreaList } from '@/api/area'
+import { getImageUrl, handleImageError } from '@/utils/image'
 
 interface ShopForm {
   name: string;
   desc: string;
   address: string;
+  area: string;
   phone: string;
   weight: number;
   enabled: boolean;
@@ -146,6 +173,7 @@ const form = ref<ShopForm>({
   name: '',
   desc: '',
   address: '',
+  area: '',
   phone: '',
   weight: 0,
   enabled: true,
@@ -156,6 +184,11 @@ const form = ref<ShopForm>({
 
 // 创建router实例
 const router = useRouter()
+const route = useRoute()
+
+// 是否为编辑模式
+const isEdit = ref(false)
+const shopId = ref<number | null>(null)
 
 // 主要类别选项 - 动态加载
 const mainCategoryOptions = ref<CategoryOption[]>([])
@@ -163,25 +196,29 @@ const mainCategoryOptions = ref<CategoryOption[]>([])
 // 店铺类别选项 - 动态加载
 const subCategoryOptions = ref<CategoryOption[]>([])
 
+// 区域选项
+const areaOptions = ref<{ text: string; value: string }[]>([])
+const showAreaPicker = ref(false)
+const selectedAreaName = ref('')
+
 // 获取类别数据的函数
 const fetchShopCategories = async (parentId: string | null = null) => {
+  const toast = showLoadingToast({
+    message: '加载中...',
+    forbidClick: true,
+  })
   try {
-    showLoadingToast({
-      message: '加载中...',
-      forbidClick: true,
-    })
-
     const response = await getShopCategoryByParentId(parentId)
 
-    closeToast()
+    toast.close()
     // 将API返回的数据转换为组件期望的CategoryOption格式
     return response.data.map((category: any) => ({
       text: category.shopCategoryName,
       value: category.shopCategoryId.toString()
     }))
-  } catch (error) {
-    closeToast()
-    showToast('加载类别失败')
+  } catch (e) {
+    toast.close()
+    console.error('加载类别失败：', e)
     return []
   }
 }
@@ -190,26 +227,39 @@ const fetchShopCategories = async (parentId: string | null = null) => {
 const initMainCategories = async () => {
   const categories = await fetchShopCategories(null)
   mainCategoryOptions.value = categories
+}
 
-  // 设置默认选中第一个主要类别
-  if (categories.length > 0 && categories[0]) {
-    form.value.categoryMain = categories[0].value
-    // 加载第一个主要类别的子类别
-    await fetchSubCategories(categories[0].value)
+// 初始化加载区域列表
+const initAreaList = async () => {
+  try {
+    const response = await getAreaList()
+    areaOptions.value = response.data.map(area => ({
+      text: area.areaName,
+      value: area.areaId.toString()
+    }))
+
+    // 默认选中第一个区域
+    if (areaOptions.value.length > 0) {
+      form.value.area = areaOptions.value[0].value
+      selectedAreaName.value = areaOptions.value[0].text
+    }
+  } catch (e) {
+    console.error('加载区域列表失败：', e)
   }
+}
+
+// 区域选择确认
+const onAreaConfirm = ({ selectedOptions }: any) => {
+  const option = selectedOptions[0]
+  form.value.area = option.value
+  selectedAreaName.value = option.text
+  showAreaPicker.value = false
 }
 
 // 根据主要类别加载店铺类别
 const fetchSubCategories = async (parentId: string) => {
   const categories = await fetchShopCategories(parentId)
   subCategoryOptions.value = categories
-
-  // 设置默认选中第一个店铺类别
-  if (categories.length > 0 && categories[0]) {
-    form.value.categorySub = categories[0].value
-  } else {
-    form.value.categorySub = ''
-  }
 }
 
 // 监听主要类别变化，动态加载店铺类别
@@ -224,41 +274,107 @@ watch(
 )
 
 // 页面加载时初始化数据
-onMounted(() => {
-  initMainCategories()
+onMounted(async () => {
+
+
+  // 检查是否有 shopId 参数，如果有则进入编辑模式
+  const id = route.query.shopId
+  if (id) {
+    isEdit.value = true
+    shopId.value = Number(id)
+    fetchShopDetail(shopId.value)
+  }
+
+    await initMainCategories()
+    await initAreaList()
 })
+
+// 获取店铺详情用于回显
+const fetchShopDetail = async (id: number) => {
+  const toast = showLoadingToast({
+    message: '获取详情中...',
+    forbidClick: true,
+  })
+  try {
+    const res = await getShopById(id)
+    const shop = res.data
+    if (shop) {
+      const imgUrl =  location.origin + getImageUrl(shop.shopImg)
+      console.log(imgUrl)
+      form.value = {
+        name: shop.shopName,
+        desc: shop.shopDesc,
+        address: shop.shopAddr,
+        area: shop.area?.areaId?.toString() || '',
+        phone: shop.phone,
+        weight: shop.priority,
+        enabled: shop.enableStatus === 1,
+        images: [ { url: imgUrl } ], // 编辑时图片通常需要重新上传，这里先清空
+        categoryMain: shop.shopCategoryParentId || '',
+        categorySub: shop.shopCategoryId,
+      }
+
+      // 更新显示的区域名称
+      const area = areaOptions.value.find(opt => opt.value === form.value.area)
+      if (area) {
+        selectedAreaName.value = area.text
+      }
+    }
+    toast.close()
+  } catch (error) {
+    toast.close()
+    console.error('获取店铺详情失败:', error)
+    showToast('获取店铺详情失败')
+  }
+}
 
 // 图片上传处理
 const afterRead = (file: any) => {
-  form.value.images = [file.file]
+  // form.value.images = [file.file]
   console.log('上传文件:', file)
 }
 
 // 提交表单
 const onSubmit = async () => {
+  const toast = showLoadingToast({
+    message: '创建中...',
+    forbidClick: true,
+  })
   try {
-    showLoadingToast({
-      message: '创建中...',
-      forbidClick: true,
-    })
-    
     // 准备提交数据
-    const submitData = {
-      ...form.value,
-      shopCategoryId: form.value.categorySub, // 使用子类别ID作为店铺类别
+    const formData = new FormData()
+    if (isEdit.value && shopId.value) {
+      formData.append('shopId', String(shopId.value))
     }
-    
+    formData.append('shopName', form.value.name)
+    formData.append('shopDesc', form.value.desc)
+    formData.append('shopAddr', form.value.address)
+    formData.append('phone', form.value.phone)
+    formData.append('priority', String(form.value.weight))
+    formData.append('enableStatus', form.value.enabled ? '1' : '0')
+    formData.append('area', form.value.area)
+    formData.append('categorySup', form.value.categoryMain)
+    formData.append('categorySub', form.value.categorySub)
+    console.log('添加图片:', form.value.images[0])
+    // 添加图片
+    if (form.value.images && form.value.images.length > 0) {
+      const fileItem = form.value.images[0]
+      // 只有当存在 file 对象时才添加（即用户重新选择了图片）
+      if (fileItem.file) {
+        formData.append('shopImg', fileItem.file)
+      }
+    }
+
     // 调用注册店铺接口
-    await registerShop(submitData)
-    
-    closeToast()
-    showToast('创建店铺成功')
-    
+    await registerShop(formData)
+
+    toast.close()
+    showToast(isEdit.value ? '修改店铺成功' : '创建店铺成功')
+
     // 跳转到MyShops页面
     router.push('/MyShops')
   } catch (error) {
-    closeToast()
-    showToast('创建店铺失败，请重试')
+    toast.close()
     console.error('创建店铺失败：', error)
   }
 }

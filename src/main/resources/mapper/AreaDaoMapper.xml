@@ -7,7 +7,7 @@
     <!-- namespace对应Mapper接口的全限定名 -->
 
     <select id="getList" resultType="com.o2o.entity.Area">
-        select * from tb_area
+        select area_id, area_name, priority,create_time,last_edit_time from tb_area
     </select>
 
 </mapper>

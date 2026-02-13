@@ -11,6 +11,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.*;
+import java.nio.file.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -19,6 +20,7 @@ import java.util.Random;
 public class ImageUtil {
     private static final Logger logger = LoggerFactory.getLogger(ImageUtil.class);
     private static  String resourcesPath = getResourcesPath();
+
 
 
 
@@ -34,6 +36,26 @@ public class ImageUtil {
         return resourcesPath;
     }
 
+
+    public static Boolean deleteAllPictruesInTheFolder (String path) {
+        Path folderPath = Paths.get(path);
+        String glob = "*.{png,jpg,jpeg,gif,bmp,PNG,JPG,JPEG}";
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath, glob)) {
+            for (Path entry : stream) {
+                try {
+                    Files.delete(entry);
+                } catch (IOException e) {
+                    logger.error(e.toString());
+                }
+            }
+            return true;
+        } catch (IOException | DirectoryIteratorException e) {
+            logger.error(e.toString());
+            return false;
+        }
+    }
+
+
     public static String genImgName (String rawFileName) {
         String suffix = rawFileName.substring(rawFileName.lastIndexOf(".") + 1);
         String curDate = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -41,9 +63,13 @@ public class ImageUtil {
         return "o2o_" + curDate + "_" + randomNum + "." + suffix;
     }
 
+    public static String getBasePath (Long shopId) {
+        return  "D:/javaImages/process/" + shopId;
+    }
+
     public static String genImgAddr (String imgName, Long shopId) {
         try{
-            String saveBasePath = "D:/javaImages/process/" + shopId;
+            String saveBasePath = getBasePath(shopId);
             File processDir = new File(saveBasePath);
             if (!processDir.exists()) {
                 if (!processDir.mkdir()) {

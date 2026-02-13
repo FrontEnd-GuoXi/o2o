@@ -11,8 +11,9 @@
     http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
     <mvc:annotation-driven />
-
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <!-- 关键：在子容器中也注册属性占位符解析器，以便解析 XML 中的 ${imgStore} -->
+    <context:property-placeholder location="classpath:env/%env%/application.properties" ignore-unresolvable="true" />
+    <mvc:resources mapping="/javaImages/**" location="${imgStore}" />
     <mvc:default-servlet-handler/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

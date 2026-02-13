@@ -100,3 +100,12 @@
     font-size: 15px;
   }
 }
+
+/* 无数据提示 */
+.no-data {
+  padding: 40px 0;
+  text-align: center;
+  color: #909399;
+  font-size: 14px;
+  background-color: white;
+}

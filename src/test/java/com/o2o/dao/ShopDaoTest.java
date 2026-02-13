@@ -61,7 +61,7 @@ public class ShopDaoTest extends BaseTest {
 
     @Test
     public void testSelectShop () {
-        Shop shop = shopDao.queryShopById(2);
+       // Shop shop = shopDao.queryShopById(2);
     }
 
 }

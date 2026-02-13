@@ -37,6 +37,7 @@ public class JwtFilter implements HandlerInterceptor {
             String authHeader = request.getHeader("Authorization");
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                writeResponse(response, HttpApiCode.INVALID_TOKEN);
                 return false;
             }
 
@@ -44,6 +45,7 @@ public class JwtFilter implements HandlerInterceptor {
             DecodedJWT decodedJWT = jwtService.validateToken(token);
             int userId = decodedJWT.getClaim("userId").asInt();
             PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
+
 
 
             if (userInfo != null) {
@@ -88,9 +90,6 @@ public class JwtFilter implements HandlerInterceptor {
             ResponseResultWrap<Object> result =  ResponseResultWrap.getResultByHttpCode(code, null);
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(response.getWriter(), result);
-
-
-
         } catch (IOException e) {
             logger.error(e.toString());
         }

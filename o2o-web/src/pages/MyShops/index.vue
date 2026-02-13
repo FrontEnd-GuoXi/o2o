@@ -17,8 +17,12 @@
 
       <!-- 店铺列表 -->
       <div class="shop-list">
-        <div v-for="shop in shopList" :key="shop.name" class="shop-card-wrapper">
+        <div v-for="shop in shopList" :key="shop.shopId" class="shop-card-wrapper">
           <ShopCard :shop="shop" @edit="handleEdit" @delete="handleDelete" />
+        </div>
+        <!-- 无数据展示 -->
+        <div v-if="shopList.length === 0" class="no-data">
+          暂无店铺数据
         </div>
       </div>
     </div>
@@ -26,10 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import { Icon as VanIcon, Button as VanButton } from 'vant'
+import { Icon as VanIcon, Button as VanButton, showToast, showConfirmDialog } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
 import ShopCard from './components/ShopCard/index.vue'
 import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { getShopList, deleteShop, type Shop } from '@/api/shop'
 
 const router = useRouter()
 
@@ -38,41 +44,50 @@ const goToAddShop = () => {
   router.push('/addShop')
 }
 
-// 店铺数据类型定义
-interface ShopInfo {
-  name: string
-  type: string
-  address: string
-  phone: string
-  createTime: string
+// 店铺数据
+const shopList = ref<Shop[]>([])
+
+// 获取店铺列表数据
+const fetchShopList = async () => {
+  try {
+    const res = await getShopList()
+    shopList.value = res.data || []
+  } catch (error) {
+    console.error('获取店铺列表失败:', error)
+    showToast('获取店铺列表失败')
+  }
 }
 
-// 模拟店铺数据
-const shopList: ShopInfo[] = [
-  {
-    name: '瑞星咖啡',
-    type: '咖啡',
-    address: '番禺区',
-    phone: '18312673102',
-    createTime: '2025/12/12 11:09:48',
-  },
-  {
-    name: '星巴克',
-    type: '咖啡',
-    address: '番禺区',
-    phone: '123456',
-    createTime: '2025/12/12 11:11:07',
-  },
-]
+onMounted(() => {
+  fetchShopList()
+})
 
 // 处理编辑事件
-const handleEdit = (shop: ShopInfo) => {
-  console.log('编辑店铺:', shop)
+const handleEdit = (shop: Shop) => {
+  router.push({
+    path: '/AddShop',
+    query: { shopId: shop.shopId }
+  })
 }
 
 // 处理删除事件
-const handleDelete = (shop: ShopInfo) => {
-  console.log('删除店铺:', shop)
+const handleDelete = async (shop: Shop) => {
+  try {
+    await showConfirmDialog({
+      title: '删除确认',
+      message: `确定要删除店铺 "${shop.shopName}" 吗？此操作不可撤销。`,
+      confirmButtonColor: '#f56c6c',
+    })
+
+    const res = await deleteShop(shop.shopId)
+    if (res.data) {
+      showToast('删除成功')
+      fetchShopList() // 刷新列表
+    }
+  } catch (error) {
+    if (error === 'cancel') return
+    console.error('删除店铺失败:', error)
+  }
 }
 </script>
 

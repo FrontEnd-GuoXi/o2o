@@ -6,8 +6,10 @@ import lombok.Data;
 @Data
 public class AddShop {
 
+    private String shopId;
+
     @NotNull
-    private String ShopName;
+    private String shopName;
 
     private String shopDesc;
 
@@ -17,7 +19,6 @@ public class AddShop {
     @NotNull
     private String phone;
 
-    private String shopImg;
 
     @NotNull
     private Integer priority;
@@ -26,13 +27,11 @@ public class AddShop {
     private Integer enableStatus;
 
     @NotNull
-    private String area;
+    private Integer area;
+
 
     @NotNull
-    private int categorySup;
-
-    @NotNull
-    private int categorySub;
+    private Long categorySub;
 
 
 }
