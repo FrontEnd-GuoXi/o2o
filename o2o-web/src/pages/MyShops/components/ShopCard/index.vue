@@ -8,7 +8,7 @@
         <div class="shop-info">
           <div class="shop-name-type">
             <h3 class="shop-name">{{ shop.shopName }}</h3>
-            <span class="shop-type">{{ shop.shopCategory?.shopCategoryName }}</span>
+            <span class="shop-type">{{ shop.shopCategoryName }}</span>
           </div>
         </div>
       </div>

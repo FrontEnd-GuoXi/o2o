@@ -20,6 +20,7 @@ public class ShopVO {
     private String areaId;
     private String ownerId;
     private String shopCategoryId;
+    private String shopCategoryName;
     private String shopCategoryParentId;
 
 }

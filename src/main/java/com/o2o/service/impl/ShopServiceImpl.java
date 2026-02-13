@@ -75,9 +75,9 @@ public class ShopServiceImpl implements ShopService {
             }
 
             if (rawImg != null && filePath != null && ! "".equals(filePath)) {
-                String dest = addImg(shop.getShopId(), rawImg, filePath);
                 Boolean deleteResult = ImageUtil.deleteAllPictruesInTheFolder(ImageUtil.getBasePath(shop.getShopId()));
                 if (deleteResult) {
+                    String dest = addImg(shop.getShopId(), rawImg, filePath);
                     String pathWithoutDrive = dest.replaceAll("^[a-zA-Z]:", "");
                     shop.setShopImg(pathWithoutDrive);
                 } else {
@@ -129,6 +129,7 @@ public class ShopServiceImpl implements ShopService {
         BeanUtils.copyProperties(shop, shopVO);
         shopVO.setOwnerId(String.valueOf(shop.getOwner().getUserId()));
         shopVO.setShopCategoryId(String.valueOf(shop.getShopCategory().getShopCategoryId()));
+        shopVO.setShopCategoryName(shop.getShopCategory().getShopCategoryName());
         shopVO.setAreaId(String.valueOf(shop.getArea().getAreaId()));
         shopVO.setShopId(String.valueOf(shop.getShopId()));
         shopVO.setShopCategoryParentId(String.valueOf((shop.getShopCategory().getParent().getShopCategoryId())));
