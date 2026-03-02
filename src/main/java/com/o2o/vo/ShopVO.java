@@ -18,6 +18,7 @@ public class ShopVO {
     private Integer enableStatus;
     private String advice;
     private String areaId;
+    private String areaName;
     private String ownerId;
     private String shopCategoryId;
     private String shopCategoryName;

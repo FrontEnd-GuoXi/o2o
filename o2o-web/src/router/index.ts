@@ -35,6 +35,11 @@ const routes = [
     path: '/addShop',
     component: () => import('@/pages/AddShop/index.vue'),
   },
+  {
+    name: 'ShopList',
+    path: '/shopList',
+    component: () => import('@/pages/ShopList/index.vue'),
+  },
 ]
 
 const router = createRouter({

@@ -1,11 +1,14 @@
 package com.o2o.web.user;
 
 import com.o2o.dto.LoginRequestDTO;
+import com.o2o.dto.PersonInfoDTO;
 import com.o2o.dto.RegisterRequestDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
+import com.o2o.security.UserContextHolder;
 import com.o2o.service.AuthService;
 import com.o2o.util.ResponseResultWrap;
+import com.o2o.vo.UserInfoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +86,19 @@ public class AuthController {
             return ResponseResultWrap.fail("登录失败");
         }
 
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
+    public ResponseResultWrap<UserInfoVO> getUserInfo() {
+        try {
+            PersonInfoDTO personInfoDTO = UserContextHolder.getUserInfo();
+            UserInfoVO userInfoVO = authService.queryUserInfoVOById(Math.toIntExact(personInfoDTO.getUserId()));
+            return ResponseResultWrap.success(userInfoVO);
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return ResponseResultWrap.fail("查询用户信息VO失败");
+        }
     }
 
 

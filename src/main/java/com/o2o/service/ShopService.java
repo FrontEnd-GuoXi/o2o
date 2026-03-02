@@ -14,4 +14,5 @@ public interface ShopService {
     public List<ShopVO> queryShopList(Long userId);
     public Boolean deleteShop (Long shopId);
     public ShopVO queryShopById(long shopId, long userId);
+    public List<ShopVO> queryShopListByCategoryId(Long categoryId);
 }

@@ -6,6 +6,7 @@ import com.o2o.dao.UserDao;
 import com.o2o.dto.PersonInfoDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.enums.HttpApiCode;
+import com.o2o.service.AuthService;
 import com.o2o.util.ResponseResultWrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,9 @@ public class JwtFilter implements HandlerInterceptor {
     @Autowired
     private JwtService jwtService;
 
+
     @Autowired
-    private UserDao userDao;
+    private AuthService authService;
 
 
 
@@ -44,19 +46,12 @@ public class JwtFilter implements HandlerInterceptor {
             String token = authHeader.substring(7); // 去掉 "Bearer "
             DecodedJWT decodedJWT = jwtService.validateToken(token);
             int userId = decodedJWT.getClaim("userId").asInt();
-            PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
-
-
-
-            if (userInfo != null) {
-                PersonInfoDTO personInfoDTO = new PersonInfoDTO();
-                personInfoDTO.setUserId(userInfo.getUserId());
-                personInfoDTO.setGender(userInfo.getGender());
-                personInfoDTO.setEnableStatus(userInfo.getEnableStatus());
-                personInfoDTO.setUserType(userInfo.getUserType());
+            try {
+                PersonInfoDTO personInfoDTO = authService.queryUserInfoById(userId);
                 UserContextHolder.setUserInfo(personInfoDTO);
                 return true;
-            } else {
+            } catch (Exception e) {
+                logger.error(e.toString());
                 writeResponse(response, HttpApiCode.NOT_FOUND_USER);
                 return false;
             }

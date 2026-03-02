@@ -1,22 +1,22 @@
 <template>
   <div class="personal-container">
     <!-- 顶部公共头部 -->
-    <O2oHeader title="个人信息" />
+    <O2oHeader title="个人信息"  back-url="/home"/>
 
     <div class="personal-content">
       <!-- 个人信息卡片 -->
       <div class="profile-card">
         <div class="profile-header">
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+            :src="userStore.userInfo?.profileImg || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d'"
             alt="用户头像"
             class="avatar"
             @error="handleImageError"
           />
           <div class="profile-info">
             <div class="name-role">
-              <h2 class="username">张三</h2>
-              <span class="role">管理员</span>
+              <h2 class="username">{{ userStore.userInfo?.name || '未设置姓名' }}</h2>
+              <span class="role">{{ getUserRole(userStore.userInfo?.userType) }}</span>
             </div>
             <div class="contact-info">
               <div class="contact-item">
@@ -89,8 +89,24 @@ import { Icon as VanIcon, Button as VanButton } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
 import { handleImageError } from '@/utils/image'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
+const userStore = useUserStore()
+
+// 获取用户角色名称
+const getUserRole = (type?: number) => {
+  switch (type) {
+    case 1:
+      return '顾客'
+    case 2:
+      return '店家'
+    case 3:
+      return '超级管理员'
+    default:
+      return '普通用户'
+  }
+}
 
 // 跳转到我的店铺页面
 const goToMyShops = () => {
@@ -101,6 +117,8 @@ const goToMyShops = () => {
 const handleLogout = () => {
   // 清除localStorage中的token
   localStorage.removeItem('token')
+  // 清除store中的用户信息
+  userStore.clearUserInfo()
   // 刷新页面
   location.reload()
 }

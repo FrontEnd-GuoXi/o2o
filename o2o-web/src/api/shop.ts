@@ -6,6 +6,16 @@ export interface CategoryOption {
   value: string;
 }
 
+// 原始店铺分类接口
+export interface ShopCategory {
+  shopCategoryId: number;
+  shopCategoryName: string;
+  shopCategoryDesc: string;
+  shopCategoryImg: string;
+  priority: number;
+  parent?: ShopCategory;
+}
+
 /**
  * 获取店铺类别数据
  * @param parentId - 父类别ID，null或空表示获取主要类别
@@ -13,7 +23,7 @@ export interface CategoryOption {
  */
 export const getShopCategoryByParentId = async (parentId: string | null = null) => {
   const params = { parentId: parentId || '' } // 当parentId为null时，传入空字符串
-  return request.get<CategoryOption[]>('/api/o2o/shopInfo/getShopCategoryByParentId', { params })
+  return request.get<ShopCategory[]>('/api/o2o/shopInfo/getShopCategoryByParentId', { params })
 }
 
 /**
@@ -39,18 +49,20 @@ export interface Shop {
   enableStatus: number
   advice: string
   shopCategoryParentId?: string
-  area?: {
-    areaId: number
-    areaName: string
-  }
-  shopCategory?: {
-    shopCategoryId: number
-    shopCategoryName: string
-    parent?: {
-      shopCategoryId: number
-      shopCategoryName: string
-    }
-  }
+  areaId?: string
+  areaName?: string
+  ownerId?: string
+  shopCategoryId?: string
+  shopCategoryName?: string
+}
+
+/**
+ * 根据类别ID获取商铺列表
+ * @param categoryId 类别ID（可以是父类或子类ID）
+ * @returns 商铺列表
+ */
+export const queryShopListByCategoryId = async (categoryId: string) => {
+  return request.get<Shop[]>('/api/o2o/shopInfo/queryShopListByCategoryId', { params: { categoryId } })
 }
 
 /**

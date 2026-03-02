@@ -31,3 +31,17 @@ export const login = async (data: LoginRequest) => {
 export const register = async (data: RegisterRequest) => {
   return request.post('/api/o2o/auth/register', data)
 }
+
+// 用户信息接口
+export interface UserInfo {
+  userId: string
+  name: string
+  gender: string
+  userType: number
+  profileImg: string
+}
+
+// 获取用户信息接口
+export const getUserInfo = async () => {
+  return request.get<UserInfo>('/api/o2o/auth/getUserInfo')
+}

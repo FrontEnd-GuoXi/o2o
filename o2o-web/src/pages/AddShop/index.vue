@@ -1,7 +1,7 @@
 <template>
   <div class="add-shop-container">
     <!-- 顶部公共头部 -->
-    <O2oHeader :title="isEdit ? '编辑店铺' : '新建店铺'" />
+    <O2oHeader :title="isEdit ? '编辑店铺' : '新建店铺'" :backUrl="'/myShops'" />
 
     <!-- 主要内容区 -->
     <div class="add-shop-content">
@@ -152,7 +152,7 @@ import {
   showLoadingToast,
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
-import { getShopCategoryByParentId, registerShop, getShopById, type CategoryOption } from '@/api/shop'
+import { getShopCategoryByParentId, registerShop, getShopById, type CategoryOption, type ShopCategory } from '@/api/shop'
 import { getAreaList } from '@/api/area'
 import { getImageUrl, handleImageError } from '@/utils/image'
 
@@ -212,7 +212,7 @@ const fetchShopCategories = async (parentId: string | null = null) => {
 
     toast.close()
     // 将API返回的数据转换为组件期望的CategoryOption格式
-    return response.data.map((category: any) => ({
+    return (response.data as any[]).map((category: ShopCategory) => ({
       text: category.shopCategoryName,
       value: category.shopCategoryId.toString()
     }))
@@ -351,7 +351,7 @@ const onSubmit = async () => {
     formData.append('shopAddr', form.value.address)
     formData.append('phone', form.value.phone)
     formData.append('priority', String(form.value.weight))
-    formData.append('enableStatus', form.value.enabled ? '1' : '0')
+    formData.append('enableStatus', form.value.enabled ? 1 : 0)
     formData.append('area', form.value.area)
     formData.append('categorySup', form.value.categoryMain)
     formData.append('categorySub', form.value.categorySub)

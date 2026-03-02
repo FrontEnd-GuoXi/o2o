@@ -1,13 +1,17 @@
 package com.o2o.service.impl;
 
 import com.o2o.dao.UserDao;
+import com.o2o.dto.PersonInfoDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.security.JwtService;
+import com.o2o.security.UserContextHolder;
 import com.o2o.service.AuthService;
+import com.o2o.vo.UserInfoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -91,6 +95,46 @@ public class AuthServiceImpl implements AuthService {
         }
 
     }
+
+    public PersonInfoDTO queryUserInfoById (int userId) {
+        try {
+            PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
+            PersonInfoDTO personInfoDTO = new PersonInfoDTO();
+            personInfoDTO.setUserId(userInfo.getUserId());
+            personInfoDTO.setGender(userInfo.getGender());
+            personInfoDTO.setEnableStatus(userInfo.getEnableStatus());
+            personInfoDTO.setUserType(userInfo.getUserType());
+            return personInfoDTO;
+        } catch (BusinessException e) {
+            logger.warn("查询用户信息失败：{}", e.toString());
+            throw e;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            throw new BusinessException("查询用户信息失败");
+        }
+    }
+
+    public UserInfoVO queryUserInfoVOById (int userId) {
+        try {
+            PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
+            UserInfoVO userInfoVO = new UserInfoVO();
+            BeanUtils.copyProperties(userInfo, userInfoVO);
+            userInfoVO.setUserId(String.valueOf(userInfo.getUserId()));
+            return userInfoVO;
+        } catch (BusinessException e) {
+            logger.warn("查询用户信息VO失败：{}", e.toString());
+            throw e;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            throw new BusinessException("查询用户信息VO失败");
+        }
+    }
+
+
+
+
+
+
 
 
 

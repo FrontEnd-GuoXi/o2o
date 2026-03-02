@@ -18,4 +18,6 @@ public interface ShopDao {
 
     int deleteShopById (long id);
 
+    List<Shop> queryShopListByCategoryId (Long categoryId);
+
 }

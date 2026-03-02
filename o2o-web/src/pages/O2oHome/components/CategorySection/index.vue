@@ -11,83 +11,24 @@
 
     <!-- 分类卡片网格 -->
     <div class="category-grid">
-      <!-- 分类卡片1 -->
-      <div class="category-card">
+      <!-- 分类卡片 -->
+      <div
+        v-for="category in categories"
+        :key="category.shopCategoryId"
+        class="category-card"
+        @click="handleCategoryClick(category)"
+      >
         <div class="category-image-wrapper">
           <img
-            src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-            alt="餐饮美食"
+            :src="getImageUrl(category.shopCategoryImg)"
+            :alt="category.shopCategoryName"
             class="category-image"
             @error="handleImageError"
           />
         </div>
         <div class="category-content">
-          <h3 class="category-name">餐饮美食</h3>
-          <p class="category-subcount">3个子类 ></p>
-        </div>
-      </div>
-
-      <!-- 分类卡片2 -->
-      <div class="category-card">
-        <div class="category-image-wrapper">
-          <img
-            src="https://images.unsplash.com/photo-1445205170230-053b83016050"
-            alt="时尚服饰"
-            class="category-image"
-            @error="handleImageError"
-          />
-        </div>
-        <div class="category-content">
-          <h3 class="category-name">时尚服饰</h3>
-          <p class="category-subcount">3个子类 ></p>
-        </div>
-      </div>
-
-      <!-- 分类卡片3 -->
-      <div class="category-card">
-        <div class="category-image-wrapper">
-          <img
-            src="https://images.unsplash.com/photo-1542744095-fcf48d80b5f4"
-            alt="数码电子"
-            class="category-image"
-            @error="handleImageError"
-          />
-        </div>
-        <div class="category-content">
-          <h3 class="category-name">数码电子</h3>
-          <p class="category-subcount">2个子类 ></p>
-        </div>
-      </div>
-
-      <!-- 分类卡片4 -->
-      <div class="category-card">
-        <div class="category-image-wrapper">
-          <img
-            src="https://images.unsplash.com/photo-1557843652-4b4d59bd8d7b"
-            alt="超市便利"
-            class="category-image"
-            @error="handleImageError"
-          />
-        </div>
-        <div class="category-content">
-          <h3 class="category-name">超市便利</h3>
-          <p class="category-subcount">2个子类 ></p>
-        </div>
-      </div>
-
-      <!-- 分类卡片5 -->
-      <div class="category-card">
-        <div class="category-image-wrapper">
-          <img
-            src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c"
-            alt="图书文化"
-            class="category-image"
-            @error="handleImageError"
-          />
-        </div>
-        <div class="category-content">
-          <h3 class="category-name">图书文化</h3>
-          <p class="category-subcount">2个子类 ></p>
+          <h3 class="category-name">{{ category.shopCategoryName }}</h3>
+          <p class="category-subcount">{{ category.shopCategoryDesc || '查看更多' }} ></p>
         </div>
       </div>
     </div>
@@ -95,8 +36,43 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { Icon as VanIcon } from 'vant'
-import { handleImageError } from '@/utils/image'
+import { getImageUrl, handleImageError } from '@/utils/image'
+import { getShopCategoryByParentId, type ShopCategory } from '@/api/shop'
+
+const router = useRouter()
+const categories = ref<ShopCategory[]>([])
+
+// 获取一级分类数据
+const fetchCategories = async () => {
+  try {
+    const res = await getShopCategoryByParentId(null)
+    if (res.data) {
+      categories.value = res.data
+    }
+  } catch (error) {
+    console.error('获取商铺分类失败:', error)
+  }
+}
+
+// 处理分类点击
+const handleCategoryClick = (category: ShopCategory) => {
+  console.log('点击了分类:', category.shopCategoryName)
+  // 跳转到商铺列表页，并带上父类别ID和名称
+  router.push({
+    path: '/shopList',
+    query: {
+      parentId: category.shopCategoryId.toString(),
+      categoryName: category.shopCategoryName
+    }
+  })
+}
+
+onMounted(() => {
+  fetchCategories()
+})
 </script>
 
 <style scoped>

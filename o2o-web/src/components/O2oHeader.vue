@@ -12,14 +12,19 @@
 import { Icon as VanIcon } from 'vant'
 import { useRouter } from 'vue-router'
 
-defineProps<{
+const props = defineProps<{
   title: string
+  backUrl?: string
 }>()
 
 const router = useRouter()
 
 const handleBack = () => {
-  router.back()
+  if (props.backUrl) {
+    router.push(props.backUrl)
+  } else {
+    router.back()
+  }
 }
 </script>
 

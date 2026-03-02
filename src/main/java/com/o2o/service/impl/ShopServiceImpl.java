@@ -127,12 +127,21 @@ public class ShopServiceImpl implements ShopService {
 
     private ShopVO shopToShopVO (Shop shop, ShopVO shopVO) {
         BeanUtils.copyProperties(shop, shopVO);
-        shopVO.setOwnerId(String.valueOf(shop.getOwner().getUserId()));
-        shopVO.setShopCategoryId(String.valueOf(shop.getShopCategory().getShopCategoryId()));
-        shopVO.setShopCategoryName(shop.getShopCategory().getShopCategoryName());
-        shopVO.setAreaId(String.valueOf(shop.getArea().getAreaId()));
+        if (shop.getOwner() != null) {
+            shopVO.setOwnerId(String.valueOf(shop.getOwner().getUserId()));
+        }
+        if (shop.getShopCategory() != null) {
+            shopVO.setShopCategoryId(String.valueOf(shop.getShopCategory().getShopCategoryId()));
+        }
+        shopVO.setShopCategoryName(shop.getShopCategory() != null ? shop.getShopCategory().getShopCategoryName() : null);
+        if (shop.getArea() != null) {
+            shopVO.setAreaId(String.valueOf(shop.getArea().getAreaId()));
+            shopVO.setAreaName(shop.getArea().getAreaName());
+        }
         shopVO.setShopId(String.valueOf(shop.getShopId()));
-        shopVO.setShopCategoryParentId(String.valueOf((shop.getShopCategory().getParent().getShopCategoryId())));
+        if (shop.getShopCategory() != null && shop.getShopCategory().getParent() != null) {
+            shopVO.setShopCategoryParentId(String.valueOf(shop.getShopCategory().getParent().getShopCategoryId()));
+        }
         return shopVO;
     }
 
@@ -161,6 +170,24 @@ public class ShopServiceImpl implements ShopService {
         } catch (Exception e) {
             logger.error(e.toString());
             throw new BusinessException("店铺查询失败");
+        }
+    }
+
+    public List<ShopVO> queryShopListByCategoryId(Long categoryId) {
+        try {
+            List<Shop> shopList = shopDao.queryShopListByCategoryId(categoryId);
+            List<ShopVO> shopVOList = shopList.stream().map(shop -> {
+                ShopVO shopVO = new ShopVO();
+                this.shopToShopVO(shop, shopVO);
+                return shopVO;
+            }).collect(Collectors.toList());
+            return shopVOList;
+        } catch (BusinessException e) {
+            logger.warn("店铺列表查询失败：{}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            logger.error(e.toString());
+            throw new BusinessException("店铺列表查询失败");
         }
     }
 

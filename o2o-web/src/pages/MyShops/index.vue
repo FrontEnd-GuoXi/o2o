@@ -1,7 +1,7 @@
 <template>
   <div class="my-shops-container">
     <!-- 顶部公共头部 -->
-    <O2oHeader title="我的店铺" />
+    <O2oHeader title="我的店铺" back-url="/personalInfo" />
 
     <!-- 主内容区 -->
     <div class="main-content">
