@@ -155,6 +155,17 @@ const onSubCategoryChange = (id: string) => {
 
 const goToShopDetail = (shop: any) => {
   console.log('跳转到店铺详情:', shop.shopId)
+  // 使用 JSON.parse(JSON.stringify()) 确保传递的是一个纯净的对象，避免 Proxy 带来的序列化问题
+  const shopData = JSON.parse(JSON.stringify(shop))
+  router.push({
+    path: '/shopDetail',
+    query: {
+      shopId: shop.shopId.toString()
+    },
+    state: {
+      shopData
+    }
+  })
 }
 
 onMounted(() => {

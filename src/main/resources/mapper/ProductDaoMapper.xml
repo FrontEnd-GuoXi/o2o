@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.o2o.dao.ProductDao">
+    <!-- namespace对应Mapper接口的全限定名 -->
+
+    <select id="getProductListByShopId" parameterType="Long">
+        SELECT
+               product_id, product_name, product_desc, img_addr,
+               normal_price, promotion_price, priority, create_time,
+               last_edit_time, enable_status
+        FROM tb_product WHERE shop_id = #{shopId}
+    </select>
+
+
+</mapper>

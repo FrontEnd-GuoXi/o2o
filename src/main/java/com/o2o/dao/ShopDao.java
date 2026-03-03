@@ -20,4 +20,5 @@ public interface ShopDao {
 
     List<Shop> queryShopListByCategoryId (Long categoryId);
 
+
 }

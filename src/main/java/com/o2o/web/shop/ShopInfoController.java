@@ -1,4 +1,4 @@
-package com.o2o.web.shopadmin;
+package com.o2o.web.shop;
 
 
 import com.o2o.entity.ShopCategory;
