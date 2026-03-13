@@ -71,6 +71,10 @@
 
     <!-- 底部操作栏 -->
     <div class="bottom-action">
+      <div class="cart-badge-wrapper" @click="router.push('/cart')">
+        <van-icon name="shopping-cart-o" size="24" :badge="cartStore.totalCount || ''" />
+        <span class="cart-text">购物车</span>
+      </div>
       <van-button type="primary" block round @click="handleContact">
         立即咨询
       </van-button>
@@ -80,7 +84,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   Divider as VanDivider,
   Cell as VanCell,
@@ -88,13 +92,18 @@ import {
   Tag as VanTag,
   Button as VanButton,
   Empty as VanEmpty,
+  Icon as VanIcon,
   showToast
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
 import { getImageUrl, handleImageError } from '@/utils/image'
+import { getProductBriefListByShopId, getShopByShopId, type ProductBrief } from '@/api/shop'
+import { useCartStore } from '@/stores/cart'
 
 const route = useRoute()
+const router = useRouter()
 const shopId = route.query.shopId as string
+const cartStore = useCartStore()
 
 // 获取初始数据
 const getInitialShopData = () => {
@@ -124,6 +133,21 @@ const getInitialShopData = () => {
 
 const shop = ref(getInitialShopData())
 
+// 获取店铺详情 (兜底方案)
+const fetchShopDetail = async () => {
+  if (!shopId) return
+
+  try {
+    const res = await getShopByShopId(shopId)
+    if (res.data) {
+      shop.value = res.data
+    }
+  } catch (error) {
+    console.error('获取店铺详情失败:', error)
+    showToast('获取店铺详情失败')
+  }
+}
+
 // 如果进入页面时没拿到数据，或者数据不对，我们在 onMounted 再次检查
 // 有时候路由跳转后的历史状态更新会有微小延迟
 const checkHistoryState = () => {
@@ -140,31 +164,22 @@ const checkHistoryState = () => {
 }
 
 // 产品列表
-const products = ref<any[]>([])
+const products = ref<ProductBrief[]>([])
 
-// 模拟产品数据 (当没有真实接口时展示)
-const mockProducts = [
-  {
-    productId: 1,
-    productName: '旗舰手机 Pro',
-    productDesc: '高性能处理器，专业级摄像系统，全天候长效续航。',
-    imgAddr: '',
-    normalPrice: '5999',
-    promotionPrice: '5499',
-    enableStatus: 1
-  },
-  {
-    productId: 2,
-    productName: '无线蓝牙耳机',
-    productDesc: '主动降噪，高保真音质，佩戴舒适。',
-    imgAddr: '',
-    normalPrice: '1299',
-    promotionPrice: null,
-    enableStatus: 1
+// 获取商品列表
+const fetchProducts = async () => {
+  if (!shopId) return
+
+  try {
+    const res = await getProductBriefListByShopId(shopId)
+    if (res.data) {
+      products.value = res.data
+    }
+  } catch (error) {
+    console.error('获取商品列表失败:', error)
+    showToast('获取商品列表失败')
   }
-]
-
-
+}
 
 const callPhone = () => {
   if (shop.value.phone) {
@@ -176,8 +191,13 @@ const handleContact = () => {
   showToast('联系功能开发中...')
 }
 
-const addToCart = (product: any) => {
-  showToast(`已将 ${product.productName} 加入购物车`)
+const addToCart = (product: ProductBrief) => {
+  cartStore.addToCart(product, shop.value)
+  showToast({
+    message: `已将 ${product.productName} 加入购物车`,
+    type: 'success',
+    duration: 1000
+  })
 }
 
 onMounted(() => {
@@ -186,8 +206,8 @@ onMounted(() => {
   // 再次检查历史状态，确保数据正确应用
   checkHistoryState()
 
-  // 暂时使用模拟商品数据
-  products.value = mockProducts
+  // 获取真实商品数据
+  fetchProducts()
 })
 </script>
 

@@ -90,3 +90,34 @@ export const deleteShop = async (shopId: number) => {
 export const getShopById = async (shopId: number) => {
   return request.get<Shop>('/api/o2o/shopadmin/queryShopById', { params: { shopId } })
 }
+
+/**
+ * 根据店铺ID获取店铺详情
+ * @param shopId 店铺ID
+ */
+export const getShopByShopId = async (shopId: string) => {
+  return request.get<Shop>('/api/o2o/shopInfo/getShopByShopId', { params: { shopId } })
+}
+
+/**
+ * 商品简要信息接口
+ */
+export interface ProductBrief {
+  productId: number
+  productName: string
+  imgAddr: string
+  normalPrice: string
+  promotionPrice: string | null
+  priority: number
+  createTime: string
+}
+
+/**
+ * 根据店铺ID获取商品简要列表
+ * @param shopId 店铺ID
+ */
+export const getProductBriefListByShopId = async (shopId: string) => {
+  return request.get<ProductBrief[]>('/api/o2o/productInfo/getProductBriefListByShopId', {
+    params: { shopId }
+  })
+}

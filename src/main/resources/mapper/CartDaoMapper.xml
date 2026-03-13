@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.o2o.dao.CartDao">
+    <!-- namespace对应Mapper接口的全限定名 -->
+
+    <insert id="addOrUpdateProduct"
+            parameterType="com.o2o.entity.Cart"
+            useGeneratedKeys="true"
+            keyProperty="cartId"
+            keyColumn="cart_id"
+    >
+    INSERT INTO
+        tb_cart (count, create_time, last_edit_time, product_id, user_id)
+    VALUES
+        (#{count}, #{create_time}, #{last_edit_time}, #{product_id}, #{user_id})
+    ON DUPLICATE KEY UPDATE
+    count = #{count}
+    </insert>
+
+    <delete id="removeProductById">
+        DELETE FROM tb_cart WHERE user_id = #{userId} AND product_id = #{productId}
+    </delete>
+
+    <select id="getCartProductListByUserId" parameterType="int" resultType="CartProductDTO">
+        SELECT
+               c.count, p.product_name, p.img_addr, p.normal_price, p.promotion_price,
+               c.cart_id
+        FROM tb_cart AS c LEFT JOIN tb_product AS p ON c.product_id = p.product_id
+        WHERE c.user_id = #{userId}
+    </select>
+
+</mapper>
