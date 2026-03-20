@@ -13,21 +13,42 @@
             keyColumn="cart_id"
     >
     INSERT INTO
-        tb_cart (count, create_time, last_edit_time, product_id, user_id)
+        tb_cart
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            count,
+            <if test="createTime != null">
+                create_time,
+            </if>
+            last_edit_time,
+            product_id,
+            user_id
+        </trim>
     VALUES
-        (#{count}, #{create_time}, #{last_edit_time}, #{product_id}, #{user_id})
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            #{count},
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            #{lastEditTime},
+            #{productId},
+            #{userId}
+        </trim>
     ON DUPLICATE KEY UPDATE
-    count = #{count}
+    cart_id = LAST_INSERT_ID(cart_id),
+    count = #{count},
+    last_edit_time = #{lastEditTime}
     </insert>
 
     <delete id="removeProductById">
         DELETE FROM tb_cart WHERE user_id = #{userId} AND product_id = #{productId}
     </delete>
 
-    <select id="getCartProductListByUserId" parameterType="int" resultType="CartProductDTO">
+    <select id="getCartProductListByUserId" parameterType="int" resultType="com.o2o.dto.CartProductDTO">
         SELECT
-               c.count, p.product_name, p.img_addr, p.normal_price, p.promotion_price,
-               c.cart_id
+               c.count, p.product_name,
+               p.img_addr, p.normal_price,
+               p.promotion_price,
+               c.cart_id, c.product_id
         FROM tb_cart AS c LEFT JOIN tb_product AS p ON c.product_id = p.product_id
         WHERE c.user_id = #{userId}
     </select>

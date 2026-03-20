@@ -203,6 +203,9 @@ const addToCart = (product: ProductBrief) => {
 onMounted(() => {
   console.log('加载店铺详情, ID:', shopId)
 
+  // 同步购物车数据
+  cartStore.fetchCartFromBackend()
+
   // 再次检查历史状态，确保数据正确应用
   checkHistoryState()
 
