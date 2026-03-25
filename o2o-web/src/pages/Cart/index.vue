@@ -6,19 +6,19 @@
       <!-- 按店铺分组展示商品 -->
       <div v-for="shop in groupedCartItems" :key="shop.shopId" class="shop-group">
         <div class="shop-header">
-          <van-checkbox 
-            :model-value="isShopSelected(shop.shopId)" 
+          <van-checkbox
+            :model-value="isShopSelected(shop.shopId)"
             @update:model-value="(val) => onShopSelectChange(shop.shopId, val)"
             class="shop-checkbox"
           />
           <van-icon name="shop-o" size="20" class="shop-icon" />
           <span class="shop-name">{{ shop.shopName }}</span>
         </div>
-        
+
         <div class="cart-list">
           <div v-for="item in shop.items" :key="item.productId" class="cart-item">
-            <van-checkbox 
-              v-model="item.selected" 
+            <van-checkbox
+              v-model="item.selected"
               class="item-checkbox"
             />
             <div class="item-img-wrapper">
@@ -172,8 +172,10 @@ const removeItem = (item: any) => {
   showConfirmDialog({
     title: '提示',
     message: `确定要从购物车中移除 ${item.productName} 吗？`
-  }).then(() => {
-    cartStore.removeFromCart(item.productId)
+  }).then(async () => {
+    await cartStore.removeFromCart(item.productId)
+    // 删除后重新从后端拉取，确保列表刷新
+    await cartStore.fetchCartFromBackend()
     showToast('已移除')
   }).catch(() => {})
 }

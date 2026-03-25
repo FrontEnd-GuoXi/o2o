@@ -28,14 +28,23 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const res = await getCartProductList()
       if (res.data) {
-        items.value = res.data.map(item => ({
-          cartId: item.cartId,
-          productId: Number(item.productId),
-          productName: item.productName,
-          imgAddr: item.imgAddr,
-          price: item.promotionPrice || item.normalPrice,
-          quantity: item.count
-        }))
+        // 保存现有的店铺信息，以便同步后能找回
+        const shopInfoMap = new Map(items.value.map(i => [i.productId, { shopId: i.shopId, shopName: i.shopName }]))
+
+        items.value = res.data.map(item => {
+          const productId = Number(item.productId)
+          const existingShopInfo = shopInfoMap.get(productId)
+          return {
+            cartId: item.cartId,
+            productId,
+            productName: item.productName,
+            imgAddr: item.imgAddr,
+            price: item.promotionPrice || item.normalPrice,
+            quantity: item.count,
+            shopId: existingShopInfo?.shopId,
+            shopName: existingShopInfo?.shopName
+          }
+        })
         saveToLocal()
       }
     } catch (error) {
@@ -61,6 +70,11 @@ export const useCartStore = defineStore('cart', () => {
       if (res.code === 0) {
         if (existingItem) {
           existingItem.quantity = count
+          // 关键点：即使商品已存在，也同步更新店铺信息，防止之前同步后端时丢失了店铺名
+          if (shop) {
+            existingItem.shopId = shop.shopId.toString()
+            existingItem.shopName = shop.shopName
+          }
         } else {
           items.value.push({
             cartId: res.data, // 后端返回生成的 cartId
@@ -69,8 +83,8 @@ export const useCartStore = defineStore('cart', () => {
             imgAddr: product.imgAddr,
             price: product.promotionPrice || product.normalPrice,
             quantity: 1,
-            shopId: shop.shopId.toString(),
-            shopName: shop.shopName
+            shopId: shop?.shopId?.toString(),
+            shopName: shop?.shopName
           })
         }
         saveToLocal()
