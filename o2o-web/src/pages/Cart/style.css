@@ -79,24 +79,40 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 80px; /* 保证高度与图片一致，拉开上下间距 */
+  padding: 2px 0;
 }
 
 .item-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 8px; /* 强制增加一点底部间距 */
 }
 
 .item-name {
-  font-size: 15px;
+  font-size: 14px; /* 稍微调小一点字体，给右侧留空间 */
   font-weight: bold;
   color: #323233;
   margin: 0;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  flex: 1;
+  padding-right: 8px; /* 增加与删除图标的水平间距 */
+}
+
+.delete-icon {
+  padding: 4px; /* 增加点击区域 */
+  margin: -4px -4px 0 0; /* 抵消 padding 保持视觉对齐 */
+  transition: opacity 0.2s;
+}
+
+.delete-icon:active {
+  opacity: 0.6;
 }
 
 .item-shop {

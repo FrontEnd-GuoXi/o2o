@@ -14,7 +14,7 @@
     >
     INSERT INTO
         tb_cart
-        <trim prefix="(" suffix=")" prefixOverrides=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
             count,
             <if test="createTime != null">
                 create_time,
@@ -24,7 +24,7 @@
             user_id
         </trim>
     VALUES
-        <trim prefix="(" suffix=")" prefixOverrides=",">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
             #{count},
             <if test="createTime != null">
                 #{createTime},
@@ -48,8 +48,10 @@
                c.count, p.product_name,
                p.img_addr, p.normal_price,
                p.promotion_price,
-               c.cart_id, c.product_id
+               c.cart_id, c.product_id,
+                s.shop_id, s.shop_name
         FROM tb_cart AS c LEFT JOIN tb_product AS p ON c.product_id = p.product_id
+        LEFT JOIN tb_shop AS s ON p.shop_id = s.shop_id
         WHERE c.user_id = #{userId}
     </select>
 

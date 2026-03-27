@@ -1,4 +1,4 @@
-package com.o2o.service.impl;
+package com.o2o.service;
 
 import com.o2o.entity.Order;
 import com.o2o.entity.OrderItem;

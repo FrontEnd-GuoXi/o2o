@@ -8,6 +8,8 @@ export interface CartProduct {
   normalPrice: string
   promotionPrice: string | null
   count: number
+  shopId: number
+  shopName: string
 }
 
 /**

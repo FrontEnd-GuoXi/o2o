@@ -16,5 +16,8 @@ alter table `tb_cart`
 add constraint `fk_cart_user_id` foreign key (`user_id`) references tb_person_info(`user_id`),
 add unique index `uk_user_product` (`user_id`, `product_id`);
 
+
+
+
 ALTER TABLE tb_cart
 MODIFY COLUMN create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;

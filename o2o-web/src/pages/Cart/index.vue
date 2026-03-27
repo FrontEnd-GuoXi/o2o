@@ -27,7 +27,7 @@
             <div class="item-info">
               <div class="item-header">
                 <h3 class="item-name">{{ item.productName }}</h3>
-                <van-icon name="delete-o" size="18" color="#969799" @click="removeItem(item)" />
+                <van-icon name="delete-o" size="18" color="#969799" class="delete-icon" @click="removeItem(item)" />
               </div>
               <div class="item-footer">
                 <span class="item-price">¥{{ item.price }}</span>
@@ -194,6 +194,7 @@ const onSubmit = () => {
     }
   })
 }
+
 </script>
 
 <style scoped>

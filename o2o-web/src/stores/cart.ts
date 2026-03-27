@@ -28,23 +28,16 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const res = await getCartProductList()
       if (res.data) {
-        // 保存现有的店铺信息，以便同步后能找回
-        const shopInfoMap = new Map(items.value.map(i => [i.productId, { shopId: i.shopId, shopName: i.shopName }]))
-
-        items.value = res.data.map(item => {
-          const productId = Number(item.productId)
-          const existingShopInfo = shopInfoMap.get(productId)
-          return {
-            cartId: item.cartId,
-            productId,
-            productName: item.productName,
-            imgAddr: item.imgAddr,
-            price: item.promotionPrice || item.normalPrice,
-            quantity: item.count,
-            shopId: existingShopInfo?.shopId,
-            shopName: existingShopInfo?.shopName
-          }
-        })
+        items.value = res.data.map(item => ({
+          cartId: item.cartId,
+          productId: Number(item.productId),
+          productName: item.productName,
+          imgAddr: item.imgAddr,
+          price: item.promotionPrice || item.normalPrice,
+          quantity: item.count,
+          shopId: item.shopId.toString(),
+          shopName: item.shopName
+        }))
         saveToLocal()
       }
     } catch (error) {

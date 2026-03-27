@@ -6,6 +6,32 @@
 <mapper namespace="com.o2o.dao.OrderDao">
     <!-- namespace对应Mapper接口的全限定名 -->
 
+    <insert id="addOrder"
+            parameterType="com.o2o.entity.Order"
+            useGeneratedKeys="true"
+            keyProperty="orderId"
+            keyColumn="order_id"
+    >
+    INSERT INTO tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        buyer_id, shop_id, order_no, total_price,
+        order_status,
+        <if test="createTime != null">create_time,</if>
+        last_edit_time
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        #{buyer.userId},
+        #{shop.shopId},
+        #{orderNo},
+        #{totalPrice},
+        #{orderStatus},
+       <if test="createTime != null">
+           #{create_time},
+       </if>
+        #{last_edit_time}
+    </trim>
 
+    </insert>
 
 </mapper>

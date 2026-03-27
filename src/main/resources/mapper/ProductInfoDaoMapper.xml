@@ -5,43 +5,62 @@
 
 <mapper namespace="com.o2o.dao.ProductInfoDao">
     <!-- namespace对应Mapper接口的全限定名 -->
-<!--    <resultMap id="productResultMap" type="Product">-->
-<!--        <id property="productId" column="product_id" />-->
-<!--        <result property="productName" column="product_name" />-->
-<!--        <result property="productDesc" column="product_desc" />-->
-<!--        <result property="imgAddr" column="img_addr" />-->
-<!--        <result property="normalPrice" column="normal_price" />-->
-<!--        <result property="promotionPrice" column="promotion_price"/>-->
-<!--        <result property="priority" column="priority" />-->
-<!--        <result property="createTime" column="create_time" />-->
-<!--        <result property="lastEditTime" column="last_edit_time" />-->
-<!--        <result property="enableStatus" column="enableStatus" />-->
-<!--        <collection property="productImgList" ofType="ProductImg" autoMapping="false">-->
-<!--            <id property="productImgId" column="product_img_id" />-->
-<!--            <result property="imgAddr" column="img_addr" />-->
-<!--            <result property="imgDesc" column="img_desc" />-->
-<!--            <result property="priority" column="priority" />-->
-<!--            <result property="createTime" column="create_time" />-->
-<!--            <result property="productId" column="product_id" />-->
-<!--        </collection>-->
-<!--        <association property="productCategory" javaType="ProductCategory">-->
-<!--            <id property="productCategoryId" column="product_category_id" />-->
-<!--            <result property="shopId" column="shop_id" />-->
-<!--            <result property="productCategroyName" column="product_category_name" />-->
-<!--            <result property="priority" column="priority"/>-->
-<!--            <result property="createTime" column="create_time" />-->
-<!--        </association>-->
-<!--        <association property="shop" javaType="Shop">-->
-<!--            <id property="shopId" column="shop_id"/>-->
-<!--            <result property="shopName" column="shop_name" />-->
-<!--        </association>-->
-<!--    </resultMap>-->
+    <resultMap id="productResultMap" type="Product">
+        <id property="productId" column="product_id" />
+        <result property="productName" column="product_name" />
+        <result property="productDesc" column="product_desc" />
+        <result property="imgAddr" column="img_addr" />
+        <result property="normalPrice" column="normal_price" />
+        <result property="promotionPrice" column="promotion_price"/>
+        <result property="priority" column="priority" />
+        <result property="createTime" column="create_time" />
+        <result property="lastEditTime" column="last_edit_time" />
+        <result property="enableStatus" column="enableStatus" />
+        <association property="productCategory" javaType="ProductCategory">
+            <id property="productCategoryId" column="product_category_id" />
+            <result property="shopId" column="shop_id" />
+            <result property="productCategroyName" column="product_category_name" />
+            <result property="priority" column="priority"/>
+            <result property="createTime" column="create_time" />
+        </association>
+        <association property="shop" javaType="Shop">
+            <id property="shopId" column="shop_id"/>
+            <result property="shopName" column="shop_name" />
+        </association>
+        <collection property="productImgList" ofType="ProductImg" autoMapping="false">
+            <id property="productImgId" column="product_img_id" />
+            <result property="imgAddr" column="img_addr" />
+            <result property="imgDesc" column="img_desc" />
+            <result property="priority" column="priority" />
+            <result property="createTime" column="create_time" />
+            <result property="productId" column="product_id" />
+        </collection>
+    </resultMap>
 
     <select id="getProductListByShopId" parameterType="Long" resultType="ProductBriefDTO">
         SELECT
                product_id, product_name, img_addr,
                normal_price, promotion_price, priority, create_time
         FROM tb_product WHERE shop_id = #{shopId} ORDER BY priority DESC
+    </select>
+
+    <select id="getProductByProductId" parameterType="Long" resultMap="productResultMap">
+        SELECT
+            p.product_id, p.product_name, p.img_addr,
+            p.normal_price, p.promotion_price, p.priority,
+            p.create_time, p.last_edit_time, p.enable_status,
+            p.product_number,
+            pc.product_category_id, pc.product_category_name,
+            pc.priority, pc.create_time, pc.shop_id,
+            ts.shop_id, ts.shop_name,
+            tpi.product_img_id, tpi.img_addr, tpi.img_desc,
+            tpi.priority, tpi.create_time, tpi.product_id
+        FROM
+             tb_product p
+                 LEFT JOIN tb_product_category pc ON p.product_category_id = pc.product_category_id
+                 LEFT JOIN tb_shop ts ON p.shop_id = ts.shop_id
+                 LEFT JOIN tb_product_img tpi on p.product_id = tpi.product_id
+        WHERE p.product_id = #{productId}
     </select>
 
 
