@@ -34,35 +34,4 @@ CREATE TABLE `tb_order_item`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
--- 营业额统计表（可选）：用于快速查询商家的日/月营业额
-CREATE TABLE `tb_shop_turnover`
-(
-    `turnover_id` bigint(20)     NOT NULL AUTO_INCREMENT,
-    `shop_id`     int(10)        NOT NULL COMMENT '店铺ID',
-    `stat_date`   date           NOT NULL COMMENT '统计日期',
-    `turnover`    decimal(12, 2) NOT NULL DEFAULT '0.00' COMMENT '当日总营业额',
-    `order_count` int(10)        NOT NULL DEFAULT '0' COMMENT '当日订单总数',
-    `create_time` datetime       NOT NULL,
-    PRIMARY KEY (`turnover_id`),
-    UNIQUE KEY `uk_shop_date` (`shop_id`, `stat_date`),
-    CONSTRAINT `fk_turnover_shop` FOREIGN KEY (`shop_id`) REFERENCES `tb_shop` (`shop_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
--- 商品每日销售统计表：用于查看商家卖出多少货物（单品维度）
-CREATE TABLE `tb_product_sell_daily`
-(
-    `id`          bigint(20)     NOT NULL AUTO_INCREMENT,
-    `shop_id`     int(10)        NOT NULL COMMENT '店铺ID',
-    `product_id`  int(10)        NOT NULL COMMENT '商品ID',
-    `stat_date`   date           NOT NULL COMMENT '统计日期',
-    `sell_count`  int(10)        NOT NULL DEFAULT '0' COMMENT '当日售出数量',
-    `sell_amount` decimal(12, 2) NOT NULL DEFAULT '0.00' COMMENT '当日售出金额',
-    `create_time` datetime       NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_shop_product_date` (`shop_id`, `product_id`, `stat_date`),
-    CONSTRAINT `fk_psell_shop` FOREIGN KEY (`shop_id`) REFERENCES `tb_shop` (`shop_id`),
-    CONSTRAINT `fk_psell_product` FOREIGN KEY (`product_id`) REFERENCES `tb_product` (`product_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
 

@@ -1,10 +1,14 @@
 package com.o2o.vo;
 
+import lombok.Data;
+
+import java.util.List;
+
+@Data
 public class OrderVO {
 
 
-    Long productId;
-    Long shopId
+    private List<ShopItemVo>  shopList;
 
 
 }
