@@ -1,16 +1,19 @@
 package com.o2o.web;
 
-import com.o2o.entity.Order;
-import com.o2o.entity.OrderItem;
-import com.o2o.entity.Product;
-import com.o2o.entity.Shop;
+import com.o2o.dto.PersonInfoDTO;
+import com.o2o.entity.*;
+import com.o2o.security.UserContextHolder;
 import com.o2o.service.OrderService;
 import com.o2o.service.ProductInfoService;
+import com.o2o.service.ShopService;
+import com.o2o.util.Cls2Cls;
 import com.o2o.util.ResponseResultWrap;
 import com.o2o.util.SnowflakeIdGenerator;
 import com.o2o.vo.OrderVO;
 import com.o2o.vo.ProductItemVO;
 import com.o2o.vo.ShopItemVo;
+import com.o2o.vo.ShopVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,9 +37,17 @@ public class OrderController {
     @Autowired
     ProductInfoService productInfoService;
 
+    @Autowired
+    ShopService shopService;
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseResultWrap<Boolean> createOrder (@RequestBody OrderVO orderVo) {
-         List<ShopItemVo> shopList = orderVo.getShopList();
+        List<ShopItemVo> shopList = orderVo.getShopList();
+        PersonInfoDTO userInfoVO = UserContextHolder.getUserInfo();
+        Long userId = userInfoVO.getUserId();
+        PersonInfo userInfo = new PersonInfo();
+        BeanUtils.copyProperties(userInfo, userInfo);
+
          shopList.stream().forEach(shopItemVo -> {
              Order order = new Order();
              order.setOrderId(snowflakeIdGenerator.nextId());
@@ -44,9 +55,10 @@ public class OrderController {
              Date currentDate = new Date();
              order.setCreateTime(currentDate);
              order.setLastEditTime(currentDate);
+             order.setBuyer(userInfo);
 
-             Shop shop = new Shop();
-             shop.setShopId(shopItemVo.getShopId());
+             ShopVO shopVO = shopService.queryShopById(shopItemVo.getShopId(), userId);
+             Shop shop = Cls2Cls.shopVOToShop(shopVO, new Shop());
              order.setShop(shop);
 
              List<ProductItemVO>  productItemVOList = shopItemVo.getProductList();

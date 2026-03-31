@@ -8,12 +8,11 @@ import com.o2o.exceptions.BusinessException;
 import com.o2o.exceptions.ShopOperationException;
 import com.o2o.service.ShopService;
 import com.o2o.util.ImageUtil;
+import com.o2o.util.Cls2Cls;
 import com.o2o.vo.ShopVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,7 +110,7 @@ public class ShopServiceImpl implements ShopService {
             List<Shop> shopList = shopDao.checkYourShopList(userId);
             List<ShopVO> shopVOList = shopList.stream().map(shop -> {
                 ShopVO shopVO = new ShopVO();
-                this.shopToShopVO(shop, shopVO);
+                Cls2Cls.shopToShopVO(shop, shopVO);
                 return shopVO;
             }).collect(Collectors.toList());
             return shopVOList;
@@ -125,25 +124,7 @@ public class ShopServiceImpl implements ShopService {
 
     }
 
-    private ShopVO shopToShopVO (Shop shop, ShopVO shopVO) {
-        BeanUtils.copyProperties(shop, shopVO);
-        if (shop.getOwner() != null) {
-            shopVO.setOwnerId(String.valueOf(shop.getOwner().getUserId()));
-        }
-        if (shop.getShopCategory() != null) {
-            shopVO.setShopCategoryId(String.valueOf(shop.getShopCategory().getShopCategoryId()));
-        }
-        shopVO.setShopCategoryName(shop.getShopCategory() != null ? shop.getShopCategory().getShopCategoryName() : null);
-        if (shop.getArea() != null) {
-            shopVO.setAreaId(String.valueOf(shop.getArea().getAreaId()));
-            shopVO.setAreaName(shop.getArea().getAreaName());
-        }
-        shopVO.setShopId(String.valueOf(shop.getShopId()));
-        if (shop.getShopCategory() != null && shop.getShopCategory().getParent() != null) {
-            shopVO.setShopCategoryParentId(String.valueOf(shop.getShopCategory().getParent().getShopCategoryId()));
-        }
-        return shopVO;
-    }
+
 
     public Boolean deleteShop(Long shopId) {
         try {
@@ -162,7 +143,7 @@ public class ShopServiceImpl implements ShopService {
         try {
             Shop shop = shopDao.queryShopById(shopId, userId);
             ShopVO shopVO = new ShopVO();
-            this.shopToShopVO(shop, shopVO);
+            Cls2Cls.shopToShopVO(shop, shopVO);
             return shopVO;
         } catch (BusinessException e) {
             logger.warn("店铺查询失败：{}", e.getMessage());
@@ -178,7 +159,7 @@ public class ShopServiceImpl implements ShopService {
             List<Shop> shopList = shopDao.queryShopListByCategoryId(categoryId);
             List<ShopVO> shopVOList = shopList.stream().map(shop -> {
                 ShopVO shopVO = new ShopVO();
-                this.shopToShopVO(shop, shopVO);
+                Cls2Cls.shopToShopVO(shop, shopVO);
                 return shopVO;
             }).collect(Collectors.toList());
             return shopVOList;

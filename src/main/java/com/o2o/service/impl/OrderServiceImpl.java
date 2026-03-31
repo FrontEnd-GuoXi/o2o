@@ -2,12 +2,12 @@ package com.o2o.service.impl;
 
 import com.o2o.dao.OrderDao;
 import com.o2o.entity.Order;
+import com.o2o.entity.PersonInfo;
 import com.o2o.vo.OrderVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 
@@ -26,7 +26,7 @@ public class OrderServiceImpl {
     }
 
 
-    private BigDecimal calcTheAmount () {
+    public BigDecimal calcTheAmount () {
 
     }
 
