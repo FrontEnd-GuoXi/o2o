@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -66,9 +67,9 @@ public class OrderController {
                  OrderItem orderItem = new OrderItem();
                  Long productId = ProductItemVO.getProductId();
                  Product product = productInfoService.getProductByProductId(productId);
-                 product.setProductId(productId);
                  orderItem.setProduct(product);
                  orderItem.setOrder(order);
+                 order.totalPrice = orderService.calcTheAmount(order.totalPrice, new BigDecimal(product.getNormalPrice()));
              });
 
 

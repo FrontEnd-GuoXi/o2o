@@ -26,8 +26,8 @@ public class OrderServiceImpl {
     }
 
 
-    public BigDecimal calcTheAmount () {
-
+    public BigDecimal calcTheAmount (BigDecimal sum, BigDecimal item) {
+        return sum.add(item);
     }
 
 

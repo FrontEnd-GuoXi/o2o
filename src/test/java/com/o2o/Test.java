@@ -1,16 +1,16 @@
 package com.o2o;
 
-import com.o2o.entity.Shop;
+
 
 public class Test {
 
     public static void main(String[] args) {
-        Shop shop = new Shop();
-        String str = null;
-        Long id = Long.valueOf(str);
-        System.out.println("id:"+ id);
-        System.out.println("shopId:" + shop.getShopId());
-        shop.setShopId(id);
+        String a = "123";
+        String b = "123";
+        String c = new String("123");
+
+        System.out.println(a == b);
+        // System.out.println(a == c);
     }
 
 }

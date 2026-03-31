@@ -32,7 +32,7 @@ CREATE TABLE `tb_product_category`
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8;
 
-  ALTER TABLE `tb_prouduct` ADD COLUMN `product_number` int DEFAULT 0 NOT NULL COMMENT '商品数量';
+  ALTER TABLE `tb_product` ADD COLUMN `product_number` int DEFAULT 0 NOT NULL COMMENT '商品数量';
 
 
 CREATE TABLE `tb_product_img`
