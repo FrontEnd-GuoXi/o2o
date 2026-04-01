@@ -18,6 +18,7 @@ public class Product {
     private Date createTime;
     private Date lastEditTime;
     private Integer enableStatus;
+    private Integer productNumber;
     private List<ProductImg> productImgList;
     private ProductCategory productCategory;
     private Shop shop;

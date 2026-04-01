@@ -32,49 +32,15 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @Autowired
-    SnowflakeIdGenerator snowflakeIdGenerator;
 
-    @Autowired
-    ProductInfoService productInfoService;
-
-    @Autowired
-    ShopService shopService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseResultWrap<Boolean> createOrder (@RequestBody OrderVO orderVo) {
-        List<ShopItemVo> shopList = orderVo.getShopList();
+    public ResponseResultWrap<Boolean> createOrder (@RequestBody OrderVO orderVO) {
         PersonInfoDTO userInfoVO = UserContextHolder.getUserInfo();
-        Long userId = userInfoVO.getUserId();
         PersonInfo userInfo = new PersonInfo();
-        BeanUtils.copyProperties(userInfo, userInfo);
+        BeanUtils.copyProperties(userInfoVO, userInfo);
 
-         shopList.stream().forEach(shopItemVo -> {
-             Order order = new Order();
-             order.setOrderId(snowflakeIdGenerator.nextId());
-             order.setOrderStatus(0);
-             Date currentDate = new Date();
-             order.setCreateTime(currentDate);
-             order.setLastEditTime(currentDate);
-             order.setBuyer(userInfo);
-
-             ShopVO shopVO = shopService.queryShopById(shopItemVo.getShopId(), userId);
-             Shop shop = Cls2Cls.shopVOToShop(shopVO, new Shop());
-             order.setShop(shop);
-
-             List<ProductItemVO>  productItemVOList = shopItemVo.getProductList();
-             productItemVOList.stream().forEach(ProductItemVO -> {
-                 OrderItem orderItem = new OrderItem();
-                 Long productId = ProductItemVO.getProductId();
-                 Product product = productInfoService.getProductByProductId(productId);
-                 orderItem.setProduct(product);
-                 orderItem.setOrder(order);
-                 order.totalPrice = orderService.calcTheAmount(order.totalPrice, new BigDecimal(product.getNormalPrice()));
-             });
-
-
-             orderService.addOrder(order);
-         });
+        Boolean success = orderService.addOrder(orderVO, userInfo);
 
     }
 

@@ -2,17 +2,23 @@ package com.o2o.service;
 
 import com.o2o.entity.Order;
 import com.o2o.entity.OrderItem;
+import com.o2o.entity.PersonInfo;
+import com.o2o.vo.OrderVO;
+
+import java.math.BigDecimal;
 
 public interface OrderService {
 
 
-    Boolean addOrder (Order order);
+    Boolean addOrder (OrderVO orderVO, PersonInfo userInfo);
 
     Boolean updateOrder (Order order);
 
     Boolean addOrderItem (OrderItem orderItem);
 
     Boolean updateOrderItem(OrderItem orderItem);
+
+    BigDecimal calcTheAmount (BigDecimal sum, BigDecimal item);
 
 
 }

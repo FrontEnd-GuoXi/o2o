@@ -63,5 +63,14 @@
         WHERE p.product_id = #{productId}
     </select>
 
+    <update id="updateProductInventory" parameterType="com.o2o.entity.Product">
+        UPDATE tb_product
+        SET
+            product_number = product_number - #{purchaseQuantity},
+            last_edit_time = #{product.lastEditTime}
+        WHERE product_id = #{product.productId}
+        AND product_number >= #{purchaseQuantity}
+    </update>
+
 
 </mapper>
