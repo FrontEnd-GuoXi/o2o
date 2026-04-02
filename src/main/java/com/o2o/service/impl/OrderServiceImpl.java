@@ -9,7 +9,7 @@ import com.o2o.util.Cls2Cls;
 import com.o2o.util.SnowflakeIdGenerator;
 import com.o2o.vo.OrderVO;
 import com.o2o.vo.ProductItemVO;
-import com.o2o.vo.ShopItemVo;
+import com.o2o.vo.ShopItemVO;
 import com.o2o.vo.ShopVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +42,10 @@ public class OrderServiceImpl {
     ProductInfoDao productInfoDao;
 
     @Transactional(rollbackFor = Exception.class)
-    public Boolean addOrder (OrderVO orderVO, PersonInfo userInfo) {
-        List<ShopItemVo> shopList = orderVO.getShopList();
-        shopList.forEach(shopItemVo -> {
+    public String addOrder (OrderVO orderVO, PersonInfo userInfo) {
+        List<ShopItemVO> shopList = orderVO.getShopList();
+
+        BigDecimal totalPrice = shopList.stream().map(shopItemVO -> {
             Order order = new Order();
             order.setOrderId(snowflakeIdGenerator.nextId());
             order.setOrderStatus(0);
@@ -53,11 +54,11 @@ public class OrderServiceImpl {
             order.setLastEditTime(currentDate);
             order.setBuyer(userInfo);
 
-            ShopVO shopVO = shopService.queryShopById(shopItemVo.getShopId(), userInfo.getUserId());
+            ShopVO shopVO = shopService.queryShopById(shopItemVO.getShopId(), userInfo.getUserId());
             Shop shop = Cls2Cls.shopVOToShop(shopVO, new Shop());
             order.setShop(shop);
 
-            List<ProductItemVO>  productItemVOList = shopItemVo.getProductList();
+            List<ProductItemVO>  productItemVOList = shopItemVO.getProductList();
             productItemVOList.forEach(productItemVO -> {
                 OrderItem orderItem = new OrderItem();
                 Long productId = productItemVO.getProductId();
@@ -74,9 +75,10 @@ public class OrderServiceImpl {
             });
 
             orderDao.addOrder(order);
-        });
+            return order;
+        }).map(Order::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 
-
+        return totalPrice.toString();
     }
 
 

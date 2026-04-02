@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public interface OrderService {
 
 
-    Boolean addOrder (OrderVO orderVO, PersonInfo userInfo);
+    String addOrder (OrderVO orderVO, PersonInfo userInfo);
 
     Boolean updateOrder (Order order);
 

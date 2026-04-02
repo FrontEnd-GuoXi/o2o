@@ -8,7 +8,7 @@ import java.util.List;
 public class OrderVO {
 
 
-    private List<ShopItemVo>  shopList;
+    private List<ShopItemVO>  shopList;
 
 
 }
