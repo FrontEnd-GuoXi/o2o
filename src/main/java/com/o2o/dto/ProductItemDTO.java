@@ -1,9 +1,9 @@
-package com.o2o.vo;
+package com.o2o.dto;
 
 import lombok.Data;
 
 @Data
-public class ProductItemVO {
+public class ProductItemDTO {
 
     private Long productId;
 

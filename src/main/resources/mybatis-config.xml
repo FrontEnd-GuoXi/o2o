@@ -19,5 +19,8 @@
         <typeAlias type="com.o2o.entity.ShopCategory" alias="ShopCategory" />
         <typeAlias type="com.o2o.entity.UserIdentity" alias="UserIdentity" />
         <typeAlias type="com.o2o.dto.ProductBriefDTO" alias="ProductBriefDTO" />
+        <typeAlias type="com.o2o.entity.Product" alias="Product" />
+        <typeAlias type="com.o2o.entity.ProductCategory" alias="ProductCategory" />
+        <typeAlias type="com.o2o.entity.ProductImg" alias="ProductImg" />
     </typeAliases>
 </configuration>

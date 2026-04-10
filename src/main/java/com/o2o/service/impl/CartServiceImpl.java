@@ -35,7 +35,7 @@ public class CartServiceImpl implements CartService {
         }
     }
 
-    public int removeProductById (int productId, int userId) {
+    public int removeProductById (Integer productId, int userId) {
         try {
             int affectRow = cartDao.removeProductById(productId, userId);
             return affectRow;

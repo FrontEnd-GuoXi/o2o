@@ -9,8 +9,7 @@ import java.util.List;
 public interface CartDao {
 
     int addOrUpdateProduct(Cart cart);
-    int removeProductById(@Param("productId") int productId, @Param("userId") int userId);
+    int removeProductById(@Param("productId") Integer productId, @Param("userId") int userId);
     List<CartProductDTO> getCartProductListByUserId(@Param("userId") int userId);
-
 
 }

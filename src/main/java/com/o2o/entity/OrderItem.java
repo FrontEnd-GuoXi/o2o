@@ -1,6 +1,7 @@
 package com.o2o.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,7 +13,11 @@ import java.util.Date;
 public class OrderItem {
     // 订单详情ID
     private Long orderItemId;
+
+
     // 所属订单
+    // 忽略这个字段，不参与 toString() 的生成
+    @ToString.Exclude
     private Order order;
     // 商品信息
     private Product product;

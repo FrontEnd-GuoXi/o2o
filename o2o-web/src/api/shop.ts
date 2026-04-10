@@ -109,6 +109,7 @@ export interface ProductBrief {
   normalPrice: string
   promotionPrice: string | null
   priority: number
+  productNumber: number
   createTime: string
 }
 

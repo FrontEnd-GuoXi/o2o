@@ -124,6 +124,17 @@
   overflow: hidden;
 }
 
+.product-inventory {
+  font-size: 12px;
+  color: #969799;
+  margin-bottom: 4px;
+}
+
+.low-stock {
+  color: #ee0a24;
+  font-weight: bold;
+}
+
 .product-bottom {
   display: flex;
   justify-content: space-between;

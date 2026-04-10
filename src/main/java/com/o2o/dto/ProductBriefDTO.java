@@ -12,6 +12,7 @@ public class ProductBriefDTO {
     private String normalPrice;
     private String promotionPrice;
     private Integer priority;
+    private Integer productNumber;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
@@ -70,5 +71,13 @@ public class ProductBriefDTO {
 
     public void setPromotionPrice(String promotionPrice) {
         this.promotionPrice = promotionPrice;
+    }
+
+    public Integer getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(Integer productNumber) {
+        this.productNumber = productNumber;
     }
 }

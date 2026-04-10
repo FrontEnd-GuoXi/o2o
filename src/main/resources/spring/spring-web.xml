@@ -30,5 +30,9 @@
         <property name="maxInMemorySize" value="20971520" />
     </bean>
 
-    <context:component-scan base-package="com.o2o.web, com.o2o.config" />
+    <context:component-scan base-package="com.o2o.web" />
+    <!-- 让子容器扫描 com.o2o.config 以加载 WebMvcConfig -->
+    <context:component-scan base-package="com.o2o.config" use-default-filters="false">
+        <context:include-filter type="assignable" expression="com.o2o.config.WebMvcConfig"/>
+    </context:component-scan>
 </beans>

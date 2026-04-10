@@ -50,6 +50,9 @@
           <div class="product-info">
             <h3 class="product-name">{{ product.productName }}</h3>
             <p class="product-desc">{{ product.productDesc }}</p>
+            <div class="product-inventory">
+              库存: <span :class="{ 'low-stock': product.productNumber < 10 }">{{ product.productNumber }}</span>
+            </div>
             <div class="product-bottom">
               <div class="product-price">
                 <span v-if="product.promotionPrice" class="promo-price">¥{{ product.promotionPrice }}</span>
@@ -57,8 +60,15 @@
                   ¥{{ product.normalPrice }}
                 </span>
               </div>
-              <van-button size="mini" type="danger" plain round @click.stop="addToCart(product)">
-                加入购物车
+              <van-button
+                size="mini"
+                type="danger"
+                plain
+                round
+                :disabled="product.productNumber <= 0"
+                @click.stop="addToCart(product)"
+              >
+                {{ product.productNumber <= 0 ? '无货' : '加入购物车' }}
               </van-button>
             </div>
           </div>
@@ -192,6 +202,10 @@ const handleContact = () => {
 }
 
 const addToCart = (product: ProductBrief) => {
+  if (product.productNumber <= 0) {
+    showToast('该商品暂时无货')
+    return
+  }
   cartStore.addToCart(product, shop.value)
   showToast({
     message: `已将 ${product.productName} 加入购物车`,

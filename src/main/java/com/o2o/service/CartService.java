@@ -8,7 +8,7 @@ import java.util.List;
 public interface CartService {
 
     int addOrUpdateProduct (Cart cart);
-    int removeProductById (int productId, int userId);
+    int removeProductById (Integer productId, int userId);
     List<CartProductDTO> getCartProductListByUserId(int userId);
 
 }

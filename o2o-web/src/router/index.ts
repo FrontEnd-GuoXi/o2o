@@ -52,7 +52,7 @@ const routes = [
   },
   {
     name: 'Checkout',
-    path: '/checkout',
+    path: '/checkout/:token',
     component: () => import('@/pages/Checkout/index.vue'),
   },
 ]

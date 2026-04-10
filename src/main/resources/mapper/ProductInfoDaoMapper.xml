@@ -15,11 +15,12 @@
         <result property="priority" column="priority" />
         <result property="createTime" column="create_time" />
         <result property="lastEditTime" column="last_edit_time" />
-        <result property="enableStatus" column="enableStatus" />
+        <result property="enableStatus" column="enable_status" />
+        <result property="productNumber" column="product_number" />
         <association property="productCategory" javaType="ProductCategory">
             <id property="productCategoryId" column="product_category_id" />
             <result property="shopId" column="shop_id" />
-            <result property="productCategroyName" column="product_category_name" />
+            <result property="productCategoryName" column="product_category_name" />
             <result property="priority" column="priority"/>
             <result property="createTime" column="create_time" />
         </association>
@@ -39,7 +40,7 @@
 
     <select id="getProductListByShopId" parameterType="Long" resultType="ProductBriefDTO">
         SELECT
-               product_id, product_name, img_addr,
+               product_id, product_name, img_addr, product_number,
                normal_price, promotion_price, priority, create_time
         FROM tb_product WHERE shop_id = #{shopId} ORDER BY priority DESC
     </select>
@@ -63,7 +64,7 @@
         WHERE p.product_id = #{productId}
     </select>
 
-    <update id="updateProductInventory" parameterType="com.o2o.entity.Product">
+    <update id="updateProductInventory">
         UPDATE tb_product
         SET
             product_number = product_number - #{purchaseQuantity},

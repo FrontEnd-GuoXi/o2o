@@ -40,7 +40,7 @@
     </insert>
 
     <delete id="removeProductById">
-        DELETE FROM tb_cart WHERE user_id = #{userId} AND product_id = #{productId}
+        DELETE FROM tb_cart WHERE user_id = #{userId} AND ( product_id = #{productId} OR #{productId} IS NULL)
     </delete>
 
     <select id="getCartProductListByUserId" parameterType="int" resultType="com.o2o.dto.CartProductDTO">

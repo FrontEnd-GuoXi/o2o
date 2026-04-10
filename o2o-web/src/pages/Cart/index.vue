@@ -85,6 +85,7 @@ import {
 import O2oHeader from '@/components/O2oHeader.vue'
 import { useCartStore, type CartItem } from '@/stores/cart'
 import { getImageUrl, handleImageError } from '@/utils/image'
+import { getOrderToken } from '@/api/order'
 
 const router = useRouter()
 const cartStore = useCartStore()
@@ -180,19 +181,33 @@ const removeItem = (item: any) => {
   }).catch(() => {})
 }
 
-const onSubmit = () => {
+const onSubmit = async () => {
   const selectedItems = localItems.value.filter(item => item.selected)
   if (selectedItems.length === 0) {
     showToast('请至少选择一件商品')
     return
   }
-  // 跳转到结算页面，并传递选中的商品数据
-  router.push({
-    name: 'Checkout',
-    state: {
-      checkoutItems: JSON.parse(JSON.stringify(selectedItems))
+
+  try {
+    // 1. 获取订单 token
+    const res = await getOrderToken()
+    if (res.code === "200") {
+      const token = res.data
+      // 2. 跳转到结算页面，并将 token 作为路由参数
+      router.push({
+        name: 'Checkout',
+        params: { token },
+        state: {
+          checkoutItems: JSON.parse(JSON.stringify(selectedItems))
+        }
+      })
+    } else {
+      showToast(res.message || '获取订单凭证失败')
     }
-  })
+  } catch (error) {
+    console.error('Get order token error:', error)
+    showToast('网络异常，请稍后再试')
+  }
 }
 
 </script>

@@ -1,5 +1,9 @@
 package com.o2o.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class SnowflakeIdGenerator {
     // 起始时间戳（2020-01-01 00:00:00 UTC）
     private final static long START_TIMESTAMP = 1577836800000L;
@@ -17,7 +21,7 @@ public class SnowflakeIdGenerator {
     private long sequence = 0L;
     private long lastTimestamp = -1L;
 
-    public SnowflakeIdGenerator(long machineId) {
+    public SnowflakeIdGenerator(@Value("${snowflake.machineId:1}") long machineId) {
         if (machineId > MAX_MACHINE_NUM || machineId < 0) {
             throw new IllegalArgumentException("machineId can't be greater than MAX_MACHINE_NUM or less than 0");
         }

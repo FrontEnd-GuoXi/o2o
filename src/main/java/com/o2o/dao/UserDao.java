@@ -14,5 +14,4 @@ public interface UserDao {
 
     int countByIdentifier (String identifier);
 
-
 }

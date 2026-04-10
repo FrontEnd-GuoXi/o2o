@@ -8,30 +8,32 @@
 
     <insert id="addOrder"
             parameterType="com.o2o.entity.Order"
-            useGeneratedKeys="true"
-            keyProperty="orderId"
-            keyColumn="order_id"
     >
     INSERT INTO tb_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-        buyer_id, shop_id, order_no, total_price,
-        order_status,
-        <if test="createTime != null">create_time,</if>
-        last_edit_time
-    </trim>
+    (order_id, buyer_id, shop_id, order_no, total_price, order_status, create_time, last_edit_time)
     VALUES
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-        #{buyer.userId},
-        #{shop.shopId},
-        #{orderNo},
-        #{totalPrice},
-        #{orderStatus},
-       <if test="createTime != null">
-           #{create_time},
-       </if>
-        #{last_edit_time}
-    </trim>
-
+    (#{orderId}, #{buyer.userId}, #{shop.shopId}, #{orderNo}, #{totalPrice}, #{orderStatus}, #{createTime}, #{lastEditTime})
     </insert>
 
+    <update id="updateOrder" parameterType="com.o2o.entity.Order">
+        UPDATE tb_order
+        SET total_price = #{totalPrice},
+            order_status = #{orderStatus},
+            last_edit_time = #{lastEditTime}
+        WHERE order_id = #{orderId}
+    </update>
+
+    <insert id="addOrderItem" parameterType="com.o2o.entity.OrderItem">
+        INSERT INTO tb_order_item
+        (order_id, product_id, product_name, unit_price, quantity, total_price, create_time)
+        VALUES
+        (#{order.orderId}, #{product.productId}, #{product.productName}, #{unitPrice}, #{quantity}, #{totalPrice}, #{createTime})
+    </insert>
+
+    <update id="updateOrderItem" parameterType="com.o2o.entity.OrderItem">
+        UPDATE tb_order_item
+        SET quantity = #{quantity},
+            total_price = #{totalPrice}
+        WHERE order_item_id = #{orderItemId}
+    </update>
 </mapper>
