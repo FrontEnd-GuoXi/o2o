@@ -20,7 +20,7 @@ public interface OrderService {
 
     BigDecimal calcTheAmount (BigDecimal sum, BigDecimal item);
 
-    Boolean payForTheOrder (Order order);
+    Boolean payForTheOrder (Long orderId);
 
 
 }

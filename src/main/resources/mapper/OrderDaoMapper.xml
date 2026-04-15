@@ -8,6 +8,7 @@
         <id property="orderId" column="order_id" />
        <collection  property="orderItemList" ofType="OrderItem">
             <id property="orderItemId" column="order_item_id" />
+            <result property="productId" column="product_id" />
             <result property="quantity" column="quantity" />
        </collection >
    </resultMap>
@@ -65,7 +66,7 @@
     </update>
 
     <select id="queryOrderById" parameterType="Long" resultMap="OrderMap">
-        SELECT o.order_id, oi.order_item_id, oi.quantity FROM tb_order o
+        SELECT o.order_id, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o
             LEFT JOIN tb_order_item oi on o.order_id = oi.order_id
         WHERE o.order_id = #{orderId}
     </select>

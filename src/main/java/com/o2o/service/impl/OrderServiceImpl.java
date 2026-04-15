@@ -72,14 +72,14 @@ public class OrderServiceImpl implements OrderService {
                 orderDao.addOrder(order);
 
                 List<OrderItem> orderItemList = new ArrayList<>();
-                List<ProductItemDTO>  productItemVOList = shopItemVO.getProductList();
-                productItemVOList.forEach(productItemVO -> {
+                List<ProductItemDTO>  productItemDTOList = shopItemVO.getProductList();
+                productItemDTOList.forEach(ProductItemDTO -> {
                     OrderItem orderItem = new OrderItem();
                     Product product = new Product();
-                    product.setProductId(productItemVO.getProductId());
+                    product.setProductId(ProductItemDTO.getProductId());
                     orderItem.setProduct(product);
                     orderItem.setOrder(order);
-                    orderItem.setQuantity(productItemVO.getQuantity());
+                    orderItem.setQuantity(ProductItemDTO.getQuantity());
                     orderItem.setUnitPrice(new BigDecimal(product.getPromotionPrice()));
                     orderItem.setTotalPrice(orderItem.getUnitPrice().multiply(new BigDecimal(orderItem.getQuantity())));
                     orderItem.setCreateTime(new Date());
@@ -109,6 +109,17 @@ public class OrderServiceImpl implements OrderService {
             logger.error(e.toString());
             throw e;
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean payForTheOrder (Long orderId) {
+        Order order = orderDao.queryOrderById(orderId);
+        List<OrderItem> orderItemList = order.getOrderItemList();
+        orderItemList.forEach(orderItem -> {
+           int affectedRow = orderDao.inventoryDeduction(orderItem);
+           if (affectedRow )
+        });
+
     }
 
 
