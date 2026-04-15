@@ -4,7 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.o2o.dao.OrderDao">
-    <!-- namespace对应Mapper接口的全限定名 -->
+   <resultMap id="OrderMap" type="com.o2o.entity.Order">
+        <id property="orderId" column="order_id" />
+       <collection  property="orderItemList" ofType="OrderItem">
+            <id property="orderItemId" column="order_item_id" />
+            <result property="quantity" column="quantity" />
+       </collection >
+   </resultMap>
 
     <insert id="addOrder"
             parameterType="com.o2o.entity.Order"
@@ -36,4 +42,31 @@
             total_price = #{totalPrice}
         WHERE order_item_id = #{orderItemId}
     </update>
+
+    <!-- 库存锁定-->
+    <update id="orderLocking" parameterType="com.o2o.entity.OrderItem">
+        UPDATE tb_product SET product_locked_number = product_locked_number + #{quantity},
+                product_number = product_number - #{quantity}
+        WHERE product_number - #{quantity} > 0 AND product_id = #{product.productId}
+    </update>
+
+    <!-- 支付成功，扣减库存-->
+    <update id="inventoryDeduction" parameterType="com.o2o.entity.OrderItem">
+        UPDATE tb_product SET product_locked_number = product_locked_number - #{quantity},
+                              sales_volume = sales_volume + #{quantity}
+        WHERE product_id = #{product.productId}
+    </update>
+
+    <!--订单超时，释放库存-->
+    <update id="timeoutRelease" parameterType="com.o2o.entity.OrderItem">
+        UPDATE tb_product SET product_locked_number = product_locked_number - #{quantity},
+                product_number = product_number + #{quantity}
+        WHERE product_id = #{product.productId}
+    </update>
+
+    <select id="queryOrderById" parameterType="Long" resultMap="OrderMap">
+        SELECT o.order_id, oi.order_item_id, oi.quantity FROM tb_order o
+            LEFT JOIN tb_order_item oi on o.order_id = oi.order_id
+        WHERE o.order_id = #{orderId}
+    </select>
 </mapper>

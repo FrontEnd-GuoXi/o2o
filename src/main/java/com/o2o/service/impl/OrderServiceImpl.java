@@ -75,19 +75,17 @@ public class OrderServiceImpl implements OrderService {
                 List<ProductItemDTO>  productItemVOList = shopItemVO.getProductList();
                 productItemVOList.forEach(productItemVO -> {
                     OrderItem orderItem = new OrderItem();
-                    Long productId = productItemVO.getProductId();
-                    Product product = productInfoService.getProductByProductId(productId);
-                    Integer productInventory = product.getProductNumber() - productItemVO.getQuantity();
-                    product.setProductNumber(productInventory);
-                    product.setLastEditTime(new Date());
-                    productInfoDao.updateProductInventory(product, productItemVO.getQuantity());
-
+                    Product product = new Product();
+                    product.setProductId(productItemVO.getProductId());
                     orderItem.setProduct(product);
                     orderItem.setOrder(order);
                     orderItem.setQuantity(productItemVO.getQuantity());
                     orderItem.setUnitPrice(new BigDecimal(product.getPromotionPrice()));
                     orderItem.setTotalPrice(orderItem.getUnitPrice().multiply(new BigDecimal(orderItem.getQuantity())));
                     orderItem.setCreateTime(new Date());
+
+                    // 锁定库存
+                    orderDao.orderLocking(orderItem);
 
                     BigDecimal accPrice = this.calcTheAmount(order.getTotalPrice(), orderItem.getTotalPrice());
                     order.setTotalPrice(accPrice);

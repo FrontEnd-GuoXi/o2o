@@ -13,6 +13,17 @@ public interface OrderDao {
 
     int updateOrderItem(OrderItem orderItem);
 
+    // 锁定库存
+    int orderLocking (OrderItem orderItem);
+
+    // 库存扣减
+    int inventoryDeduction (OrderItem orderItem);
+
+    // 超时释放
+    int timeoutRelease (OrderItem orderItem);
+
+    Order queryOrderById (Long orderId);
+
 
 
 }
