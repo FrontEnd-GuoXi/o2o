@@ -2,6 +2,9 @@ package com.o2o.dao;
 
 import com.o2o.entity.Order;
 import com.o2o.entity.OrderItem;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface OrderDao {
 
@@ -9,20 +12,20 @@ public interface OrderDao {
 
     int updateOrder (Order order);
 
-    int addOrderItem (OrderItem orderItem);
+    int addOrderItem (@Param("orderItemList") List<OrderItem> orderItemList);
 
-    int updateOrderItem(OrderItem orderItem);
+    int updateOrderItem(@Param("orderItemList") List<OrderItem> orderItem);
 
     // 锁定库存
-    int orderLocking (OrderItem orderItem);
+    int orderLocking (@Param("orderItemList") List<OrderItem> orderItem);
 
     // 库存扣减
-    int inventoryDeduction (OrderItem orderItem);
+    int inventoryDeduction (@Param("orderItemList") List<OrderItem> orderItem);
 
     // 超时释放
-    int timeoutRelease (OrderItem orderItem);
+    int timeoutRelease (@Param("orderItemList") List<OrderItem> orderItem);
 
-    Order queryOrderById (Long orderId);
+    List<Order> queryOrderByIds (@Param("orderIdList") List<Long> orderIdList);
 
 
 

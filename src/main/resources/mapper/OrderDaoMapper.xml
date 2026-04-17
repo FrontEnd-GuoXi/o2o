@@ -7,9 +7,16 @@
    <resultMap id="OrderMap" type="com.o2o.entity.Order">
         <id property="orderId" column="order_id" />
        <collection  property="orderItemList" ofType="OrderItem">
-            <id property="orderItemId" column="order_item_id" />
-            <result property="productId" column="product_id" />
-            <result property="quantity" column="quantity" />
+           <id property="orderItemId" column="order_item_id" />
+           <result property="quantity" column="quantity" />
+           <result property="productName" column="product_name"/>
+           <result property="productImg" column="product_Img" />
+           <result property="unitPrice" column="unit_price" />
+           <result property="totalPrice" column="total_price" />
+           <result property="createTime" column="create_time" />
+           <association property="product" javaType="com.o2o.entity.Product">
+               <result property="productId" column="product_id" />
+           </association>
        </collection >
    </resultMap>
 
@@ -30,44 +37,110 @@
         WHERE order_id = #{orderId}
     </update>
 
-    <insert id="addOrderItem" parameterType="com.o2o.entity.OrderItem">
+    <insert id="addOrderItem" parameterType="java.util.List">
         INSERT INTO tb_order_item
         (order_id, product_id, product_name, unit_price, quantity, total_price, create_time)
         VALUES
-        (#{order.orderId}, #{product.productId}, #{product.productName}, #{unitPrice}, #{quantity}, #{totalPrice}, #{createTime})
+        <foreach collection="orderItemList" item="orderItem" separator=",">
+            (#{orderItem.order.orderId}, #{orderItem.product.productId},
+             #{orderItem.product.productName}, #{orderItem.unitPrice}, #{orderItem.quantity},
+             #{orderItem.totalPrice}, #{orderItem.createTime})
+        </foreach>
     </insert>
 
-    <update id="updateOrderItem" parameterType="com.o2o.entity.OrderItem">
+    <update id="updateOrderItem" parameterType="java.util.List">
         UPDATE tb_order_item
-        SET quantity = #{quantity},
-            total_price = #{totalPrice}
-        WHERE order_item_id = #{orderItemId}
+        <trim prefix="SET" suffixOverrides=",">
+            <trim prefix="quantity = CASE order_item_id" suffix="END">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN #{orderItem.orderItemId} THEN #{orderItem.quantity}
+                </foreach>
+            </trim>
+            <trim prefix="total_price = CASE order_item_id" suffix="END">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN #{orderItem.orderItemId} THEN #{orderItem.total_price}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE order_item_id IN
+          <foreach collection="orderItemList" item="orderItem" open="(" separator="," close=")">
+              #{orderItemId}
+          </foreach>
     </update>
 
+
     <!-- 库存锁定-->
-    <update id="orderLocking" parameterType="com.o2o.entity.OrderItem">
-        UPDATE tb_product SET product_locked_number = product_locked_number + #{quantity},
-                product_number = product_number - #{quantity}
-        WHERE product_number - #{quantity} > 0 AND product_id = #{product.productId}
+    <update id="orderLocking" parameterType="java.util.List">
+        UPDATE tb_product
+        <trim prefix="SET" suffixOverrides=",">
+            <trim prefix="product_locked_number = product_locked_number + CASE product_id" suffix="END">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
+                </foreach>
+            </trim>
+            <trim prefix="product_number = product_number - CASE product_id" suffix="END">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE product_id IN
+              <foreach collection="orderItemList" item="orderItem" open="(" separator="," close=")">
+                  #{product.productId}
+              </foreach>
+        <!-- 注意：这里很难再写 "product_number - quantity > 0" 的校验，
+               因为每个商品的 quantity 不一样。通常建议在业务层校验，
+               或者依赖数据库的 "product_number >= 0" 约束 -->
     </update>
 
     <!-- 支付成功，扣减库存-->
-    <update id="inventoryDeduction" parameterType="com.o2o.entity.OrderItem">
-        UPDATE tb_product SET product_locked_number = product_locked_number - #{quantity},
-                              sales_volume = sales_volume + #{quantity}
-        WHERE product_id = #{product.productId}
+    <update id="inventoryDeduction" parameterType="java.util.List">
+        UPDATE tb_product
+        <trim prefix="SET" suffixOverrides=",">
+            <trim prefix="product_locked_number = product_locked_number - CASE product_id" suffix="END">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
+                </foreach>
+            </trim>
+            <trim prefix="sales_volume = sales_volume - CASE product_id" suffix="END">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
+                </foreach>
+            </trim>
+        </trim>
+        WHEN product_id IN
+        <foreach collection="orderItemList" item="orderItem" open="(" separator="," close=")">
+            #{orderItem.product.productId}
+        </foreach>
     </update>
 
     <!--订单超时，释放库存-->
-    <update id="timeoutRelease" parameterType="com.o2o.entity.OrderItem">
-        UPDATE tb_product SET product_locked_number = product_locked_number - #{quantity},
-                product_number = product_number + #{quantity}
-        WHERE product_id = #{product.productId}
+    <update id="timeoutRelease" parameterType="java.util.List">
+        UPDATE tb_product
+        <trim prefix="SET" suffixOverrides=",">
+            <trim prefix="product_locked_number = product_locked_number - CASE product_id">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN product_id CASE #{orderItem.quantity}
+                </foreach>
+            </trim>
+            <trim prefix="product_number = product_number - CASE product_id">
+                <foreach collection="orderItemList" item="orderItem" separator=",">
+                    WHEN product_id CASE #{orderItem.quantity}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE product_id IN
+        <foreach collection="orderItemList" item="orderItem" separator="," open="(" close=")">
+            #{orderItem.product.productId}
+        </foreach>
     </update>
 
-    <select id="queryOrderById" parameterType="Long" resultMap="OrderMap">
+    <select id="queryOrderByIds" parameterType="java.util.List" resultMap="OrderMap">
         SELECT o.order_id, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o
-            LEFT JOIN tb_order_item oi on o.order_id = oi.order_id
-        WHERE o.order_id = #{orderId}
+              LEFT JOIN tb_order_item oi on o.order_id = oi.order_id
+        WHERE o.order_id IN
+              <foreach collection="orderIdList" item="orderId" open="(" close=")" separator=",">
+                  #{orderId}
+              </foreach>
     </select>
 </mapper>

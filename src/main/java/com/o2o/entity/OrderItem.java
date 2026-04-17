@@ -14,7 +14,6 @@ public class OrderItem {
     // 订单详情ID
     private Long orderItemId;
 
-
     // 所属订单
     // 忽略这个字段，不参与 toString() 的生成
     @ToString.Exclude

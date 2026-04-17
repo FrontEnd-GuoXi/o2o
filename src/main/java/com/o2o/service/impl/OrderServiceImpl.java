@@ -50,9 +50,9 @@ public class OrderServiceImpl implements OrderService {
     CartService cartService;
 
     @Transactional(rollbackFor = Exception.class)
-    public String addOrder (OrderDTO orderVO, PersonInfo userInfo) {
+    public String addOrder (OrderDTO orderDTO, PersonInfo userInfo) {
         try {
-            List<ShopItemDTO> shopList = orderVO.getShopList();
+            List<ShopItemDTO> shopList = orderDTO.getShopList();
 
             BigDecimal totalPrice = shopList.stream().map(shopItemVO -> {
                 Order order = new Order();
@@ -84,15 +84,13 @@ public class OrderServiceImpl implements OrderService {
                     orderItem.setTotalPrice(orderItem.getUnitPrice().multiply(new BigDecimal(orderItem.getQuantity())));
                     orderItem.setCreateTime(new Date());
 
-                    // 锁定库存
-                    orderDao.orderLocking(orderItem);
-
                     BigDecimal accPrice = this.calcTheAmount(order.getTotalPrice(), orderItem.getTotalPrice());
                     order.setTotalPrice(accPrice);
-
                     orderItemList.add(orderItem);
-                    orderDao.addOrderItem(orderItem);
+
                 });
+                orderDao.addOrderItem(orderItemList);
+                orderDao.orderLocking(orderItemList);
                 order.setOrderItemList(orderItemList);
                 // 更新主订单的总金额
                 orderDao.updateOrder(order);
@@ -112,13 +110,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Boolean payForTheOrder (Long orderId) {
-        Order order = orderDao.queryOrderById(orderId);
-        List<OrderItem> orderItemList = order.getOrderItemList();
-        orderItemList.forEach(orderItem -> {
-           int affectedRow = orderDao.inventoryDeduction(orderItem);
-           if (affectedRow )
-        });
+    public Boolean payForTheOrder (List<Long> orderIdList) {
+        try {
+            List<Order> orderList = orderDao.queryOrderByIds(orderIdList);
+            orderList.forEach(order -> {
+                List<OrderItem> orderItemList = order.getOrderItemList();
+                int orderItemListLen = orderItemList.size();
+                int affectedRow = orderDao.inventoryDeduction(orderItemList);
+                if (affectedRow != orderItemListLen) {
+                    throw new BusinessException("受影响的行数为：" + affectedRow + "，实际订单项数量为：" + orderItemListLen);
+                }
+            });
+
+            return true;
+        } catch (BusinessException e) {
+            logger.warn("库存扣减失败：{}", e.toString());
+            throw e;
+        }
+
+    }
+
+    public cancelPayment (Long userId) {
 
     }
 
