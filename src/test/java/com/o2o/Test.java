@@ -12,8 +12,8 @@ public class Test {
         try {
             List<String> list = new ArrayList<>(Arrays.asList("A", "B", "C"));
             list.forEach(item -> {
-                if (item.equals("B")) {
-                    throw new RuntimeException("B点报错");
+                if (item.equals("C")) {
+                    throw new RuntimeException("C点报错");
                 }
                 System.out.println("输出"+ item);
             });

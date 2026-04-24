@@ -6,7 +6,7 @@
 <mapper namespace="com.o2o.dao.OrderDao">
    <resultMap id="OrderMap" type="com.o2o.entity.Order">
         <id property="orderId" column="order_id" />
-       <collection  property="orderItemList" ofType="OrderItem">
+       <collection  property="orderItemList" ofType="com.o2o.entity.OrderItem">
            <id property="orderItemId" column="order_item_id" />
            <result property="quantity" column="quantity" />
            <result property="productName" column="product_name"/>
@@ -31,9 +31,17 @@
 
     <update id="updateOrder" parameterType="com.o2o.entity.Order">
         UPDATE tb_order
-        SET total_price = #{totalPrice},
-            order_status = #{orderStatus},
-            last_edit_time = #{lastEditTime}
+        <set>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+            <if test="lastEditTime != null">
+                last_edit_time = #{lastEditTime}
+            </if>
+        </set>
         WHERE order_id = #{orderId}
     </update>
 
@@ -51,20 +59,20 @@
     <update id="updateOrderItem" parameterType="java.util.List">
         UPDATE tb_order_item
         <trim prefix="SET" suffixOverrides=",">
-            <trim prefix="quantity = CASE order_item_id" suffix="END">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
+            <trim prefix="quantity = CASE order_item_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
                     WHEN #{orderItem.orderItemId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
-            <trim prefix="total_price = CASE order_item_id" suffix="END">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
-                    WHEN #{orderItem.orderItemId} THEN #{orderItem.total_price}
+            <trim prefix="total_price = CASE order_item_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
+                    WHEN #{orderItem.orderItemId} THEN #{orderItem.totalPrice}
                 </foreach>
             </trim>
         </trim>
         WHERE order_item_id IN
           <foreach collection="orderItemList" item="orderItem" open="(" separator="," close=")">
-              #{orderItemId}
+              #{orderItem.orderItemId}
           </foreach>
     </update>
 
@@ -73,20 +81,20 @@
     <update id="orderLocking" parameterType="java.util.List">
         UPDATE tb_product
         <trim prefix="SET" suffixOverrides=",">
-            <trim prefix="product_locked_number = product_locked_number + CASE product_id" suffix="END">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
+            <trim prefix="product_locked_number = product_locked_number + CASE product_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
                     WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
-            <trim prefix="product_number = product_number - CASE product_id" suffix="END">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
+            <trim prefix="product_number = product_number - CASE product_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
                     WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
         </trim>
         WHERE product_id IN
               <foreach collection="orderItemList" item="orderItem" open="(" separator="," close=")">
-                  #{product.productId}
+                  #{orderItem.product.productId}
               </foreach>
         <!-- 注意：这里很难再写 "product_number - quantity > 0" 的校验，
                因为每个商品的 quantity 不一样。通常建议在业务层校验，
@@ -97,18 +105,18 @@
     <update id="inventoryDeduction" parameterType="java.util.List">
         UPDATE tb_product
         <trim prefix="SET" suffixOverrides=",">
-            <trim prefix="product_locked_number = product_locked_number - CASE product_id" suffix="END">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
+            <trim prefix="product_locked_number = product_locked_number - CASE product_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
                     WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
-            <trim prefix="sales_volume = sales_volume - CASE product_id" suffix="END">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
+            <trim prefix="sales_volume = sales_volume + CASE product_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
                     WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
         </trim>
-        WHEN product_id IN
+        WHERE product_id IN
         <foreach collection="orderItemList" item="orderItem" open="(" separator="," close=")">
             #{orderItem.product.productId}
         </foreach>
@@ -118,14 +126,14 @@
     <update id="timeoutRelease" parameterType="java.util.List">
         UPDATE tb_product
         <trim prefix="SET" suffixOverrides=",">
-            <trim prefix="product_locked_number = product_locked_number - CASE product_id">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
-                    WHEN product_id CASE #{orderItem.quantity}
+            <trim prefix="product_locked_number = product_locked_number - CASE product_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
+                    WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
-            <trim prefix="product_number = product_number - CASE product_id">
-                <foreach collection="orderItemList" item="orderItem" separator=",">
-                    WHEN product_id CASE #{orderItem.quantity}
+            <trim prefix="product_number = product_number + CASE product_id" suffix="END,">
+                <foreach collection="orderItemList" item="orderItem">
+                    WHEN #{orderItem.product.productId} THEN #{orderItem.quantity}
                 </foreach>
             </trim>
         </trim>

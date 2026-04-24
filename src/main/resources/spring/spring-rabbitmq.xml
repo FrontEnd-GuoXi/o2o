@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/rabbit
+       http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 1. 连接工厂配置 -->
+    <rabbit:connection-factory id="connectionFactory"
+                               host="127.0.0.1" port="15672"
+            username="guest" password="guest"
+            virtual-host="/o2o_dev" requested-heartbeat="30"/>
+
+    <!-- 2. 序列化配置 (JSON格式) -->
+    <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>
+
+    <!-- 3. RabbitAdmin (自动声明交换机和队列) -->
+    <rabbit:admin connection-factory="connectionFactory"/>
+
+    <!-- 4. RabbitTemplate (用于发送消息) -->
+    <rabbit:template id="rabbitTemplate"
+                     connection-factory="connectionFactory"
+                     message-converter="jsonMessageConverter"
+                     exchange="o2o.direct.exchange"/>
+
+    <!-- ========================================== -->
+    <!-- === 业务交换机与队列 (正常流程) === -->
+    <!-- ========================================== -->
+
+    <!-- 业务交换机 -->
+    <rabbit:direct-exchange name="o2o.direct.exchange" id="businessExchange">
+        <rabbit:bindings>
+            <!-- 绑定正常队列 -->
+            <rabbit:binding queue="o2o.order.queue" key="order.create"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- 正常业务队列 (这里配置 TTL 和 死信转发) -->
+    <rabbit:queue name="o2o.order.queue" id="businessQueue">
+        <rabbit:queue-arguments>
+            <!-- 核心1：设置消息过期时间 (TTL)，单位毫秒。例如 10000ms = 10秒 (测试用)，生产环境可设为 30分钟 -->
+            <entry key="x-message-ttl" value="900000" value-type="java.lang.Long"/>
+
+            <!-- 核心2：设置死信交换机，当消息过期后，发给这个交换机 -->
+            <entry key="x-dead-letter-exchange" value="o2o.dlx.exchange"/>
+
+            <!-- 核心3：设置死信路由Key -->
+            <entry key="x-dead-letter-routing-key" value="order.timeout"/>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
+
+    <!-- ========================================== -->
+    <!-- === 死信交换机与队列 (超时处理) === -->
+    <!-- ========================================== -->
+
+    <!-- 死信交换机 -->
+    <rabbit:direct-exchange name="o2o.dlx.exchange" id="dlxExchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="o2o.order.dlx.queue" key="order.timeout"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- 死信队列 -->
+    <rabbit:queue name="o2o.order.dlx.queue" id="dlxQueue"/>
+
+    <!-- ========================================== -->
+    <!-- === 监听容器 (消费者) === -->
+    <!-- ========================================== -->
+
+    <rabbit:listener-container connection-factory="connectionFactory" message-converter="jsonMessageConverter">
+        <!-- 监听死信队列，一旦消息进入死信队列，说明订单超时了 -->
+        <rabbit:listener ref="orderTimeoutListener" queue-names="o2o.order.dlx.queue"/>
+    </rabbit:listener-container>
+
+    <!-- 注册监听器 Bean (注入你的 Service) -->
+    <bean id="orderTimeoutListener" class="com.o2o.listener.OrderTimeoutListener">
+        <property name="orderService" ref="orderService"/>
+    </bean>
+
+</beans>

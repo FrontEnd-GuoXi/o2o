@@ -6,21 +6,20 @@ import com.o2o.entity.PersonInfo;
 import com.o2o.dto.OrderDTO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface OrderService {
 
 
-    String addOrder (OrderDTO orderVO, PersonInfo userInfo);
-
-    Boolean updateOrder (Order order);
-
-    Boolean addOrderItem (OrderItem orderItem);
-
-    Boolean updateOrderItem(OrderItem orderItem);
+    String addOrder (OrderDTO orderDTO, PersonInfo userInfo);
 
     BigDecimal calcTheAmount (BigDecimal sum, BigDecimal item);
 
-    Boolean payForTheOrder (Long orderId);
+    Boolean inventoryDeduction (List<Long> orderIdList);
+
+    Boolean inventoryRelease (List<Long> orderIdList);
+
+    Boolean updateStatusOfMultipleOrder (List<Order> orderList);
 
 
 }

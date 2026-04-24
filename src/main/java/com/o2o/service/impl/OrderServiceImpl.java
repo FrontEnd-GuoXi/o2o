@@ -1,7 +1,6 @@
 package com.o2o.service.impl;
 
 import com.o2o.dao.OrderDao;
-import com.o2o.dao.ProductInfoDao;
 import com.o2o.entity.*;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.service.CartService;
@@ -10,6 +9,7 @@ import com.o2o.service.ProductInfoService;
 import com.o2o.service.ShopService;
 import com.o2o.util.Cls2Cls;
 import com.o2o.util.OrderCodeGenerator;
+import com.o2o.util.RabbitMQSender;
 import com.o2o.util.SnowflakeIdGenerator;
 import com.o2o.dto.OrderDTO;
 import com.o2o.dto.ProductItemDTO;
@@ -22,11 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-@Service
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
@@ -44,7 +42,8 @@ public class OrderServiceImpl implements OrderService {
     OrderDao orderDao;
 
     @Autowired
-    ProductInfoDao productInfoDao;
+    private RabbitMQSender rabbitMQSender;
+
 
     @Autowired
     CartService cartService;
@@ -53,6 +52,7 @@ public class OrderServiceImpl implements OrderService {
     public String addOrder (OrderDTO orderDTO, PersonInfo userInfo) {
         try {
             List<ShopItemDTO> shopList = orderDTO.getShopList();
+            List<Long> orderIdList = new ArrayList<>();
 
             BigDecimal totalPrice = shopList.stream().map(shopItemVO -> {
                 Order order = new Order();
@@ -70,13 +70,12 @@ public class OrderServiceImpl implements OrderService {
                 order.setShop(shop);
                 // 先插入主订单，因为子订单有外键关联
                 orderDao.addOrder(order);
-
+                orderIdList.add(order.getOrderId());
                 List<OrderItem> orderItemList = new ArrayList<>();
                 List<ProductItemDTO>  productItemDTOList = shopItemVO.getProductList();
                 productItemDTOList.forEach(ProductItemDTO -> {
                     OrderItem orderItem = new OrderItem();
-                    Product product = new Product();
-                    product.setProductId(ProductItemDTO.getProductId());
+                    Product product = productInfoService.getProductByProductId(ProductItemDTO.getProductId());
                     orderItem.setProduct(product);
                     orderItem.setOrder(order);
                     orderItem.setQuantity(ProductItemDTO.getQuantity());
@@ -90,7 +89,10 @@ public class OrderServiceImpl implements OrderService {
 
                 });
                 orderDao.addOrderItem(orderItemList);
-                orderDao.orderLocking(orderItemList);
+                int affectedRows = orderDao.orderLocking(orderItemList);
+                if (affectedRows != orderItemList.size()) {
+                    throw new BusinessException("库存锁定失败，可能部分商品库存不足");
+                }
                 order.setOrderItemList(orderItemList);
                 // 更新主订单的总金额
                 orderDao.updateOrder(order);
@@ -98,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
             }).map(Order::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 
             cartService.removeProductById(null, userInfo.getUserId().intValue());
-
+            rabbitMQSender.send("o2o.direct.exchange", "order.create", orderIdList);
             return totalPrice.toString();
         } catch(BusinessException e) {
             logger.warn("订单生成失败：{}", e.toString());
@@ -110,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Boolean payForTheOrder (List<Long> orderIdList) {
+    public Boolean inventoryDeduction (List<Long> orderIdList) {
         try {
             List<Order> orderList = orderDao.queryOrderByIds(orderIdList);
             orderList.forEach(order -> {
@@ -126,12 +128,53 @@ public class OrderServiceImpl implements OrderService {
         } catch (BusinessException e) {
             logger.warn("库存扣减失败：{}", e.toString());
             throw e;
+        } catch (Exception e) {
+            logger.error("库存扣减失败：{}", e.toString());
+            throw e;
         }
-
     }
 
-    public cancelPayment (Long userId) {
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean inventoryRelease (List<Long> orderIdList) {
+        try {
+            List<Order> orderList = orderDao.queryOrderByIds(orderIdList);
+            orderList.forEach(order -> {
+                List<OrderItem> orderItemList = order.getOrderItemList();
+                int orderItemListLen = orderItemList.size();
+                int affectedRow = orderDao.timeoutRelease(orderItemList);
+                if (affectedRow != orderItemListLen) {
+                    throw new BusinessException("受影响的行数为：" + affectedRow + "，实际订单项数量为：" + orderItemListLen);
+                }
+            });
 
+            return true;
+        } catch (BusinessException e) {
+            logger.warn("释放库存失败：{}", e.toString());
+            throw e;
+        } catch (Exception e) {
+            logger.error("库存扣减失败：{}", e.toString());
+            throw e;
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateStatusOfMultipleOrder (List<Order> orderList) {
+        try {
+            int len = orderList.size();
+            orderList.forEach(order -> {
+                int affectedRow = orderDao.updateOrder(order);
+                if (affectedRow != len) {
+                    throw new BusinessException("受影响的行数为：" + affectedRow + "，实际订单项数量为：" + len);
+                }
+            });
+            return true;
+        } catch (BusinessException e) {
+            logger.warn("订单更新失败：{}", e.toString());
+            throw e;
+        } catch (Exception e) {
+            logger.error("订单更新失败：{}", e.toString());
+            throw e;
+        }
     }
 
 
@@ -140,18 +183,7 @@ public class OrderServiceImpl implements OrderService {
         return sum.add(item);
     }
 
-    @Override
-    public Boolean updateOrder(Order order) {
-        return orderDao.updateOrder(order) > 0;
-    }
 
-    @Override
-    public Boolean addOrderItem(OrderItem orderItem) {
-        return orderDao.addOrderItem(orderItem) > 0;
-    }
 
-    @Override
-    public Boolean updateOrderItem(OrderItem orderItem) {
-        return orderDao.updateOrderItem(orderItem) > 0;
-    }
+
 }

@@ -12,7 +12,12 @@
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/spring-context.xml, classpath:spring/spring-dao.xml, classpath:spring/spring-service.xml</param-value>
+    <param-value>
+      classpath:spring/spring-context.xml,
+      classpath:spring/spring-dao.xml,
+      classpath:spring/spring-service.xml,
+      classpath:spring/spring-rabbitmq.xml
+    </param-value>
   </context-param>
 
   <servlet>

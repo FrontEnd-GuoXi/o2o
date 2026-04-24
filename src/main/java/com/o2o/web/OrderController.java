@@ -1,10 +1,13 @@
 package com.o2o.web;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.o2o.dto.PayOrderDTO;
 import com.o2o.dto.PersonInfoDTO;
 import com.o2o.entity.*;
 import com.o2o.security.UserContextHolder;
 import com.o2o.service.OrderService;
 import com.o2o.service.impl.OrderServiceImpl;
+import com.o2o.util.RabbitMQSender;
 import com.o2o.util.ResponseResultWrap;
 import com.o2o.dto.OrderDTO;
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +36,7 @@ public class OrderController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
 
 
 
@@ -50,14 +55,8 @@ public class OrderController {
                 return ResponseResultWrap.fail("无效或已使用的支付凭证");
             }
 
-            Boolean deleted = redisTemplate.delete("order_token:" + token);
-            if (!Boolean.TRUE.equals(deleted)) {
-                return ResponseResultWrap.fail("无效或已使用的支付凭证");
-            }
-
-
-
             String totalPrice = orderService.addOrder(orderDTO, userInfo);
+
             return ResponseResultWrap.success(totalPrice, "订单生成成功");
         } catch (Exception e) {
             logger.error(e.toString());
@@ -82,7 +81,43 @@ public class OrderController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/inventoryDeduction", method = RequestMethod.POST)
+    public ResponseResultWrap<Boolean> inventoryDeduction (@RequestBody PayOrderDTO payOrderDTO) {
+        try {
+            List<Long> ids = payOrderDTO.getOrderList();
+            String token = payOrderDTO.getToken();
+            Boolean result = orderService.inventoryDeduction(ids);
+            Boolean deleted = redisTemplate.delete("order_token:" + token);
+            if (!Boolean.TRUE.equals(deleted)) {
+                return ResponseResultWrap.fail("无效或已使用的支付凭证");
+            }
+            return ResponseResultWrap.success(result, "库存扣减成功");
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return ResponseResultWrap.fail(false, "库存扣减失败");
+        }
+    }
 
+
+
+    @ResponseBody
+    @RequestMapping(value = "/inventoryRelease", method = RequestMethod.POST)
+    public ResponseResultWrap<Boolean> inventoryRelease (@RequestBody PayOrderDTO payOrderDTO) {
+        try {
+            List<Long> ids = payOrderDTO.getOrderList();
+            String token = payOrderDTO.getToken();
+            Boolean result = orderService.inventoryRelease(ids);
+            Boolean deleted = redisTemplate.delete("order_token:" + token);
+            if (!Boolean.TRUE.equals(deleted)) {
+                return ResponseResultWrap.fail("无效或已使用的支付凭证");
+            }
+            return ResponseResultWrap.success(result, "库存释放成功");
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return ResponseResultWrap.fail(false, "库存释放失败");
+        }
+    }
 
 
 
