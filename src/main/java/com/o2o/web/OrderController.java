@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +43,7 @@ public class OrderController {
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseResultWrap<String> createOrder (@RequestBody OrderDTO orderDTO) {
+    public ResponseResultWrap<Map<String, Object>> createOrder (@RequestBody OrderDTO orderDTO) {
         try{
             PersonInfoDTO userInfoVO = UserContextHolder.getUserInfo();
             PersonInfo userInfo = new PersonInfo();
@@ -55,9 +56,9 @@ public class OrderController {
                 return ResponseResultWrap.fail("无效或已使用的支付凭证");
             }
 
-            String totalPrice = orderService.addOrder(orderDTO, userInfo);
+            Map<String, Object> result = orderService.addOrder(orderDTO, userInfo);
 
-            return ResponseResultWrap.success(totalPrice, "订单生成成功");
+            return ResponseResultWrap.success(result, "订单生成成功");
         } catch (Exception e) {
             logger.error(e.toString());
             return ResponseResultWrap.fail("订单生成失败");

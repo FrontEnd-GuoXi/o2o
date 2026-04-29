@@ -7,11 +7,12 @@ import com.o2o.dto.OrderDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
 
-    String addOrder (OrderDTO orderDTO, PersonInfo userInfo);
+    Map<String, Object> addOrder (OrderDTO orderDTO, PersonInfo userInfo);
 
     BigDecimal calcTheAmount (BigDecimal sum, BigDecimal item);
 
@@ -20,6 +21,8 @@ public interface OrderService {
     Boolean inventoryRelease (List<Long> orderIdList);
 
     Boolean updateStatusOfMultipleOrder (List<Order> orderList);
+
+    List<Order> queryOrderListByIds (List<Long> orderIdList);
 
 
 }

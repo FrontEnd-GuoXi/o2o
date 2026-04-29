@@ -35,6 +35,7 @@ CREATE TABLE `tb_product_category`
   ALTER TABLE `tb_product` ADD COLUMN `product_number` INT DEFAULT 0 NOT NULL COMMENT '商品数量';
   ALTER TABLE `tb_product` ADD COLUMN `product_locked_number` INT DEFAULT 0 NOT NULL COMMENT '锁定库存';
   ALTER TABLE `tb_product` ADD COLUMN `sales_volume` INT DEFAULT 0 NOT NULL COMMENT '售卖数量';
+  ALTER TABLE `tb_product` MODIFY `product_number` INT UNSIGNED;
 
 
 CREATE TABLE `tb_product_img`

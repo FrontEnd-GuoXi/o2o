@@ -49,10 +49,13 @@ public class OrderServiceImpl implements OrderService {
     CartService cartService;
 
     @Transactional(rollbackFor = Exception.class)
-    public String addOrder (OrderDTO orderDTO, PersonInfo userInfo) {
+    public Map<String, Object> addOrder (OrderDTO orderDTO, PersonInfo userInfo) {
         try {
             List<ShopItemDTO> shopList = orderDTO.getShopList();
             List<Long> orderIdList = new ArrayList<>();
+            Map<String, Object> result = new HashMap<>();
+            Map<String, String> shopIdMapOrderId = new HashMap<>();
+
 
             BigDecimal totalPrice = shopList.stream().map(shopItemVO -> {
                 Order order = new Order();
@@ -64,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
                 order.setCreateTime(currentDate);
                 order.setLastEditTime(currentDate);
                 order.setBuyer(userInfo);
+
+                shopIdMapOrderId.put(shopItemVO.getShopId().toString(), order.getOrderId().toString());
 
                 ShopVO shopVO = shopService.queryShopById(shopItemVO.getShopId(), userInfo.getUserId());
                 Shop shop = Cls2Cls.shopVOToShop(shopVO, new Shop());
@@ -96,12 +101,17 @@ public class OrderServiceImpl implements OrderService {
                 order.setOrderItemList(orderItemList);
                 // 更新主订单的总金额
                 orderDao.updateOrder(order);
+                List<Long> singleOrderId = new ArrayList<>();
+                singleOrderId.add(order.getOrderId());
+                rabbitMQSender.send("o2o.direct.exchange", "order.create", order.getOrderId());
                 return order;
             }).map(Order::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 
             cartService.removeProductById(null, userInfo.getUserId().intValue());
-            rabbitMQSender.send("o2o.direct.exchange", "order.create", orderIdList);
-            return totalPrice.toString();
+            result.put("shopIdMapOrderId", shopIdMapOrderId);
+            result.put("totalPrice", totalPrice.toString());
+
+            return result;
         } catch(BusinessException e) {
             logger.warn("订单生成失败：{}", e.toString());
             throw e;
@@ -114,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     public Boolean inventoryDeduction (List<Long> orderIdList) {
         try {
-            List<Order> orderList = orderDao.queryOrderByIds(orderIdList);
+            List<Order> orderList = queryOrderListByIds(orderIdList);
             orderList.forEach(order -> {
                 List<OrderItem> orderItemList = order.getOrderItemList();
                 int orderItemListLen = orderItemList.size();
@@ -137,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     public Boolean inventoryRelease (List<Long> orderIdList) {
         try {
-            List<Order> orderList = orderDao.queryOrderByIds(orderIdList);
+            List<Order> orderList = queryOrderListByIds(orderIdList);
             orderList.forEach(order -> {
                 List<OrderItem> orderItemList = order.getOrderItemList();
                 int orderItemListLen = orderItemList.size();
@@ -181,6 +191,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public BigDecimal calcTheAmount (BigDecimal sum, BigDecimal item) {
         return sum.add(item);
+    }
+
+    public List<Order> queryOrderListByIds (List<Long> orderIdList) {
+        try {
+            return orderDao.queryOrderByIds(orderIdList);
+        } catch (BusinessException e) {
+            logger.warn("订单列表查询失败：{}", e.toString());
+            throw e;
+        } catch (Exception e) {
+            logger.error("订单列表查询失败：{}", e.toString());
+            throw e;
+        }
     }
 
 

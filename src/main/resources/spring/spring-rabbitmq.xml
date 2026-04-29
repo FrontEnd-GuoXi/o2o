@@ -12,7 +12,7 @@
 
     <!-- 1. 连接工厂配置 -->
     <rabbit:connection-factory id="connectionFactory"
-                               host="127.0.0.1" port="15672"
+                               host="localhost" port="5672"
             username="guest" password="guest"
             virtual-host="/o2o_dev" requested-heartbeat="30"/>
 
@@ -41,10 +41,10 @@
     </rabbit:direct-exchange>
 
     <!-- 正常业务队列 (这里配置 TTL 和 死信转发) -->
-    <rabbit:queue name="o2o.order.queue" id="businessQueue">
+    <rabbit:queue name="o2o.order.queue" id="o2o.order.queue">
         <rabbit:queue-arguments>
             <!-- 核心1：设置消息过期时间 (TTL)，单位毫秒。例如 10000ms = 10秒 (测试用)，生产环境可设为 30分钟 -->
-            <entry key="x-message-ttl" value="900000" value-type="java.lang.Long"/>
+            <entry key="x-message-ttl" value="20000" value-type="java.lang.Long"/>
 
             <!-- 核心2：设置死信交换机，当消息过期后，发给这个交换机 -->
             <entry key="x-dead-letter-exchange" value="o2o.dlx.exchange"/>
@@ -66,7 +66,7 @@
     </rabbit:direct-exchange>
 
     <!-- 死信队列 -->
-    <rabbit:queue name="o2o.order.dlx.queue" id="dlxQueue"/>
+    <rabbit:queue name="o2o.order.dlx.queue" id="o2o.order.dlx.queue"/>
 
     <!-- ========================================== -->
     <!-- === 监听容器 (消费者) === -->
