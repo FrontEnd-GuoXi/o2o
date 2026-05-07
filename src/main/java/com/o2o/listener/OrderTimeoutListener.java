@@ -38,7 +38,7 @@ public class OrderTimeoutListener implements ChannelAwareMessageListener {
             List<Order> orderList = orderService.queryOrderListByIds(orderIdList);
             Order order = orderList.get(0);
             if (order.getOrderStatus() == 0) {
-                // 2. 执行业务逻辑 (例如：扣减库存)
+                logger.info("库存释放");
                 orderService.inventoryRelease(orderIdList);
                 order.setOrderStatus(-1);
                 orderService.updateStatusOfMultipleOrder(orderList);

@@ -145,7 +145,8 @@
     </update>
 
     <select id="queryOrderByIds" parameterType="java.util.List" resultMap="OrderMap">
-        SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o
+        SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id
+        FROM tb_order o
               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id
         WHERE o.order_id IN
               <foreach collection="orderIdList" item="orderId" open="(" close=")" separator=",">

@@ -55,6 +55,11 @@ const routes = [
     path: '/checkout/:token',
     component: () => import('@/pages/Checkout/index.vue'),
   },
+  {
+    name: 'OrderPayWait',
+    path: '/orderPayWait',
+    component: () => import('@/pages/OrderPayWait/index.vue'),
+  },
 ]
 
 const router = createRouter({

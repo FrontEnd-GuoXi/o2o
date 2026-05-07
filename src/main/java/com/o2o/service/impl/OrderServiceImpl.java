@@ -132,6 +132,11 @@ public class OrderServiceImpl implements OrderService {
                 if (affectedRow != orderItemListLen) {
                     throw new BusinessException("受影响的行数为：" + affectedRow + "，实际订单项数量为：" + orderItemListLen);
                 }
+                order.setOrderStatus(1);
+                int orderAffectedRow = orderDao.updateOrder(order);
+                if (orderAffectedRow != 1) {
+                    throw new BusinessException("更新订单状态失败，受影响的行数为" + affectedRow);
+                }
             });
 
             return true;

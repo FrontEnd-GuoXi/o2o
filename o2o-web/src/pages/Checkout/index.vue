@@ -72,7 +72,12 @@ import {
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
 import { getImageUrl } from '@/utils/image'
-import { createOrder, type OrderVO } from '@/api/order'
+import {
+  createOrder,
+  inventoryDeduction,
+  type OrderVO,
+  type PayOrderDTO
+} from '@/api/order'
 import { useCartStore } from '@/stores/cart'
 
 const router = useRouter()
@@ -95,12 +100,12 @@ onMounted(() => {
 
 // 按店铺分组
 const groupedCheckoutItems = computed(() => {
-  const groups: { [key: string]: { shopId: number, shopName: string, items: any[] } } = {}
+  const groups: { [key: string]: { shopId: string | number, shopName: string, items: any[] } } = {}
   checkoutItems.value.forEach(item => {
     const shopId = item.shopId || 'unknown'
     if (!groups[shopId]) {
       groups[shopId] = {
-        shopId: Number(shopId),
+        shopId: shopId,
         shopName: item.shopName || '其他店铺',
         items: []
       }
@@ -131,7 +136,7 @@ const onPay = async () => {
       shopList: groupedCheckoutItems.value.map(group => ({
         shopId: group.shopId,
         productList: group.items.map(item => ({
-          productId: Number(item.productId),
+          productId: item.productId,
           quantity: item.quantity
         }))
       })),
@@ -143,35 +148,66 @@ const onPay = async () => {
     loading.close()
 
     if (res.code === "200") {
-      const serverTotalPrice = res.data
+      const { totalPrice: serverTotalPrice, shopIdMapOrderId } = res.data
 
       // 3. 根据返回值渲染总价，并提示支付
-      await showDialog({
-        title: '订单创建成功',
-        message: `确认支付总计：¥${serverTotalPrice}`,
-        theme: 'round-button',
-        confirmButtonText: '立即支付',
-        cancelButtonText: '稍后支付',
-        showCancelButton: true
-      })
+      try {
+        await showDialog({
+          title: '订单创建成功',
+          message: `确认支付总计：¥${serverTotalPrice}`,
+          theme: 'round-button',
+          confirmButtonText: '立即支付',
+          cancelButtonText: '稍后支付',
+          showCancelButton: true
+        })
 
-      // 4. 模拟支付逻辑
-      showLoadingToast({
-        message: '支付中...',
-        forbidClick: true,
-      })
+        // 4. 用户点击“立即支付”
+        showLoadingToast({
+          message: '支付中...',
+          forbidClick: true,
+        })
 
-      setTimeout(() => {
-        showToast({
-          type: 'success',
-          message: '支付成功(模拟)',
-          onClose: () => {
-            // 清空购物车
-            cartStore.clearCart()
-            router.replace('/home')
+        setTimeout(async () => {
+          try {
+            // 5. 支付成功后，提取所有订单 ID 并调用库存扣减接口
+            const orderIds = Object.values(shopIdMapOrderId) as string[]
+            const payData: PayOrderDTO = {
+              orderList: orderIds,
+              token: orderToken.value
+            }
+
+            const deductRes = await inventoryDeduction(payData)
+
+            if (deductRes.code === "200") {
+              showToast({
+                type: 'success',
+                message: '支付成功，库存已扣减',
+                onClose: () => {
+                  cartStore.clearCart()
+                  router.replace('/home')
+                }
+              })
+            } else {
+              showToast(deductRes.message || '库存扣减失败')
+            }
+          } catch (err) {
+            console.error('Inventory deduction error:', err)
+            showToast('库存扣减异常，请联系客服')
+          }
+        }, 1500)
+      } catch (cancel) {
+        // 6. 用户点击“稍后支付”
+        const orderIds = Object.values(shopIdMapOrderId).join(',')
+        cartStore.clearCart() // 既然订单已生成，购物车可以清空了
+        router.push({
+          path: '/orderPayWait',
+          query: {
+            orderIds,
+            token: orderToken.value,
+            totalPrice: serverTotalPrice
           }
         })
-      }, 1500)
+      }
     } else {
       showToast(res.message || '订单创建失败')
     }

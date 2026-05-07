@@ -3,8 +3,8 @@ import { ref, computed } from 'vue'
 import { addOrUpdateProduct, getCartProductList, removeProduct } from '@/api/cart'
 
 export interface CartItem {
-  cartId?: number
-  productId: number
+  cartId?: string | number
+  productId: string | number
   productName: string
   imgAddr: string
   price: string
@@ -30,7 +30,7 @@ export const useCartStore = defineStore('cart', () => {
       if (res.data) {
         items.value = res.data.map(item => ({
           cartId: item.cartId,
-          productId: Number(item.productId),
+          productId: item.productId,
           productName: item.productName,
           imgAddr: item.imgAddr,
           price: item.promotionPrice || item.normalPrice,
@@ -89,7 +89,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // 从购物车移除商品
-  const removeFromCart = async (productId: number) => {
+  const removeFromCart = async (productId: string | number) => {
     try {
       const res = await removeProduct(productId)
       if (res.code === 0) {

@@ -43,8 +43,8 @@
     <!-- 正常业务队列 (这里配置 TTL 和 死信转发) -->
     <rabbit:queue name="o2o.order.queue" id="o2o.order.queue">
         <rabbit:queue-arguments>
-            <!-- 核心1：设置消息过期时间 (TTL)，单位毫秒。例如 10000ms = 10秒 (测试用)，生产环境可设为 30分钟 -->
-            <entry key="x-message-ttl" value="20000" value-type="java.lang.Long"/>
+            <!-- 核心1：设置消息过期时间 (TTL)，单位毫秒。30000ms = 30秒 -->
+            <entry key="x-message-ttl" value="30000" value-type="java.lang.Long"/>
 
             <!-- 核心2：设置死信交换机，当消息过期后，发给这个交换机 -->
             <entry key="x-dead-letter-exchange" value="o2o.dlx.exchange"/>
