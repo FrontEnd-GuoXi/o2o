@@ -20,3 +20,4 @@ ALTER TABLE `tb_user_identity`
 ALTER TABLE `tb_user_identity` ADD COLUMN last_edit_time datetime;
 
 ALTER TABLE `tb_user_identity` ADD UNIQUE (`identifier`);
+
