@@ -11,6 +11,7 @@ export interface CartItem {
   quantity: number
   shopId?: string
   shopName?: string
+  userId?: string | number
 }
 
 export const useCartStore = defineStore('cart', () => {
@@ -36,7 +37,8 @@ export const useCartStore = defineStore('cart', () => {
           price: item.promotionPrice || item.normalPrice,
           quantity: item.count,
           shopId: item.shopId.toString(),
-          shopName: item.shopName
+          shopName: item.shopName,
+          userId: item.ownerId
         }))
         saveToLocal()
       }
@@ -67,6 +69,7 @@ export const useCartStore = defineStore('cart', () => {
           if (shop) {
             existingItem.shopId = shop.shopId.toString()
             existingItem.shopName = shop.shopName
+            existingItem.userId = shop.ownerId
           }
         } else {
           items.value.push({
@@ -77,7 +80,8 @@ export const useCartStore = defineStore('cart', () => {
             price: product.promotionPrice || product.normalPrice,
             quantity: 1,
             shopId: shop?.shopId?.toString(),
-            shopName: shop?.shopName
+            shopName: shop?.shopName,
+            userId: shop?.ownerId
           })
         }
         saveToLocal()

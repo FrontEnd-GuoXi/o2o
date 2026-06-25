@@ -9,23 +9,26 @@ BEGIN
     DECLARE i INT DEFAULT 1;
     -- 定义临时变量，用来存放副表 tb_user_info 生成的 user_id
     DECLARE current_user_id INT;
+    -- 定义时间变量
+    DECLARE now_time DATETIME;
 
     -- 开启事务，100 条数据一眨眼就能插完
     START TRANSACTION;
 
     -- 循环 100 次，生成 100 套账号
     WHILE i <= 100 DO
+        -- 更新当前时间
+        SET now_time = NOW();
 
         -- 【步骤 A】先往副表 tb_user_info 插入详细信息
         -- 此时 tb_user_info 的 user_id 是主键（自增）
-            SET current_date = NOW();
             INSERT INTO tb_person_info (name, gender, enable_status, last_edit_time, create_time)
             VALUES (
                        CONCAT('测试用户', i),
                         '1',
                         1,
-                       current_date,
-                       current_date
+                       now_time,
+                       now_time
                    );
 
             -- 【步骤 B】精准捞出刚刚副表 tb_user_info 自动生成的自增主键 user_id
@@ -39,8 +42,8 @@ BEGIN
                        'password',
                        CONCAT('test_user_', i), -- 登录账号
                        'password123',           -- 登录密码（需匹配你后端的加密逻辑）
-                       current_date,
-                       current_date
+                       now_time,
+                       now_time
                    );
 
             -- 变量递增

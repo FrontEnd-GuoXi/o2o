@@ -8,6 +8,7 @@ export interface ProductItem {
 
 export interface ShopItem {
   shopId: number | string
+  userId?: number | string
   productList: ProductItem[]
 }
 

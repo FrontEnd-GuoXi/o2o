@@ -15,5 +15,6 @@ public class CartProductDTO {
     private String promotionPrice;
     private int shopId;
     private String shopName;
+    private Long ownerId;
 
 }

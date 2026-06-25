@@ -78,7 +78,8 @@ public class AuthServiceImpl implements AuthService {
     public String login (String identity, String credential) {
         try {
             UserIdentity userIdentity = userDao.queryUserIdentityByIdentifier(identity);
-            boolean pass = encoder.matches(credential, userIdentity.getCredential());
+            // boolean pass = encoder.matches(credential, userIdentity.getCredential());
+            boolean pass = credential.equals(userIdentity.getCredential());
             String token;
             if (pass) {
                 token = jwtService.genToken(userIdentity.getUserId());

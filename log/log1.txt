@@ -1,0 +1,579 @@
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@66dbda88] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f25d69b] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@65bb0e16] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@624e8d87] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@304815d7] was not registered for synchronization because synchronization is not active
+logback---- 2026-06-24 11:22:06.676 [http-apr-8080-exec-4] INFO  c.m.v.c.i.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 2, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 10000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeps1bi1wpjsjq1mmfouf|402a986f, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.cj.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeps1bi1wpjsjq1mmfouf|402a986f, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/o2o?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 30, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 10, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {password=******, user=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+logback---- 2026-06-24 11:22:06.710 [http-apr-8080-exec-4] WARN  c.m.v2.resourcepool.BasicResourcePool - Bad pool size config, start 3 < min 10. Using 10 as start.
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@230df4cc [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will not be managed by Spring
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1182519e [wrapping: com.mysql.cj.jdbc.ConnectionImpl@a936667]] will not be managed by Spring
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@68158191 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@72c18b4]] will not be managed by Spring
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@5ba17cae [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will not be managed by Spring
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@1994a188 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will not be managed by Spring
+==>  Preparing: SELECT id, user_id, identity_type, identifier, credential, create_time, last_edit_time FROM tb_user_identity WHERE identifier = ? 
+==>  Preparing: SELECT id, user_id, identity_type, identifier, credential, create_time, last_edit_time FROM tb_user_identity WHERE identifier = ? 
+==>  Preparing: SELECT id, user_id, identity_type, identifier, credential, create_time, last_edit_time FROM tb_user_identity WHERE identifier = ? 
+==>  Preparing: SELECT id, user_id, identity_type, identifier, credential, create_time, last_edit_time FROM tb_user_identity WHERE identifier = ? 
+==>  Preparing: SELECT id, user_id, identity_type, identifier, credential, create_time, last_edit_time FROM tb_user_identity WHERE identifier = ? 
+==> Parameters: test_user_5(String)
+==> Parameters: test_user_2(String)
+==> Parameters: test_user_3(String)
+==> Parameters: test_user_1(String)
+==> Parameters: test_user_4(String)
+<==    Columns: id, user_id, identity_type, identifier, credential, create_time, last_edit_time
+<==    Columns: id, user_id, identity_type, identifier, credential, create_time, last_edit_time
+<==    Columns: id, user_id, identity_type, identifier, credential, create_time, last_edit_time
+<==    Columns: id, user_id, identity_type, identifier, credential, create_time, last_edit_time
+<==    Columns: id, user_id, identity_type, identifier, credential, create_time, last_edit_time
+<==        Row: 5, 6, password, test_user_1, password123, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==        Row: 9, 10, password, test_user_5, password123, 2026-06-22 11:18:21, 2026-06-22 11:18:21
+<==        Row: 7, 8, password, test_user_3, password123, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==        Row: 6, 7, password, test_user_2, password123, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==        Row: 8, 9, password, test_user_4, password123, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+<==      Total: 1
+<==      Total: 1
+<==      Total: 1
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@304815d7]
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f25d69b]
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@66dbda88]
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@65bb0e16]
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@624e8d87]
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5fda27f6] was not registered for synchronization because synchronization is not active
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7d886ed1] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@65e709c9 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7022b7cf [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 6(Integer)
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@88713cb] was not registered for synchronization because synchronization is not active
+==> Parameters: 8(Integer)
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@12136fdc [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 10(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 6, 测试用户1, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==        Row: 10, 测试用户5, null, 1, 1, 1, 2026-06-22 11:18:21, 2026-06-22 11:18:21
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@88713cb]
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5fda27f6]
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4ea987b] was not registered for synchronization because synchronization is not active
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6332f5b0] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7cc4bf7b [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 9(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 8, 测试用户3, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==        Row: 9, 测试用户4, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@76faa4a3 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 7(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6332f5b0]
+<==        Row: 7, 测试用户2, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4ea987b]
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7d886ed1]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@51aae701] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7805f954 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 10(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f409a4f] was not registered for synchronization because synchronization is not active
+<==        Row: 10, 测试用户5, null, 1, 1, 1, 2026-06-22 11:18:21, 2026-06-22 11:18:21
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@9aa31dc [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 6(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 6, 测试用户1, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c871d7f] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@23f5263b [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 9(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 9, 测试用户4, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2c871d7f]
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@51aae701]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@42fb1d1b] was not registered for synchronization because synchronization is not active
+Creating a new SqlSession
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6f409a4f]
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@65ce319f] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@553cabf4 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 7(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 7, 测试用户2, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@65ce319f]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@4ca64a5d [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 8(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 8, 测试用户3, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@42fb1d1b]
+Creating a new SqlSession
+Creating a new SqlSession
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@19430e3a [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will be managed by Spring
+==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, a.priority, a.create_time, a.last_edit_time, p.user_id, p.name, p.profile_img, p.gender, p.enable_status, p.user_type, p.create_time, p.last_edit_time, sc.shop_category_id, sc.shop_category_name, sc.shop_category_img, sc.priority, sc.create_time, sc.last_edit_time, sc.parent_id FROM tb_shop s LEFT JOIN tb_area a ON s.area_id = a.area_id LEFT JOIN tb_person_info p ON s.owner_id = p.user_id LEFT JOIN tb_shop_category sc ON s.shop_category_id = sc.shop_category_id WHERE s.shop_id = ? AND s.owner_id = ? 
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7c8a311a [wrapping: com.mysql.cj.jdbc.ConnectionImpl@a936667]] will be managed by Spring
+==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, a.priority, a.create_time, a.last_edit_time, p.user_id, p.name, p.profile_img, p.gender, p.enable_status, p.user_type, p.create_time, p.last_edit_time, sc.shop_category_id, sc.shop_category_name, sc.shop_category_img, sc.priority, sc.create_time, sc.last_edit_time, sc.parent_id FROM tb_shop s LEFT JOIN tb_area a ON s.area_id = a.area_id LEFT JOIN tb_person_info p ON s.owner_id = p.user_id LEFT JOIN tb_shop_category sc ON s.shop_category_id = sc.shop_category_id WHERE s.shop_id = ? AND s.owner_id = ? 
+==> Parameters: 1(Long), 1(Long)
+==> Parameters: 1(Long), 1(Long)
+<==    Columns: shop_id, shop_name, shop_desc, shop_addr, phone, shop_img, priority, create_time, last_edit_time, enable_status, advice, area_id, area_name, priority, create_time, last_edit_time, user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time, shop_category_id, shop_category_name, shop_category_img, priority, create_time, last_edit_time, parent_id
+<==        Row: 1, Wow Food House, Delicious home-style dishes and special snacks, 123 Chaoyang Road, Chaoyang District, Beijing, 13800138001, /images/wow_food_shop.jpg, 1, 2026-03-25 17:56:00, 2026-03-25 17:56:00, 1, Welcome to try, 1, Beijing Chaoyang District, 1, 2026-03-20, 2026-03-20, 1, Wow, null, 男, 0, 2, 2026-03-25 09:46:06, 2026-03-25 09:46:06, 4, Chinese Food, /images/chinese_food.jpg, 1, 2026-03-25 17:55:00, 2026-03-25 17:55:00, 1
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7bfca1df [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will be managed by Spring
+==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, a.priority, a.create_time, a.last_edit_time, p.user_id, p.name, p.profile_img, p.gender, p.enable_status, p.user_type, p.create_time, p.last_edit_time, sc.shop_category_id, sc.shop_category_name, sc.shop_category_img, sc.priority, sc.create_time, sc.last_edit_time, sc.parent_id FROM tb_shop s LEFT JOIN tb_area a ON s.area_id = a.area_id LEFT JOIN tb_person_info p ON s.owner_id = p.user_id LEFT JOIN tb_shop_category sc ON s.shop_category_id = sc.shop_category_id WHERE s.shop_id = ? AND s.owner_id = ? 
+==> Parameters: 1(Long), 1(Long)
+<==    Columns: shop_id, shop_name, shop_desc, shop_addr, phone, shop_img, priority, create_time, last_edit_time, enable_status, advice, area_id, area_name, priority, create_time, last_edit_time, user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time, shop_category_id, shop_category_name, shop_category_img, priority, create_time, last_edit_time, parent_id
+<==        Row: 1, Wow Food House, Delicious home-style dishes and special snacks, 123 Chaoyang Road, Chaoyang District, Beijing, 13800138001, /images/wow_food_shop.jpg, 1, 2026-03-25 17:56:00, 2026-03-25 17:56:00, 1, Welcome to try, 1, Beijing Chaoyang District, 1, 2026-03-20, 2026-03-20, 1, Wow, null, 男, 0, 2, 2026-03-25 09:46:06, 2026-03-25 09:46:06, 4, Chinese Food, /images/chinese_food.jpg, 1, 2026-03-25 17:55:00, 2026-03-25 17:55:00, 1
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@585dc186 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will be managed by Spring
+==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, a.priority, a.create_time, a.last_edit_time, p.user_id, p.name, p.profile_img, p.gender, p.enable_status, p.user_type, p.create_time, p.last_edit_time, sc.shop_category_id, sc.shop_category_name, sc.shop_category_img, sc.priority, sc.create_time, sc.last_edit_time, sc.parent_id FROM tb_shop s LEFT JOIN tb_area a ON s.area_id = a.area_id LEFT JOIN tb_person_info p ON s.owner_id = p.user_id LEFT JOIN tb_shop_category sc ON s.shop_category_id = sc.shop_category_id WHERE s.shop_id = ? AND s.owner_id = ? 
+==> Parameters: 1(Long), 1(Long)
+<==    Columns: shop_id, shop_name, shop_desc, shop_addr, phone, shop_img, priority, create_time, last_edit_time, enable_status, advice, area_id, area_name, priority, create_time, last_edit_time, user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time, shop_category_id, shop_category_name, shop_category_img, priority, create_time, last_edit_time, parent_id
+<==        Row: 1, Wow Food House, Delicious home-style dishes and special snacks, 123 Chaoyang Road, Chaoyang District, Beijing, 13800138001, /images/wow_food_shop.jpg, 1, 2026-03-25 17:56:00, 2026-03-25 17:56:00, 1, Welcome to try, 1, Beijing Chaoyang District, 1, 2026-03-20, 2026-03-20, 1, Wow, null, 男, 0, 2, 2026-03-25 09:46:06, 2026-03-25 09:46:06, 4, Chinese Food, /images/chinese_food.jpg, 1, 2026-03-25 17:55:00, 2026-03-25 17:55:00, 1
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@143af002 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@72c18b4]] will be managed by Spring
+==>  Preparing: SELECT s.shop_id, s.shop_name, s.shop_desc, s.shop_addr, s.phone, s.shop_img, s.priority, s.create_time, s.last_edit_time, s.enable_status, s.advice, a.area_id, a.area_name, a.priority, a.create_time, a.last_edit_time, p.user_id, p.name, p.profile_img, p.gender, p.enable_status, p.user_type, p.create_time, p.last_edit_time, sc.shop_category_id, sc.shop_category_name, sc.shop_category_img, sc.priority, sc.create_time, sc.last_edit_time, sc.parent_id FROM tb_shop s LEFT JOIN tb_area a ON s.area_id = a.area_id LEFT JOIN tb_person_info p ON s.owner_id = p.user_id LEFT JOIN tb_shop_category sc ON s.shop_category_id = sc.shop_category_id WHERE s.shop_id = ? AND s.owner_id = ? 
+==> Parameters: 1(Long), 1(Long)
+<==    Columns: shop_id, shop_name, shop_desc, shop_addr, phone, shop_img, priority, create_time, last_edit_time, enable_status, advice, area_id, area_name, priority, create_time, last_edit_time, user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time, shop_category_id, shop_category_name, shop_category_img, priority, create_time, last_edit_time, parent_id
+<==        Row: 1, Wow Food House, Delicious home-style dishes and special snacks, 123 Chaoyang Road, Chaoyang District, Beijing, 13800138001, /images/wow_food_shop.jpg, 1, 2026-03-25 17:56:00, 2026-03-25 17:56:00, 1, Welcome to try, 1, Beijing Chaoyang District, 1, 2026-03-20, 2026-03-20, 1, Wow, null, 男, 0, 2, 2026-03-25 09:46:06, 2026-03-25 09:46:06, 4, Chinese Food, /images/chinese_food.jpg, 1, 2026-03-25 17:55:00, 2026-03-25 17:55:00, 1
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee] from current transaction
+==>  Preparing: INSERT INTO tb_order (order_id, buyer_id, shop_id, order_no, total_price, order_status, create_time, last_edit_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251] from current transaction
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e] from current transaction
+==>  Preparing: INSERT INTO tb_order (order_id, buyer_id, shop_id, order_no, total_price, order_status, create_time, last_edit_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+==>  Preparing: INSERT INTO tb_order (order_id, buyer_id, shop_id, order_no, total_price, order_status, create_time, last_edit_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+<==    Columns: shop_id, shop_name, shop_desc, shop_addr, phone, shop_img, priority, create_time, last_edit_time, enable_status, advice, area_id, area_name, priority, create_time, last_edit_time, user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time, shop_category_id, shop_category_name, shop_category_img, priority, create_time, last_edit_time, parent_id
+<==        Row: 1, Wow Food House, Delicious home-style dishes and special snacks, 123 Chaoyang Road, Chaoyang District, Beijing, 13800138001, /images/wow_food_shop.jpg, 1, 2026-03-25 17:56:00, 2026-03-25 17:56:00, 1, Welcome to try, 1, Beijing Chaoyang District, 1, 2026-03-20, 2026-03-20, 1, Wow, null, 男, 0, 2, 2026-03-25 09:46:06, 2026-03-25 09:46:06, 4, Chinese Food, /images/chinese_food.jpg, 1, 2026-03-25 17:55:00, 2026-03-25 17:55:00, 1
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a] from current transaction
+==>  Preparing: INSERT INTO tb_order (order_id, buyer_id, shop_id, order_no, total_price, order_status, create_time, last_edit_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+==> Parameters: 857460559002472449(Long), 8(Long), 1(Long), 202606241122080008559(String), 0(BigDecimal), 0(Integer), 2026-06-24 11:22:08.116(Timestamp), 2026-06-24 11:22:08.116(Timestamp)
+==> Parameters: 857460559002472448(Long), 7(Long), 1(Long), 202606241122080007759(String), 0(BigDecimal), 0(Integer), 2026-06-24 11:22:08.116(Timestamp), 2026-06-24 11:22:08.116(Timestamp)
+==> Parameters: 857460559006666753(Long), 9(Long), 1(Long), 202606241122080009243(String), 0(BigDecimal), 0(Integer), 2026-06-24 11:22:08.116(Timestamp), 2026-06-24 11:22:08.116(Timestamp)
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5] from current transaction
+==>  Preparing: INSERT INTO tb_order (order_id, buyer_id, shop_id, order_no, total_price, order_status, create_time, last_edit_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+==> Parameters: 857460559006666752(Long), 10(Long), 1(Long), 202606241122080010162(String), 0(BigDecimal), 0(Integer), 2026-06-24 11:22:08.121(Timestamp), 2026-06-24 11:22:08.121(Timestamp)
+==> Parameters: 857460558985695232(Long), 6(Long), 1(Long), 202606241122080006142(String), 0(BigDecimal), 0(Integer), 2026-06-24 11:22:08.116(Timestamp), 2026-06-24 11:22:08.116(Timestamp)
+<==    Updates: 1
+<==    Updates: 1
+<==    Updates: 1
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a] from current transaction
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e] from current transaction
+==>  Preparing: SELECT p.product_id, p.product_name, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_number, pc.product_category_id, pc.product_category_name, pc.priority, pc.create_time, pc.shop_id, ts.shop_id, ts.shop_name, tpi.product_img_id, tpi.img_addr, tpi.img_desc, tpi.priority, tpi.create_time, tpi.product_id FROM tb_product p LEFT JOIN tb_product_category pc ON p.product_category_id = pc.product_category_id LEFT JOIN tb_shop ts ON p.shop_id = ts.shop_id LEFT JOIN tb_product_img tpi on p.product_id = tpi.product_id WHERE p.product_id = ? 
+==>  Preparing: SELECT p.product_id, p.product_name, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_number, pc.product_category_id, pc.product_category_name, pc.priority, pc.create_time, pc.shop_id, ts.shop_id, ts.shop_name, tpi.product_img_id, tpi.img_addr, tpi.img_desc, tpi.priority, tpi.create_time, tpi.product_id FROM tb_product p LEFT JOIN tb_product_category pc ON p.product_category_id = pc.product_category_id LEFT JOIN tb_shop ts ON p.shop_id = ts.shop_id LEFT JOIN tb_product_img tpi on p.product_id = tpi.product_id WHERE p.product_id = ? 
+==> Parameters: 2(Long)
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5] from current transaction
+==>  Preparing: SELECT p.product_id, p.product_name, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_number, pc.product_category_id, pc.product_category_name, pc.priority, pc.create_time, pc.shop_id, ts.shop_id, ts.shop_name, tpi.product_img_id, tpi.img_addr, tpi.img_desc, tpi.priority, tpi.create_time, tpi.product_id FROM tb_product p LEFT JOIN tb_product_category pc ON p.product_category_id = pc.product_category_id LEFT JOIN tb_shop ts ON p.shop_id = ts.shop_id LEFT JOIN tb_product_img tpi on p.product_id = tpi.product_id WHERE p.product_id = ? 
+==> Parameters: 2(Long)
+==> Parameters: 2(Long)
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee] from current transaction
+==>  Preparing: SELECT p.product_id, p.product_name, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_number, pc.product_category_id, pc.product_category_name, pc.priority, pc.create_time, pc.shop_id, ts.shop_id, ts.shop_name, tpi.product_img_id, tpi.img_addr, tpi.img_desc, tpi.priority, tpi.create_time, tpi.product_id FROM tb_product p LEFT JOIN tb_product_category pc ON p.product_category_id = pc.product_category_id LEFT JOIN tb_shop ts ON p.shop_id = ts.shop_id LEFT JOIN tb_product_img tpi on p.product_id = tpi.product_id WHERE p.product_id = ? 
+==> Parameters: 2(Long)
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251] from current transaction
+==>  Preparing: SELECT p.product_id, p.product_name, p.img_addr, p.normal_price, p.promotion_price, p.priority, p.create_time, p.last_edit_time, p.enable_status, p.product_number, pc.product_category_id, pc.product_category_name, pc.priority, pc.create_time, pc.shop_id, ts.shop_id, ts.shop_name, tpi.product_img_id, tpi.img_addr, tpi.img_desc, tpi.priority, tpi.create_time, tpi.product_id FROM tb_product p LEFT JOIN tb_product_category pc ON p.product_category_id = pc.product_category_id LEFT JOIN tb_shop ts ON p.shop_id = ts.shop_id LEFT JOIN tb_product_img tpi on p.product_id = tpi.product_id WHERE p.product_id = ? 
+==> Parameters: 2(Long)
+<==    Columns: product_id, product_name, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, product_number, product_category_id, product_category_name, priority, create_time, shop_id, shop_id, shop_name, product_img_id, img_addr, img_desc, priority, create_time, product_id
+<==    Columns: product_id, product_name, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, product_number, product_category_id, product_category_name, priority, create_time, shop_id, shop_id, shop_name, product_img_id, img_addr, img_desc, priority, create_time, product_id
+<==        Row: 2, Mapo Tofu, /images/ma_po_tofu.jpg, 28.00, 25.00, 2, 2026-03-25 17:58:00, 2026-04-13 03:05:17, 1, 996, 1, Hot Dishes, 1, 2026-03-25 17:57:00, 1, 1, Wow Food House, null, null, null, null, null, null
+<==    Columns: product_id, product_name, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, product_number, product_category_id, product_category_name, priority, create_time, shop_id, shop_id, shop_name, product_img_id, img_addr, img_desc, priority, create_time, product_id
+<==        Row: 2, Mapo Tofu, /images/ma_po_tofu.jpg, 28.00, 25.00, 2, 2026-03-25 17:58:00, 2026-04-13 03:05:17, 1, 996, 1, Hot Dishes, 1, 2026-03-25 17:57:00, 1, 1, Wow Food House, null, null, null, null, null, null
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee] from current transaction
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5] from current transaction
+<==        Row: 2, Mapo Tofu, /images/ma_po_tofu.jpg, 28.00, 25.00, 2, 2026-03-25 17:58:00, 2026-04-13 03:05:17, 1, 996, 1, Hot Dishes, 1, 2026-03-25 17:57:00, 1, 1, Wow Food House, null, null, null, null, null, null
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a] from current transaction
+<==    Columns: product_id, product_name, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, product_number, product_category_id, product_category_name, priority, create_time, shop_id, shop_id, shop_name, product_img_id, img_addr, img_desc, priority, create_time, product_id
+<==        Row: 2, Mapo Tofu, /images/ma_po_tofu.jpg, 28.00, 25.00, 2, 2026-03-25 17:58:00, 2026-04-13 03:05:17, 1, 996, 1, Hot Dishes, 1, 2026-03-25 17:57:00, 1, 1, Wow Food House, null, null, null, null, null, null
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251] from current transaction
+<==    Columns: product_id, product_name, img_addr, normal_price, promotion_price, priority, create_time, last_edit_time, enable_status, product_number, product_category_id, product_category_name, priority, create_time, shop_id, shop_id, shop_name, product_img_id, img_addr, img_desc, priority, create_time, product_id
+<==        Row: 2, Mapo Tofu, /images/ma_po_tofu.jpg, 28.00, 25.00, 2, 2026-03-25 17:58:00, 2026-04-13 03:05:17, 1, 996, 1, Hot Dishes, 1, 2026-03-25 17:57:00, 1, 1, Wow Food House, null, null, null, null, null, null
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e] from current transaction
+==>  Preparing: INSERT INTO tb_order_item (order_id, product_id, product_name, unit_price, quantity, total_price, create_time) VALUES (?, ?, ?, ?, ?, ?, ?) 
+==>  Preparing: INSERT INTO tb_order_item (order_id, product_id, product_name, unit_price, quantity, total_price, create_time) VALUES (?, ?, ?, ?, ?, ?, ?) 
+==>  Preparing: INSERT INTO tb_order_item (order_id, product_id, product_name, unit_price, quantity, total_price, create_time) VALUES (?, ?, ?, ?, ?, ?, ?) 
+==>  Preparing: INSERT INTO tb_order_item (order_id, product_id, product_name, unit_price, quantity, total_price, create_time) VALUES (?, ?, ?, ?, ?, ?, ?) 
+==> Parameters: 857460559002472448(Long), 2(Long), Mapo Tofu(String), 25.00(BigDecimal), 1(Integer), 25.00(BigDecimal), 2026-06-24 11:22:08.297(Timestamp)
+==> Parameters: 857460559002472449(Long), 2(Long), Mapo Tofu(String), 25.00(BigDecimal), 1(Integer), 25.00(BigDecimal), 2026-06-24 11:22:08.3(Timestamp)
+==>  Preparing: INSERT INTO tb_order_item (order_id, product_id, product_name, unit_price, quantity, total_price, create_time) VALUES (?, ?, ?, ?, ?, ?, ?) 
+==> Parameters: 857460558985695232(Long), 2(Long), Mapo Tofu(String), 25.00(BigDecimal), 1(Integer), 25.00(BigDecimal), 2026-06-24 11:22:08.311(Timestamp)
+==> Parameters: 857460559006666753(Long), 2(Long), Mapo Tofu(String), 25.00(BigDecimal), 1(Integer), 25.00(BigDecimal), 2026-06-24 11:22:08.305(Timestamp)
+==> Parameters: 857460559006666752(Long), 2(Long), Mapo Tofu(String), 25.00(BigDecimal), 1(Integer), 25.00(BigDecimal), 2026-06-24 11:22:08.3(Timestamp)
+<==    Updates: 1
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5] from current transaction
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251] from current transaction
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee] from current transaction
+==>  Preparing: UPDATE tb_product SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END, product_number = product_number - CASE product_id WHEN ? THEN ? END WHERE product_id IN ( ? ) 
+==> Parameters: 2(Long), 1(Integer), 2(Long), 1(Integer), 2(Long)
+==>  Preparing: UPDATE tb_product SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END, product_number = product_number - CASE product_id WHEN ? THEN ? END WHERE product_id IN ( ? ) 
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a] from current transaction
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e] from current transaction
+==>  Preparing: UPDATE tb_product SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END, product_number = product_number - CASE product_id WHEN ? THEN ? END WHERE product_id IN ( ? ) 
+==> Parameters: 2(Long), 1(Integer), 2(Long), 1(Integer), 2(Long)
+==>  Preparing: UPDATE tb_product SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END, product_number = product_number - CASE product_id WHEN ? THEN ? END WHERE product_id IN ( ? ) 
+==> Parameters: 2(Long), 1(Integer), 2(Long), 1(Integer), 2(Long)
+==>  Preparing: UPDATE tb_product SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END, product_number = product_number - CASE product_id WHEN ? THEN ? END WHERE product_id IN ( ? ) 
+==> Parameters: 2(Long), 1(Integer), 2(Long), 1(Integer), 2(Long)
+==> Parameters: 2(Long), 1(Integer), 2(Long), 1(Integer), 2(Long)
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e] from current transaction
+==>  Preparing: UPDATE tb_order SET total_price = ?, order_status = ?, last_edit_time = ? WHERE order_id = ? 
+==> Parameters: 25.00(BigDecimal), 0(Integer), 2026-06-24 11:22:08.116(Timestamp), 857460558985695232(Long)
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e] from current transaction
+==>  Preparing: DELETE FROM tb_cart WHERE user_id = ? AND ( product_id = ? OR ? IS NULL) 
+==> Parameters: 6(Integer), null, null
+<==    Updates: 0
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@63e4331e]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+logback---- 2026-06-24 11:22:08.577 [http-apr-8080-exec-2] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@150c08ee]
+logback---- 2026-06-24 11:22:08.582 [http-apr-8080-exec-2] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+logback---- 2026-06-24 11:22:08.582 [http-apr-8080-exec-5] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@465fa251]
+logback---- 2026-06-24 11:22:08.582 [http-apr-8080-exec-5] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+logback---- 2026-06-24 11:22:08.611 [http-apr-8080-exec-7] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@76cfa6f5]
+logback---- 2026-06-24 11:22:08.611 [http-apr-8080-exec-7] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+logback---- 2026-06-24 11:22:08.616 [http-apr-8080-exec-4] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5363d85a]
+logback---- 2026-06-24 11:22:08.621 [http-apr-8080-exec-4] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.dao.DeadlockLoserDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.orderLocking-Inline
+### The error occurred while setting parameters
+### SQL: UPDATE tb_product          SET product_locked_number = product_locked_number + CASE product_id WHEN ? THEN ? END,             product_number = product_number - CASE product_id WHEN ? THEN ? END          WHERE product_id IN                (                     ?                )
+### Cause: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+; Deadlock found when trying to get lock; try restarting transaction; nested exception is com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6e69488d] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@4b156139 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 6(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 6, 测试用户1, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@54e6f94a] was not registered for synchronization because synchronization is not active
+<==      Total: 1
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@540f0355 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@72c18b4]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6e69488d]
+==> Parameters: 10(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 10, 测试用户5, null, 1, 1, 1, 2026-06-22 11:18:21, 2026-06-22 11:18:21
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@54e6f94a]
+Creating a new SqlSession
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7450c41a]
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4fb90289] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@342b744a [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will be managed by Spring
+==>  Preparing: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o LEFT JOIN tb_order_item oi on o.order_id = oi.order_id WHERE o.order_id IN 
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@4eb69268 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will be managed by Spring
+==>  Preparing: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o LEFT JOIN tb_order_item oi on o.order_id = oi.order_id WHERE o.order_id IN ( ? ) 
+==> Parameters: 
+==> Parameters: 857460558985695232(Long)
+<==    Columns: order_id, order_status, order_item_id, quantity, product_id
+<==        Row: 857460558985695232, 0, 115, 1, 2
+<==      Total: 1
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@40c4c7be [wrapping: com.mysql.cj.jdbc.ConnectionImpl@a936667]] will not be managed by Spring
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@66ad952e] was not registered for synchronization because synchronization is not active
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e] from current transaction
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@25de7be3 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@1ec88eea]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 7(Integer)
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7135d10c] was not registered for synchronization because synchronization is not active
+==> Parameters: 9(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7450c41a]
+==>  Preparing: UPDATE tb_product SET product_locked_number = product_locked_number - CASE product_id WHEN ? THEN ? END, sales_volume = sales_volume + CASE product_id WHEN ? THEN ? END WHERE product_id IN ( ? ) 
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@309f90f1 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@72c18b4]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 8(Integer)
+logback---- 2026-06-24 11:22:09.573 [http-apr-8080-exec-9] ERROR com.o2o.service.impl.OrderServiceImpl - 订单列表查询失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+==> Parameters: 2(Long), 1(Integer), 2(Long), 1(Integer), 2(Long)
+logback---- 2026-06-24 11:22:09.573 [http-apr-8080-exec-9] ERROR com.o2o.service.impl.OrderServiceImpl - 库存扣减失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7450c41a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7450c41a]
+<==        Row: 7, 测试用户2, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@66ad952e]
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 8, 测试用户3, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7135d10c]
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+logback---- 2026-06-24 11:22:09.576 [http-apr-8080-exec-9] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+<==        Row: 9, 测试用户4, null, 1, 1, 1, 2026-06-22 11:18:20, 2026-06-22 11:18:20
+<==      Total: 1
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e] from current transaction
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@203b0b31]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@445a9390]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@5f713203 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@4d95f0e8]] will be managed by Spring
+==>  Preparing: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o LEFT JOIN tb_order_item oi on o.order_id = oi.order_id WHERE o.order_id IN 
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4fb90289]
+==> Parameters: 
+==>  Preparing: UPDATE tb_order SET order_status = ? WHERE order_id = ? 
+==> Parameters: 1(Integer), 857460558985695232(Long)
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@5ab13cf [wrapping: com.mysql.cj.jdbc.ConnectionImpl@e21ab2]] will be managed by Spring
+==>  Preparing: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o LEFT JOIN tb_order_item oi on o.order_id = oi.order_id WHERE o.order_id IN 
+==> Parameters: 
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1959706a]
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7298bcd4 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@1ec88eea]] will be managed by Spring
+==>  Preparing: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o LEFT JOIN tb_order_item oi on o.order_id = oi.order_id WHERE o.order_id IN 
+==> Parameters: 
+<==    Updates: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@203b0b31]
+logback---- 2026-06-24 11:22:09.585 [http-apr-8080-exec-10] ERROR com.o2o.service.impl.OrderServiceImpl - 订单列表查询失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1959706a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@40d82d6e]
+logback---- 2026-06-24 11:22:09.595 [http-apr-8080-exec-10] ERROR com.o2o.service.impl.OrderServiceImpl - 库存扣减失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+logback---- 2026-06-24 11:22:09.595 [http-apr-8080-exec-8] ERROR com.o2o.service.impl.OrderServiceImpl - 订单列表查询失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+logback---- 2026-06-24 11:22:09.595 [http-apr-8080-exec-8] ERROR com.o2o.service.impl.OrderServiceImpl - 库存扣减失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@445a9390]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@203b0b31]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@203b0b31]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1959706a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1959706a]
+logback---- 2026-06-24 11:22:09.599 [http-apr-8080-exec-6] ERROR com.o2o.service.impl.OrderServiceImpl - 订单列表查询失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+logback---- 2026-06-24 11:22:09.603 [http-apr-8080-exec-6] ERROR com.o2o.service.impl.OrderServiceImpl - 库存扣减失败：org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@445a9390]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@445a9390]
+logback---- 2026-06-24 11:22:09.604 [http-apr-8080-exec-8] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+logback---- 2026-06-24 11:22:09.604 [http-apr-8080-exec-10] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+logback---- 2026-06-24 11:22:09.604 [http-apr-8080-exec-6] ERROR com.o2o.service.impl.OrderServiceImpl - org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+### The error may exist in file [D:\software\tomcat\apache-tomcat-8.0.50\webapps\ROOT\WEB-INF\classes\mapper\OrderDaoMapper.xml]
+### The error may involve com.o2o.dao.OrderDao.queryOrderByIds-Inline
+### The error occurred while setting parameters
+### SQL: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id         FROM tb_order o               LEFT JOIN tb_order_item oi on o.order_id = oi.order_id         WHERE o.order_id IN
+### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@9ecb96b] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@7760c1b [wrapping: com.mysql.cj.jdbc.ConnectionImpl@59cddffa]] will not be managed by Spring
+==>  Preparing: SELECT o.order_id, o.order_status, oi.order_item_id, oi.quantity, oi.product_id FROM tb_order o LEFT JOIN tb_order_item oi on o.order_id = oi.order_id WHERE o.order_id IN ( ? ) 
+==> Parameters: 857460558985695232(Long)
+<==    Columns: order_id, order_status, order_item_id, quantity, product_id
+<==        Row: 857460558985695232, 1, 115, 1, 2
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@9ecb96b]
+logback---- 2026-06-24 11:22:28.431 [AMQP Connection 0:0:0:0:0:0:0:1:5672] ERROR o.s.a.r.c.CachingConnectionFactory - Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=406, reply-text=PRECONDITION_FAILED - unknown delivery tag 1, class-id=60, method-id=80)
+logback---- 2026-06-24 11:22:29.433 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-1] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@72b173b3: tags=[[amq.ctag-N8SGQ-Z6ccx2rG4Gd9g6Ig]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@0:0:0:0:0:0:0:1:5672//o2o_dev,1), conn: Proxy@38ce865a Shared Rabbit Connection: SimpleConnection@4baf80e3 [delegate=amqp://guest@0:0:0:0:0:0:0:1:5672//o2o_dev, localPort= 51837], acknowledgeMode=AUTO local queue size=0

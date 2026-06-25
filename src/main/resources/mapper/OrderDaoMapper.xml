@@ -153,4 +153,14 @@
                   #{orderId}
               </foreach>
     </select>
+
+    <select id="selectProductsForUpdate" resultType="java.lang.Integer">
+        SELECT product_id FROM tb_product
+        WHERE product_id IN
+        <foreach collection="productIdList" item="productId" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+        ORDER BY product_id
+        FOR UPDATE
+    </select>
 </mapper>

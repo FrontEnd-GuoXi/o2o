@@ -100,13 +100,14 @@ onMounted(() => {
 
 // 按店铺分组
 const groupedCheckoutItems = computed(() => {
-  const groups: { [key: string]: { shopId: string | number, shopName: string, items: any[] } } = {}
+  const groups: { [key: string]: { shopId: string | number, shopName: string, userId: string | number, items: any[] } } = {}
   checkoutItems.value.forEach(item => {
     const shopId = item.shopId || 'unknown'
     if (!groups[shopId]) {
       groups[shopId] = {
         shopId: shopId,
         shopName: item.shopName || '其他店铺',
+        userId: item.userId,
         items: []
       }
     }
@@ -135,6 +136,7 @@ const onPay = async () => {
     const orderVO: OrderVO = {
       shopList: groupedCheckoutItems.value.map(group => ({
         shopId: group.shopId,
+        userId: group.userId,
         productList: group.items.map(item => ({
           productId: item.productId,
           quantity: item.quantity

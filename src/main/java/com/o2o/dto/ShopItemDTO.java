@@ -9,6 +9,8 @@ public class ShopItemDTO {
 
     private Long shopId;
 
+    private Long userId;
+
     private List<ProductItemDTO> productList;
 
 }

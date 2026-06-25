@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
@@ -57,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
             Map<String, String> shopIdMapOrderId = new HashMap<>();
 
 
-            BigDecimal totalPrice = shopList.stream().map(shopItemVO -> {
+            BigDecimal totalPrice = shopList.stream().map(shopItemDTO -> {
                 Order order = new Order();
                 order.setOrderId(snowflakeIdGenerator.nextId());
                 order.setOrderNo(OrderCodeGenerator.generateOrderSn(userInfo.getUserId()));
@@ -68,16 +69,16 @@ public class OrderServiceImpl implements OrderService {
                 order.setLastEditTime(currentDate);
                 order.setBuyer(userInfo);
 
-                shopIdMapOrderId.put(shopItemVO.getShopId().toString(), order.getOrderId().toString());
+                shopIdMapOrderId.put(shopItemDTO.getShopId().toString(), order.getOrderId().toString());
 
-                ShopVO shopVO = shopService.queryShopById(shopItemVO.getShopId(), userInfo.getUserId());
+                ShopVO shopVO = shopService.queryShopById(shopItemDTO.getShopId(), shopItemDTO.getUserId());
                 Shop shop = Cls2Cls.shopVOToShop(shopVO, new Shop());
                 order.setShop(shop);
                 // 先插入主订单，因为子订单有外键关联
                 orderDao.addOrder(order);
                 orderIdList.add(order.getOrderId());
                 List<OrderItem> orderItemList = new ArrayList<>();
-                List<ProductItemDTO>  productItemDTOList = shopItemVO.getProductList();
+                List<ProductItemDTO>  productItemDTOList = shopItemDTO.getProductList();
                 productItemDTOList.forEach(ProductItemDTO -> {
                     OrderItem orderItem = new OrderItem();
                     Product product = productInfoService.getProductByProductId(ProductItemDTO.getProductId());
@@ -93,7 +94,22 @@ public class OrderServiceImpl implements OrderService {
                     orderItemList.add(orderItem);
 
                 });
+
+                // 1. 提取商品 ID 并去重排序
+                List<Long> productIdList = orderItemList.stream()
+                        .map(item -> item.getProduct().getProductId())
+                        .distinct()
+                        .sorted()
+                        .collect(Collectors.toList());
+
+                // 2. 显式锁定商品行，防止死锁（使用 SELECT ... FOR UPDATE）
+                orderDao.selectProductsForUpdate(productIdList);
+
+                // 3. 插入订单项（此时已持有 X 锁，不会再因为外键 S 锁升级导致死锁）
                 orderDao.addOrderItem(orderItemList);
+
+                // 对 orderItemList 进行排序，虽然上面已经按 ID 锁定了，但保持 orderLocking 的批量更新顺序一致也是好习惯
+                orderItemList.sort(Comparator.comparing(item -> item.getProduct().getProductId()));
                 int affectedRows = orderDao.orderLocking(orderItemList);
                 if (affectedRows != orderItemList.size()) {
                     throw new BusinessException("库存锁定失败，可能部分商品库存不足");
@@ -199,6 +215,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public List<Order> queryOrderListByIds (List<Long> orderIdList) {
+        if (orderIdList == null || orderIdList.isEmpty()) {
+            return new ArrayList<>();
+        }
         try {
             return orderDao.queryOrderByIds(orderIdList);
         } catch (BusinessException e) {

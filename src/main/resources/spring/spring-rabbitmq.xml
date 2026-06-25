@@ -72,7 +72,7 @@
     <!-- === 监听容器 (消费者) === -->
     <!-- ========================================== -->
 
-    <rabbit:listener-container connection-factory="connectionFactory" message-converter="jsonMessageConverter">
+    <rabbit:listener-container connection-factory="connectionFactory" message-converter="jsonMessageConverter" acknowledge="manual">
         <!-- 监听死信队列，一旦消息进入死信队列，说明订单超时了 -->
         <rabbit:listener ref="orderTimeoutListener" queue-names="o2o.order.dlx.queue"/>
     </rabbit:listener-container>

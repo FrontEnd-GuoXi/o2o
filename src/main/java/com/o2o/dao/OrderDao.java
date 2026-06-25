@@ -25,6 +25,9 @@ public interface OrderDao {
     // 超时释放
     int timeoutRelease (@Param("orderItemList") List<OrderItem> orderItem);
 
+    // 显式锁定商品行，防止死锁
+    int selectProductsForUpdate (@Param("productIdList") List<Long> productIdList);
+
     List<Order> queryOrderByIds (@Param("orderIdList") List<Long> orderIdList);
 
 

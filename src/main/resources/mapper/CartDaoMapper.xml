@@ -49,7 +49,7 @@
                p.img_addr, p.normal_price,
                p.promotion_price,
                c.cart_id, c.product_id,
-                s.shop_id, s.shop_name
+                s.shop_id, s.shop_name, s.owner_id
         FROM tb_cart AS c LEFT JOIN tb_product AS p ON c.product_id = p.product_id
         LEFT JOIN tb_shop AS s ON p.shop_id = s.shop_id
         WHERE c.user_id = #{userId}

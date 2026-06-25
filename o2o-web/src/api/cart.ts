@@ -10,6 +10,7 @@ export interface CartProduct {
   count: number
   shopId: string | number
   shopName: string
+  ownerId: string | number
 }
 
 /**
