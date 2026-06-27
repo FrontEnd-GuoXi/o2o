@@ -5,11 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.o2o.entity.PersonInfo;
+import com.o2o.enums.HttpApiCode;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.util.ReadFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +23,7 @@ import java.util.Date;
 
 @Component
 public class JwtService {
-    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
-    private static final long expirationTime = 60 * 60 * 1000;
+    private static final long EXPIRATION_TIME = 60 * 60 * 1000;
     private final RSAPrivateKey privateKey;
     private final RSAPublicKey publicKey;
 
@@ -44,6 +41,9 @@ public class JwtService {
 
     private RSAPrivateKey parsePrivateKey(String keyStr) {
         try {
+            if (keyStr == null || keyStr.trim().isEmpty()) {
+                throw new BusinessException("JWT私钥内容为空");
+            }
             keyStr = keyStr.replace("-----BEGIN PRIVATE KEY-----", "")
                     .replace("-----END PRIVATE KEY-----", "")
                     .replaceAll("\\s", "");
@@ -51,15 +51,18 @@ public class JwtService {
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(byteKey);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             return (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
-
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            logger.error(e.toString());
-            return null;
+        } catch (BusinessException e) {
+            throw e;
+        } catch (IllegalArgumentException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new BusinessException("JWT私钥解析失败", e);
         }
     }
 
     private RSAPublicKey parsePublicKey(String keyStr) {
         try {
+            if (keyStr == null || keyStr.trim().isEmpty()) {
+                throw new BusinessException("JWT公钥内容为空");
+            }
             keyStr = keyStr.replace("-----BEGIN PUBLIC KEY-----", "")
                     .replace("-----END PUBLIC KEY-----", "")
                     .replaceAll("\\s", "");
@@ -67,28 +70,27 @@ public class JwtService {
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(byteKey);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             return (RSAPublicKey) keyFactory.generatePublic(keySpec);
-
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            logger.error(e.toString());
-            return null;
+        } catch (BusinessException e) {
+            throw e;
+        } catch (IllegalArgumentException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new BusinessException("JWT公钥解析失败", e);
         }
     }
 
 
     public String genToken (long userId) {
         try {
-            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            Algorithm algorithm = createAlgorithm();
             Date date = new Date();
             long currentTime = date.getTime();
-            date.setTime(currentTime + expirationTime);
+            date.setTime(currentTime + EXPIRATION_TIME);
             return JWT.create()
                     .withIssuer("o2o")
                     .withExpiresAt(date)
                     .withClaim("userId", userId)
                     .sign(algorithm);
         } catch (JWTCreationException e) {
-            logger.error(e.toString());
-            return null;
+            throw new BusinessException("token生成失败", e);
         }
 
     }
@@ -96,20 +98,23 @@ public class JwtService {
 
     public DecodedJWT validateToken (String token) {
         try {
-            DecodedJWT decodedJWT;
-            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            Algorithm algorithm = createAlgorithm();
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("o2o")
                     .build();
-
-            decodedJWT = verifier.verify(token);
-            return decodedJWT;
+            return verifier.verify(token);
         } catch (TokenExpiredException e) {
-            logger.error(e.toString());
-            throw new BusinessException("Expired：token过期");
+            throw new BusinessException(HttpApiCode.TOKEN_EXPIRED, "token过期");
         } catch (JWTVerificationException e) {
-            logger.error(e.toString());
-            throw new BusinessException("Invalid：token校验失败");
+            throw new BusinessException(HttpApiCode.INVALID_TOKEN, "token校验失败");
+        }
+    }
+
+    private Algorithm createAlgorithm() {
+        try {
+            return Algorithm.RSA256(publicKey, privateKey);
+        } catch (IllegalArgumentException e) {
+            throw new BusinessException("JWT算法初始化失败", e);
         }
     }
 

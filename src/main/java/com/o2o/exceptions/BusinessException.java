@@ -2,18 +2,31 @@ package com.o2o.exceptions;
 
 import com.o2o.enums.HttpApiCode;
 
-public class BusinessException extends RuntimeException{
+public class BusinessException extends RuntimeException {
 
-    HttpApiCode apiCode;
+    private final HttpApiCode apiCode;
 
-    public BusinessException(HttpApiCode apiCode, Throwable cause) {
-        super(cause);
+    public BusinessException(String message) {
+        super(message);
+        this.apiCode = HttpApiCode.FAIL;
+    }
+
+    public BusinessException(HttpApiCode apiCode, String message) {
+        super(message);
+        this.apiCode = apiCode;
+    }
+
+    public BusinessException(HttpApiCode apiCode, String message, Throwable cause) {
+        super(message, cause);
         this.apiCode = apiCode;
     }
 
     public BusinessException(String message, Throwable cause) {
         super(message, cause);
+        this.apiCode = HttpApiCode.FAIL;
     }
 
-
+    public HttpApiCode getApiCode() {
+        return apiCode;
+    }
 }

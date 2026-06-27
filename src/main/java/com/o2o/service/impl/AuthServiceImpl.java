@@ -4,6 +4,7 @@ import com.o2o.dao.UserDao;
 import com.o2o.dto.PersonInfoDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
+import com.o2o.enums.HttpApiCode;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.security.JwtService;
 import com.o2o.security.UserContextHolder;
@@ -78,13 +79,16 @@ public class AuthServiceImpl implements AuthService {
     public String login (String identity, String credential) {
         try {
             UserIdentity userIdentity = userDao.queryUserIdentityByIdentifier(identity);
-            // boolean pass = encoder.matches(credential, userIdentity.getCredential());
+            if (userIdentity == null) {
+                throw new BusinessException(HttpApiCode.UNAUTHORIZED, "密码或账号错误");
+            }
             boolean pass = credential.equals(userIdentity.getCredential());
-            String token;
-            if (pass) {
-                token = jwtService.genToken(userIdentity.getUserId());
-            } else {
-                token = null;
+            if (!pass) {
+                throw new BusinessException(HttpApiCode.UNAUTHORIZED, "密码或账号错误");
+            }
+            String token = jwtService.genToken(userIdentity.getUserId());
+            if (token == null) {
+                throw new BusinessException("登录令牌生成失败");
             }
             return token;
         } catch (BusinessException e) {
@@ -100,6 +104,9 @@ public class AuthServiceImpl implements AuthService {
     public PersonInfoDTO queryUserInfoById (int userId) {
         try {
             PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
+            if (userInfo == null) {
+                throw new BusinessException(HttpApiCode.NOT_FOUND_USER, "用户不存在");
+            }
             PersonInfoDTO personInfoDTO = new PersonInfoDTO();
             personInfoDTO.setUserId(userInfo.getUserId());
             personInfoDTO.setGender(userInfo.getGender());
@@ -118,6 +125,9 @@ public class AuthServiceImpl implements AuthService {
     public UserInfoVO queryUserInfoVOById (int userId) {
         try {
             PersonInfo userInfo = userDao.queryUserInfoByUserId(userId);
+            if (userInfo == null) {
+                throw new BusinessException(HttpApiCode.NOT_FOUND_USER, "用户不存在");
+            }
             UserInfoVO userInfoVO = new UserInfoVO();
             BeanUtils.copyProperties(userInfo, userInfoVO);
             userInfoVO.setUserId(String.valueOf(userInfo.getUserId()));

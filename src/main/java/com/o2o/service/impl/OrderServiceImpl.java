@@ -15,8 +15,6 @@ import com.o2o.dto.OrderDTO;
 import com.o2o.dto.ProductItemDTO;
 import com.o2o.dto.ShopItemDTO;
 import com.o2o.vo.ShopVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +25,6 @@ import java.util.stream.Collectors;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
-
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
-
     @Autowired
     SnowflakeIdGenerator snowflakeIdGenerator;
 
@@ -128,12 +123,10 @@ public class OrderServiceImpl implements OrderService {
             result.put("totalPrice", totalPrice.toString());
 
             return result;
-        } catch(BusinessException e) {
-            logger.warn("订单生成失败：{}", e.toString());
+        } catch (BusinessException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(e.toString());
-            throw e;
+            throw new BusinessException("订单生成失败", e);
         }
     }
 
@@ -157,11 +150,9 @@ public class OrderServiceImpl implements OrderService {
 
             return true;
         } catch (BusinessException e) {
-            logger.warn("库存扣减失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error("库存扣减失败：{}", e.toString());
-            throw e;
+            throw new BusinessException("库存扣减失败", e);
         }
     }
 
@@ -180,11 +171,9 @@ public class OrderServiceImpl implements OrderService {
 
             return true;
         } catch (BusinessException e) {
-            logger.warn("释放库存失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error("库存扣减失败：{}", e.toString());
-            throw e;
+            throw new BusinessException("库存释放失败", e);
         }
     }
 
@@ -200,11 +189,9 @@ public class OrderServiceImpl implements OrderService {
             });
             return true;
         } catch (BusinessException e) {
-            logger.warn("订单更新失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error("订单更新失败：{}", e.toString());
-            throw e;
+            throw new BusinessException("订单更新失败", e);
         }
     }
 
@@ -221,11 +208,9 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderDao.queryOrderByIds(orderIdList);
         } catch (BusinessException e) {
-            logger.warn("订单列表查询失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error("订单列表查询失败：{}", e.toString());
-            throw e;
+            throw new BusinessException("订单列表查询失败", e);
         }
     }
 

@@ -5,8 +5,6 @@ import com.o2o.dto.CartProductDTO;
 import com.o2o.entity.Cart;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.service.CartService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,49 +13,37 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-
-    private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
-
     @Autowired
     CartDao cartDao;
 
     @Transactional
     public int addOrUpdateProduct (Cart cart) {
         try {
-           int affectRow = cartDao.addOrUpdateProduct(cart);
-           return affectRow;
+            return cartDao.addOrUpdateProduct(cart);
         } catch (BusinessException e) {
-            logger.warn("向购物车插入或更新数据失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error(e.toString());
-            throw e;
+            throw new BusinessException("添加产品或更新产品失败", e);
         }
     }
 
     public int removeProductById (Integer productId, int userId) {
         try {
-            int affectRow = cartDao.removeProductById(productId, userId);
-            return affectRow;
+            return cartDao.removeProductById(productId, userId);
         } catch (BusinessException e) {
-            logger.warn("删除商品失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error(e.toString());
-            throw e;
+            throw new BusinessException("删除商品失败", e);
         }
     }
 
     public List<CartProductDTO> getCartProductListByUserId(int userId) {
         try {
-            List<CartProductDTO> list = cartDao.getCartProductListByUserId(userId);
-            return list;
+            return cartDao.getCartProductListByUserId(userId);
         } catch (BusinessException e) {
-            logger.warn("查询购车商品列表失败：{}", e.toString());
             throw e;
         } catch (Exception e) {
-            logger.error(e.toString());
-            throw e;
+            throw new BusinessException("购物列表查询失败", e);
         }
     }
 

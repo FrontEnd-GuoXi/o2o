@@ -2,9 +2,8 @@ package com.o2o.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.o2o.dao.UserDao;
+import com.o2o.exceptions.BusinessException;
 import com.o2o.dto.PersonInfoDTO;
-import com.o2o.entity.PersonInfo;
 import com.o2o.enums.HttpApiCode;
 import com.o2o.service.AuthService;
 import com.o2o.util.ResponseResultWrap;
@@ -21,7 +20,7 @@ import java.io.IOException;
 
 @Component
 public class JwtFilter implements HandlerInterceptor {
-    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
     @Autowired
     private JwtService jwtService;
@@ -35,39 +34,31 @@ public class JwtFilter implements HandlerInterceptor {
 
     @Override
     public boolean preHandle (HttpServletRequest request, HttpServletResponse response, Object handler) {
-        try {
-            String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                writeResponse(response, HttpApiCode.INVALID_TOKEN);
-                return false;
-            }
-
-            String token = authHeader.substring(7); // 去掉 "Bearer "
-            DecodedJWT decodedJWT = jwtService.validateToken(token);
-            int userId = decodedJWT.getClaim("userId").asInt();
-            try {
-                PersonInfoDTO personInfoDTO = authService.queryUserInfoById(userId);
-                UserContextHolder.setUserInfo(personInfoDTO);
-                return true;
-            } catch (Exception e) {
-                logger.error(e.toString());
-                writeResponse(response, HttpApiCode.NOT_FOUND_USER);
-                return false;
-            }
-        } catch (Exception e) {
-            logger.error(e.toString());
-            // 区分不同异常类型（可选）
-            if (e.getMessage().contains("Expired")) {
-                writeResponse(response, HttpApiCode.TOKEN_EXPIRED);
-            } else if (e.getMessage().contains("Invalid")) {
-                writeResponse(response, HttpApiCode.INVALID_TOKEN);
-            } else {
-                writeResponse(response, HttpApiCode.UNAUTHORIZED);
-            }
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            logger.warn("认证失败: 缺少或非法的Authorization请求头");
+            writeResponse(response, HttpApiCode.INVALID_TOKEN, HttpApiCode.INVALID_TOKEN.getMsg());
             return false;
         }
 
+        try {
+            String token = authHeader.substring(7); // 去掉 "Bearer "
+            DecodedJWT decodedJWT = jwtService.validateToken(token);
+            int userId = decodedJWT.getClaim("userId").asInt();
+            PersonInfoDTO personInfoDTO = authService.queryUserInfoById(userId);
+            UserContextHolder.setUserInfo(personInfoDTO);
+            return true;
+        } catch (BusinessException e) {
+            HttpApiCode apiCode = e.getApiCode() == null ? HttpApiCode.UNAUTHORIZED : e.getApiCode();
+            logger.warn("认证失败: {}", e.getMessage());
+            writeResponse(response, apiCode, e.getMessage());
+            return false;
+        } catch (Exception e) {
+            logger.error("认证链路异常", e);
+            writeResponse(response, HttpApiCode.UNAUTHORIZED, HttpApiCode.UNAUTHORIZED.getMsg());
+            return false;
+        }
     }
 
     @Override
@@ -79,16 +70,29 @@ public class JwtFilter implements HandlerInterceptor {
     /**
      * 向响应中写入 JSON 格式的错误信息
      */
-    private void writeResponse(HttpServletResponse response, HttpApiCode code)  {
+    private void writeResponse(HttpServletResponse response, HttpApiCode code, String msg)  {
         try {
             response.setContentType("application/json;charset=UTF-8");
-            ResponseResultWrap<Object> result =  ResponseResultWrap.getResultByHttpCode(code, null);
+            response.setStatus(resolveHttpStatus(code));
+            ResponseResultWrap<Object> result = ResponseResultWrap.fail(code, msg);
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(response.getWriter(), result);
         } catch (IOException e) {
-            logger.error(e.toString());
+            logger.error("认证响应写回失败", e);
         }
+    }
 
+    private int resolveHttpStatus(HttpApiCode code) {
+        switch (code) {
+            case TOKEN_EXPIRED:
+            case INVALID_TOKEN:
+            case UNAUTHORIZED:
+                return HttpServletResponse.SC_UNAUTHORIZED;
+            case NOT_FOUND_USER:
+                return HttpServletResponse.SC_NOT_FOUND;
+            default:
+                return HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+        }
     }
 
 }

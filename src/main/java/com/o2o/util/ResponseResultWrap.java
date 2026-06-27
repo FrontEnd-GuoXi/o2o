@@ -1,7 +1,6 @@
 package com.o2o.util;
 
 import com.o2o.enums.HttpApiCode;
-import com.o2o.exceptions.BusinessException;
 
 public class ResponseResultWrap<T> {
     private String msg;
@@ -53,6 +52,10 @@ public class ResponseResultWrap<T> {
     public static <T> ResponseResultWrap<T> fail(T data, String msg) {
         HttpApiCode httpCode = HttpApiCode.FAIL;
         return new ResponseResultWrap<T>(httpCode.getCode(), data, msg);
+    }
+
+    public static <T> ResponseResultWrap<T> fail(HttpApiCode httpCode, String msg) {
+        return new ResponseResultWrap<>(httpCode.getCode(), null, msg);
     }
 
     public static <T> ResponseResultWrap<T> getResultByHttpCode (HttpApiCode httpCode, T data) {
