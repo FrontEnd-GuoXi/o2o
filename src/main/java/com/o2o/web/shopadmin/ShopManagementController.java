@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -64,7 +65,7 @@ public class ShopManagementController {
         if (shop.getShopId() != null) {
             if (shopImg != null) {
                 CommonsMultipartFile img = (CommonsMultipartFile) shopImg;
-                shopTransfer = shopService.updateShop(shop, img.getInputStream(), img.getOriginalFilename());
+                shopTransfer = updateShopWithImage(shop, img);
             } else {
                 shopTransfer = shopService.updateShop(shop, null ,null);
             }
@@ -73,7 +74,7 @@ public class ShopManagementController {
                 throw new BusinessException("新增店铺时必须上传店铺图片");
             }
             CommonsMultipartFile img = (CommonsMultipartFile) shopImg;
-            shopTransfer = shopService.addShop(shop, img.getInputStream(), img.getOriginalFilename());
+            shopTransfer = addShopWithImage(shop, img);
         }
 
         validateShopOperation(shopTransfer);
@@ -122,6 +123,22 @@ public class ShopManagementController {
                 && state != ShopStateEnum.SUCCESS.getState()
                 && state != ShopStateEnum.PASS.getState()) {
             throw new BusinessException(shopTransfer.getStateInfo());
+        }
+    }
+
+    private ShopDTO updateShopWithImage(Shop shop, CommonsMultipartFile img) {
+        try {
+            return shopService.updateShop(shop, img.getInputStream(), img.getOriginalFilename());
+        } catch (IOException e) {
+            throw new BusinessException("读取店铺图片失败", e);
+        }
+    }
+
+    private ShopDTO addShopWithImage(Shop shop, CommonsMultipartFile img) {
+        try {
+            return shopService.addShop(shop, img.getInputStream(), img.getOriginalFilename());
+        } catch (IOException e) {
+            throw new BusinessException("读取店铺图片失败", e);
         }
     }
 

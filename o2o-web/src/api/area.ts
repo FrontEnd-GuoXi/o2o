@@ -13,5 +13,5 @@ export interface Area {
  * @returns 区域列表
  */
 export const getAreaList = async () => {
-  return request.get<Area[]>('/api/area/list')
+  return request.get<Area[]>('/api/o2o/area/list')
 }

@@ -11,12 +11,11 @@ import com.o2o.service.AuthService;
 import com.o2o.util.ResponseResultWrap;
 import com.o2o.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -29,9 +28,14 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
+    @Value("${imgStore}")
+    private String imgStore;
+
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseResultWrap<Object> userRegister(@Valid @RequestBody RegisterRequestDTO registerRequestDTO, BindingResult result) {
+    public ResponseResultWrap<Object> userRegister(@Valid @RequestPart("data") RegisterRequestDTO registerRequestDTO,
+                                                   BindingResult result,
+                                                   @RequestPart(value = "profileImg", required = false) MultipartFile profileImg) {
         if (result.hasErrors()) {
             String errStr = result
                     .getFieldErrors()
@@ -48,6 +52,10 @@ public class AuthController {
         personInfo.setEnableStatus(0);
         personInfo.setCreateTime(new Date());
         personInfo.setLastEditTime(new Date());
+
+        if(profileImg != null && !profileImg.isEmpty()) {
+            String uploadFolder = 
+        }
 
         UserIdentity userIdentity = new UserIdentity();
         userIdentity.setIdentityType("password");

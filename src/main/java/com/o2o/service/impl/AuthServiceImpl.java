@@ -82,7 +82,8 @@ public class AuthServiceImpl implements AuthService {
             if (userIdentity == null) {
                 throw new BusinessException(HttpApiCode.UNAUTHORIZED, "密码或账号错误");
             }
-            boolean pass = credential.equals(userIdentity.getCredential());
+            boolean pass = encoder.matches(credential, userIdentity.getCredential());
+            //boolean pass = credential.equals(userIdentity.getCredential());
             if (!pass) {
                 throw new BusinessException(HttpApiCode.UNAUTHORIZED, "密码或账号错误");
             }

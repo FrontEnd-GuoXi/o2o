@@ -1,6 +1,8 @@
 package com.o2o.security;
 
 import com.o2o.dto.PersonInfoDTO;
+import com.o2o.enums.HttpApiCode;
+import com.o2o.exceptions.BusinessException;
 
 public class UserContextHolder {
 
@@ -11,7 +13,11 @@ public class UserContextHolder {
     }
 
     public static PersonInfoDTO getUserInfo () {
-        return userHolder.get();
+        PersonInfoDTO personInfoDTO = userHolder.get();
+        if (personInfoDTO == null) {
+            throw new BusinessException(HttpApiCode.UNAUTHORIZED, "用户未登录或登录已过期");
+        }
+        return personInfoDTO;
     }
 
     public static void clear() {
