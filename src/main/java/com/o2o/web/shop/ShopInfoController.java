@@ -22,7 +22,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/shopInfo")
+@RequestMapping("/o2o/shopInfo")
 public class ShopInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopInfoController.class);

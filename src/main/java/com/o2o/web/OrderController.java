@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/o2o/order")
 public class OrderController {
     @Autowired
     private OrderService orderService;

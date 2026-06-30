@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/area")
+@RequestMapping("/o2o/area")
 public class AreaController {
     @Autowired
     AreaService areaService;

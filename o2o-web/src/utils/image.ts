@@ -10,8 +10,10 @@ export const getImageUrl = (path: string) => {
   if (!path) return DEFAULT_IMAGE_URL
   // 如果已经是完整路径则直接返回
   if (path.startsWith('http')) return path
+  // 兼容 Windows 风格路径，如 \images\a.png
+  const normalizedPath = path.replace(/\\/g, '/')
   // 否则加上 /api 前缀，以便通过 vite 代理访问后端资源
-  return `/api${path.startsWith('/') ? '' : '/'}${path}`
+  return `/api${normalizedPath.startsWith('/') ? '' : '/'}${normalizedPath}`
 }
 
 

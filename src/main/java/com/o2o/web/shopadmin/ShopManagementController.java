@@ -28,7 +28,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/shopadmin")
+@RequestMapping("/o2o/shopadmin")
 public class ShopManagementController {
 
     @Autowired

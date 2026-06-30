@@ -79,7 +79,18 @@
         </div>
         <div class="form-item">
           <label for="profileImg">头像（可选）</label>
-          <input type="url" id="profileImg" v-model="form.profileImg" placeholder="请输入头像URL" />
+          <div class="file-upload-container">
+            <input
+              type="file"
+              id="profileImg"
+              accept="image/*"
+              @change="handleFileChange"
+              class="file-input"
+            />
+            <div v-if="previewUrl" class="image-preview">
+              <img :src="previewUrl" alt="头像预览" />
+            </div>
+          </div>
         </div>
         <button type="submit" class="auth-btn register-btn" :disabled="isLoading">
           {{ isLoading ? '注册中...' : '注册' }}
@@ -111,6 +122,18 @@ const form = ref({
 } as RegisterRequest & { confirmPassword: string })
 
 const isLoading = ref(false)
+const profileImgFile = ref<File | null>(null)
+const previewUrl = ref('')
+
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files[0]) {
+    const file = target.files[0]
+    profileImgFile.value = file
+    // 创建预览图
+    previewUrl.value = URL.createObjectURL(file)
+  }
+}
 
 const handleRegister = async () => {
   // 表单验证
@@ -169,10 +192,9 @@ const handleRegister = async () => {
       name: form.value.name,
       gender: form.value.gender,
       userType: form.value.userType,
-      profileImg: form.value.profileImg,
     }
 
-    const response = await register(registerData)
+    const response = await register(registerData, profileImgFile.value || undefined)
 
     console.log('注册成功:', response)
 
@@ -199,4 +221,31 @@ const handleRegister = async () => {
 @import '@/styles/common.css';
 /* 引入注册页面特定样式 */
 @import './register.css';
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.file-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.image-preview {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 </style>

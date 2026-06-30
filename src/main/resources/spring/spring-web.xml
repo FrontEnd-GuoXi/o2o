@@ -13,7 +13,7 @@
     <mvc:annotation-driven />
     <!-- 关键：在子容器中也注册属性占位符解析器，以便解析 XML 中的 ${imgStore} -->
     <context:property-placeholder location="classpath:env/%env%/application.properties" ignore-unresolvable="true" />
-    <mvc:resources mapping="/images/**" location="${imgStore}" />
+    <mvc:resources mapping="/${onlineImgPrefix}/**" location="${imgStore}" />
     <mvc:default-servlet-handler/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,9 +32,9 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/auth/login" />
-            <mvc:exclude-mapping path="/auth/register" />
+            <mvc:mapping path="/o2o/**" />
+            <mvc:exclude-mapping path="/o2o/auth/login" />
+            <mvc:exclude-mapping path="/o2o/auth/register" />
             <ref bean="jwtFilter" />
         </mvc:interceptor>
     </mvc:interceptors>

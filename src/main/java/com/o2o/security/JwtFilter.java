@@ -34,6 +34,18 @@ public class JwtFilter implements HandlerInterceptor {
 
     @Override
     public boolean preHandle (HttpServletRequest request, HttpServletResponse response, Object handler) {
+        String method = request.getMethod();
+        logger.info("contextPath={}, servletPath={}, requestURI={}",
+        request.getContextPath(),
+        request.getServletPath(),
+        request.getRequestURI());
+
+        // 1. 放行 OPTIONS 请求 (CORS 预检)
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            return true;
+        }
+
+
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {

@@ -8,6 +8,8 @@ import com.o2o.entity.UserIdentity;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.security.UserContextHolder;
 import com.o2o.service.AuthService;
+import com.o2o.util.ImageUtil;
+import com.o2o.util.ImgDir;
 import com.o2o.util.ResponseResultWrap;
 import com.o2o.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +20,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/o2o/auth")
 public class AuthController {
 
     @Autowired
     AuthService authService;
 
-    @Value("${imgStore}")
-    private String imgStore;
 
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -53,9 +55,29 @@ public class AuthController {
         personInfo.setCreateTime(new Date());
         personInfo.setLastEditTime(new Date());
 
-        if(profileImg != null && !profileImg.isEmpty()) {
-            String uploadFolder = 
+        try {
+            if(profileImg != null && !profileImg.isEmpty()) {
+                String uploadFolder = ImgDir.userAvatar;
+                File folder = new File(uploadFolder);
+                if (!folder.exists()) {
+                    folder.mkdirs();
+                }
+
+                String fileName = profileImg.getOriginalFilename();
+                if (fileName == null) {
+                    throw new BusinessException("用户头像名称为空");
+                }
+                String targetFileName = ImageUtil.genImgName(fileName);
+                String fullPath = uploadFolder + File.separator + targetFileName;
+                File targetFile = new File(fullPath);
+                profileImg.transferTo(targetFile);
+                personInfo.setProfileImg(ImgDir.getOnlinePath(fullPath));
+            }
+        } catch (IOException e) {
+            throw new BusinessException("图片上传异常", e);
         }
+
+
 
         UserIdentity userIdentity = new UserIdentity();
         userIdentity.setIdentityType("password");

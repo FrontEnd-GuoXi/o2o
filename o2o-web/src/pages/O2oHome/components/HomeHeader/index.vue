@@ -6,10 +6,10 @@
     </div>
     <div class="header-right">
       <img
-        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        :src="avatarUrl"
         alt="用户头像"
         class="user-avatar"
-        @error="handleImageError"
+        @error="handleAvatarError"
         @click="goToPersonalInfo"
       />
     </div>
@@ -17,11 +17,25 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Icon as VanIcon } from 'vant'
 import { useRouter } from 'vue-router'
-import { handleImageError } from '@/utils/image'
+import { useUserStore } from '@/stores/user'
+import { getImageUrl, handleImageError } from '@/utils/image'
 
 const router = useRouter()
+const userStore = useUserStore()
+const DEFAULT_AVATAR_URL = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d'
+
+const avatarUrl = computed(() => {
+  const profileImg = userStore.userInfo?.profileImg
+  console.log(userStore.userInfo)
+  return profileImg ? getImageUrl(profileImg) : DEFAULT_AVATAR_URL
+})
+
+const handleAvatarError = (event: Event) => {
+  handleImageError(event, DEFAULT_AVATAR_URL)
+}
 
 // 跳转到个人信息页面
 const goToPersonalInfo = () => {

@@ -2,6 +2,8 @@ package com.o2o;
 
 
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,17 +11,12 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-        try {
-            List<String> list = new ArrayList<>(Arrays.asList("A", "B", "C"));
-            list.forEach(item -> {
-                if (item.equals("C")) {
-                    throw new RuntimeException("C点报错");
-                }
-                System.out.println("输出"+ item);
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            Path fullPath = Paths.get("D:/shop/2/def.png");
+            Path basePath = Paths.get("D:/shop/");
+
+            Path relPath = basePath.relativize(fullPath);
+            Path onlinePath = Paths.get(".").resolve("\\shop").resolve(relPath);
+            System.out.println("onlinePath2对象结果: " + onlinePath);
     }
 
 }

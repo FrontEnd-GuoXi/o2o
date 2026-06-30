@@ -28,8 +28,17 @@ export const login = async (data: LoginRequest) => {
 }
 
 // 注册接口
-export const register = async (data: RegisterRequest) => {
-  return request.post('/api/o2o/auth/register', data)
+export const register = async (data: RegisterRequest, profileImg?: File) => {
+  const formData = new FormData()
+  // 将业务数据转为 Blob 并指定 content-type 为 application/json，对应后端的 @RequestPart("data")
+  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' })
+  formData.append('data', blob)
+
+  if (profileImg) {
+    formData.append('profileImg', profileImg)
+  }
+
+  return request.post('/api/o2o/auth/register', formData)
 }
 
 // 用户信息接口
