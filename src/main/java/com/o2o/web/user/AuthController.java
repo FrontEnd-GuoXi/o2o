@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/o2o/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired

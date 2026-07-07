@@ -1,2 +1,125 @@
-logback---- 2026-06-29 15:41:33.858 [http-apr-8080-exec-10] INFO  com.o2o.security.JwtFilter - contextPath=, servletPath=/o2o/auth/register, requestURI=/o2o/auth/register
-logback---- 2026-06-29 15:41:33.858 [http-apr-8080-exec-10] WARN  com.o2o.security.JwtFilter - 认证失败: 缺少或非法的Authorization请求头
+D:\software\tomcat\apache-tomcat-8.0.50\bin\catalina.bat run
+[2026-07-06 10:17:27,005] Artifact o2o:war: Waiting for server connection to start artifact deployment…
+Using CATALINA_BASE:   "C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28"
+Using CATALINA_HOME:   "D:\software\tomcat\apache-tomcat-8.0.50"
+Using CATALINA_TMPDIR: "D:\software\tomcat\apache-tomcat-8.0.50\temp"
+Using JRE_HOME:        "D:\software\JDK"
+Using CLASSPATH:       "D:\software\tomcat\apache-tomcat-8.0.50\bin\bootstrap.jar;D:\software\tomcat\apache-tomcat-8.0.50\bin\tomcat-juli.jar"
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+Connected to the target VM, address: '127.0.0.1:63081', transport: 'socket'
+06-Jul-2026 10:17:43.591 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.50
+06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 7 2018 20:06:05 UTC
+06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.50.0
+06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+06-Jul-2026 10:17:43.604 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Jul-2026 10:17:43.606 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             D:\software\JDK
+06-Jul-2026 10:17:43.606 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           11.0.14+8-LTS-263
+06-Jul-2026 10:17:43.606 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         D:\software\tomcat\apache-tomcat-8.0.50
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28\conf\logging.properties
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:63081,suspend=y,server=n
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\captureAgent\debugger-agent.jar
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote=
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.port=1099
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.ssl=false
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.password.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28\jmxremote.password
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.access.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28\jmxremote.access
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.rmi.server.hostname=127.0.0.1
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=D:\software\tomcat\apache-tomcat-8.0.50
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\software\tomcat\apache-tomcat-8.0.50\temp
+06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library 1.2.16 using APR version 1.6.3.
+06-Jul-2026 10:17:43.612 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+06-Jul-2026 10:17:44.686 信息 [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized (OpenSSL 1.0.2m  2 Nov 2017)
+06-Jul-2026 10:17:44.792 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-apr-8080"]
+06-Jul-2026 10:17:44.819 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-apr-8009"]
+06-Jul-2026 10:17:44.833 信息 [main] org.apache.catalina.startup.Catalina.load Initialization processed in 2558 ms
+06-Jul-2026 10:17:45.137 信息 [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+06-Jul-2026 10:17:45.137 信息 [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.50
+06-Jul-2026 10:17:45.188 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-apr-8080"]
+06-Jul-2026 10:17:45.214 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-apr-8009"]
+06-Jul-2026 10:17:45.220 信息 [main] org.apache.catalina.startup.Catalina.start Server startup in 385 ms
+Connected to server
+[2026-07-06 10:17:45,636] Artifact o2o:war: Artifact is being deployed, please wait…
+06-Jul-2026 10:17:52.411 信息 [RMI TCP Connection(5)-127.0.0.1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+10:17:52.714 [RMI TCP Connection(5)-127.0.0.1] INFO org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
+10:17:52.820 [RMI TCP Connection(5)-127.0.0.1] DEBUG org.springframework.web.context.support.XmlWebApplicationContext - Refreshing Root WebApplicationContext
+10:17:52.932 [RMI TCP Connection(5)-127.0.0.1] ERROR org.springframework.web.context.ContextLoader - Context initialization failed
+org.springframework.beans.factory.BeanDefinitionStoreException: IOException parsing XML document from class path resource [spring/spring-context.xml]; nested exception is java.io.FileNotFoundException: class path resource [spring/spring-context.xml] cannot be opened because it does not exist
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:344)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:304)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:125)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:133)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:636)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:521)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:400)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:291)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4861)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5322)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:145)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:753)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:729)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:717)
+	at org.apache.catalina.startup.HostConfig.manageApp(HostConfig.java:1730)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.tomcat.util.modeler.BaseModelMBean.invoke(BaseModelMBean.java:300)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:809)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at org.apache.catalina.mbeans.MBeanFactory.createStandardContext(MBeanFactory.java:484)
+	at org.apache.catalina.mbeans.MBeanFactory.createStandardContext(MBeanFactory.java:433)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.tomcat.util.modeler.BaseModelMBean.invoke(BaseModelMBean.java:300)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:809)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
+	at java.management/com.sun.jmx.remote.security.MBeanServerAccessController.invoke(MBeanServerAccessController.java:468)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1406)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:827)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:359)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:562)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:796)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:677)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:676)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.io.FileNotFoundException: class path resource [spring/spring-context.xml] cannot be opened because it does not exist
+	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:180)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:330)
+	... 58 common frames omitted
+06-Jul-2026 10:17:52.933 严重 [RMI TCP Connection(5)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal One or more listeners failed to start. Full details will be found in the appropriate container log file
+06-Jul-2026 10:17:54.659 警告 [RMI TCP Connection(5)-127.0.0.1] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [1,712] milliseconds.
+06-Jul-2026 10:17:54.660 严重 [RMI TCP Connection(5)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal Context [] startup failed due to previous errors
+[2026-07-06 10:17:54,709] Artifact o2o:war: Error during artifact deployment. See server log for details.
+06-Jul-2026 10:17:55.242 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager
+06-Jul-2026 10:17:55.402 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager has finished in 160 ms

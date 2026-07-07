@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.o2o.dao.ShopEvaluationDao">
+
+
+    <insert id="addEvaluation"
+            parameterType="com.o2o.entity.ShopEvaluation"
+            keyColumn="evaluation_id" keyProperty="evaluationId" useGeneratedKeys="true">
+    INSERT INTO `tb_shop_evaluation` (`shop_id`, `user_id`, `order_id`, `total_score`,
+                                      `service_score`, `environment_score`, `content`)
+                                      values
+                                    (
+                                     #{shop.shopId}, #{userInfo.userId}, #{order.orderId}, #{totalScore},
+                                     #{serviceScore}, #{environmentScore}, #{content}
+                                     )
+
+    </insert>
+
+    <update id="updateShopScoreAndCount">
+        UPDATE `tb_shop` SET avg_score = ((avg_score * evaluation_count) + #{newScore}) / (evaluation_count + 1),
+                             evaluation_count = evaluation_count + 1
+        WHERE shop_id = #{shopId}
+    </update>
+
+
+    <resultMap id="evaluationWithShopMap" type="com.o2o.entity.ShopEvaluation">
+        <id column="evaluation_id" property="evaluationId" />
+        <result column="total_score" property="totalScore" />
+        <result column="service_score" property="serviceScore" />
+        <result column="environment_score" property="environmentScore" />
+        <result column="create_time" property="createTime" />
+        <result column="last_edit_time" property="last_edit_time" />
+        <association property="userInfo" javaType="com.o2o.entity.PersonInfo">
+            <id column="user_id" property="userId"/>
+            <result column="name" property="name"/>
+            <result column="profile_img" property="profileName" />
+        </association>
+    </resultMap>
+
+
+    <select id="queryEvaluationListByShopId" parameterType="Long"  resultMap="evaluationWithShopMap">
+        SELECT
+            tse.evaluation_id, tse.user_id, tse.total_score, tse.service_score, tse.environment_score,
+            tse.content, tse.create_time, tse.last_edit_time,
+            tpi.name, tpi.profile_img
+        FROM tb_shop_evaluation tse LEFT JOIN tb_person_info tpi ON tse.user_id = tpi.user_id
+        WHERE tse.user_id = #{shopId}
+    </select>
+
+
+
+</mapper>

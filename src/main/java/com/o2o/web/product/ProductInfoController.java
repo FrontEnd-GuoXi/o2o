@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/o2o/productInfo")
+@RequestMapping("/productInfo")
 public class ProductInfoController {
 
     @Autowired

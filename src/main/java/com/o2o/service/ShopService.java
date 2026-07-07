@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface ShopService {
 
-    public ShopDTO addShop (Shop shop, InputStream rawImg, String filePath);
-    public ShopDTO updateShop (Shop shop, InputStream rawImg, String filePath);
-    public List<ShopVO> queryShopList(Long userId);
-    public Boolean deleteShop (Long shopId);
-    public ShopVO queryShopById(long shopId, long userId);
-    public List<ShopVO> queryShopListByCategoryId(Long categoryId);
+     ShopDTO addShop (Shop shop, InputStream rawImg, String filePath);
+     ShopDTO updateShop (Shop shop, InputStream rawImg, String filePath);
+     List<ShopVO> queryShopList(Long userId);
+     Boolean deleteShop (Long shopId);
+     ShopVO queryShopById(long shopId, long userId);
+     List<ShopVO> queryShopListByCategoryId(Long categoryId);
 }

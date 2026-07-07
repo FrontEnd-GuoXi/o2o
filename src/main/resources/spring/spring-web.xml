@@ -32,9 +32,9 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/o2o/**" />
-            <mvc:exclude-mapping path="/o2o/auth/login" />
-            <mvc:exclude-mapping path="/o2o/auth/register" />
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/auth/login" />
+            <mvc:exclude-mapping path="/auth/register" />
             <ref bean="jwtFilter" />
         </mvc:interceptor>
     </mvc:interceptors>
