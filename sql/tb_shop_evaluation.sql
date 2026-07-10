@@ -18,3 +18,5 @@ CREATE TABLE `tb_shop_evaluation` (
 
 ALTER TABLE `tb_shop` ADD COLUMN `avg_score` decimal(3,2) NOT NULL DEFAULT '5.00' COMMENT '店铺平均综合得分';
 ALTER TABLE `tb_shop` ADD COLUMN `evaluation_count` int NOT NULL DEFAULT '0' COMMENT '总评价人数';
+
+ALTER TABLE `tb_shop_evaluation` MODIFY COLUMN `order_id` bigint DEFAULT NULL COMMENT '关联订单ID（O2O场景通常需要凭订单评价，防止恶意刷单）';

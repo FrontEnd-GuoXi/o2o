@@ -54,6 +54,8 @@ export interface Shop {
   ownerId?: string
   shopCategoryId?: string
   shopCategoryName?: string
+  avgScore?: string | number | null
+  evaluationCount?: number | null
 }
 
 /**
@@ -96,7 +98,16 @@ export const getShopById = async (shopId: number) => {
  * @param shopId 店铺ID
  */
 export const getShopByShopId = async (shopId: string) => {
-  return request.get<Shop>('/api/o2o/shopInfo/getShopByShopId', { params: { shopId } })
+  return request.get<Shop>('/api/o2o/shopInfo/queryShopById', { params: { shopId } })
+}
+
+/**
+ * 根据店铺ID获取店铺详情
+ * 对应后端 ShopInfoController#getShopDetailById
+ * @param shopId 店铺ID
+ */
+export const getShopDetailById = async (shopId: string | number) => {
+  return request.get<Shop>('/api/o2o/shopInfo/getShopDetailById', { params: { shopId } })
 }
 
 /**

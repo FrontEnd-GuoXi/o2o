@@ -19,6 +19,17 @@
         {{ shop.shopDesc || '暂无店铺描述' }}
       </div>
 
+      <div class="shop-rating-summary">
+        <div class="rating-summary-item">
+          <span class="rating-summary-label">店铺评分</span>
+          <span class="rating-summary-value score">{{ formatAvgScore(shop.avgScore) }}</span>
+        </div>
+        <div class="rating-summary-item">
+          <span class="rating-summary-label">评价人数</span>
+          <span class="rating-summary-value">{{ shop.evaluationCount ?? 0 }}人</span>
+        </div>
+      </div>
+
       <van-divider />
 
       <!-- 详细列表 -->
@@ -36,48 +47,22 @@
       </van-cell-group>
     </div>
 
-    <!-- 店铺产品列表 -->
-    <div class="product-section">
+
+    <div class="product-entry-section">
       <div class="section-title-wrapper">
         <h2 class="section-title">店铺商品</h2>
       </div>
 
-      <div class="product-list">
-        <div v-for="product in products" :key="product.productId" class="product-item">
-          <div class="product-img-wrapper">
-            <img :src="getImageUrl(product.imgAddr)" :alt="product.productName" @error="handleImageError" />
-          </div>
-          <div class="product-info">
-            <h3 class="product-name">{{ product.productName }}</h3>
-            <p class="product-desc">{{ product.productDesc }}</p>
-            <div class="product-inventory">
-              库存: <span :class="{ 'low-stock': product.productNumber < 10 }">{{ product.productNumber }}</span>
-            </div>
-            <div class="product-bottom">
-              <div class="product-price">
-                <span v-if="product.promotionPrice" class="promo-price">¥{{ product.promotionPrice }}</span>
-                <span :class="{ 'original-price': product.promotionPrice, 'normal-price': !product.promotionPrice }">
-                  ¥{{ product.normalPrice }}
-                </span>
-              </div>
-              <van-button
-                size="mini"
-                type="danger"
-                plain
-                round
-                :disabled="product.productNumber <= 0"
-                @click.stop="addToCart(product)"
-              >
-                {{ product.productNumber <= 0 ? '无货' : '加入购物车' }}
-              </van-button>
-            </div>
-          </div>
+      <div class="product-entry-card" @click="goToProducts">
+        <div class="product-entry-info">
+          <div class="product-entry-title">查看全部商品</div>
+          <div class="product-entry-desc">商品列表已拆分到独立页面，浏览和加购更清晰。</div>
         </div>
-
-        <!-- 空状态 -->
-        <van-empty v-if="products.length === 0" description="该店铺暂无商品" />
+        <van-icon name="arrow" color="#969799" />
       </div>
     </div>
+
+    <ShopReviewList :reviews="reviews" />
 
     <!-- 底部操作栏 -->
     <div class="bottom-action">
@@ -101,13 +86,14 @@ import {
   CellGroup as VanCellGroup,
   Tag as VanTag,
   Button as VanButton,
-  Empty as VanEmpty,
   Icon as VanIcon,
   showToast
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
+import ShopReviewList from '@/components/ShopReviewList.vue'
 import { getImageUrl, handleImageError } from '@/utils/image'
-import { getProductBriefListByShopId, getShopByShopId, type ProductBrief } from '@/api/shop'
+import { getShopDetailById, type Shop } from '@/api/shop'
+import { queryEvaluationListByShopId, type StoreReviewItem } from '@/api/evaluation'
 import { useCartStore } from '@/stores/cart'
 
 const route = useRoute()
@@ -115,20 +101,29 @@ const router = useRouter()
 const shopId = route.query.shopId as string
 const cartStore = useCartStore()
 
+const formatAvgScore = (score?: string | number | null) => {
+  if (score === null || score === undefined || score === '') {
+    return '暂无'
+  }
+
+  const numericScore = Number(score)
+  return Number.isNaN(numericScore) ? '暂无' : numericScore.toFixed(1)
+}
+
 // 获取初始数据
-const getInitialShopData = () => {
+const getInitialShopData = (): Shop => {
   // 优先从 window.history.state 中获取传递过来的 shopData
   console.log('正在尝试获取传递的 shopData...')
   const state = window.history.state
   console.log('当前 window.history.state:', state)
   if (state && state.shopData) {
     console.log('成功获取到传递的 shopData:', state.shopData)
-    return { ...state.shopData }
+    return { ...state.shopData } as Shop
   }
 
   // 兜底默认数据
   return {
-    shopId: shopId || '',
+    shopId: Number(shopId || 0),
     shopName: '正在加载...',
     shopDesc: '',
     shopAddr: '',
@@ -137,7 +132,12 @@ const getInitialShopData = () => {
     priority: 1,
     enableStatus: 1,
     shopCategoryName: '',
-    areaName: ''
+    areaName: '',
+    avgScore: null,
+    evaluationCount: 0,
+    createTime: '',
+    lastEditTime: '',
+    advice: ''
   }
 }
 
@@ -148,7 +148,7 @@ const fetchShopDetail = async () => {
   if (!shopId) return
 
   try {
-    const res = await getShopByShopId(shopId)
+    const res = await getShopDetailById(shopId)
     if (res.data) {
       shop.value = res.data
     }
@@ -173,21 +173,19 @@ const checkHistoryState = () => {
   }
 }
 
-// 产品列表
-const products = ref<ProductBrief[]>([])
+const reviews = ref<StoreReviewItem[]>([])
 
-// 获取商品列表
-const fetchProducts = async () => {
+const fetchReviews = async () => {
   if (!shopId) return
 
   try {
-    const res = await getProductBriefListByShopId(shopId)
+    const res = await queryEvaluationListByShopId(shopId)
     if (res.data) {
-      products.value = res.data
+      reviews.value = res.data
     }
   } catch (error) {
-    console.error('获取商品列表失败:', error)
-    showToast('获取商品列表失败')
+    console.error('获取店铺评价失败:', error)
+    showToast('获取店铺评价失败')
   }
 }
 
@@ -201,16 +199,17 @@ const handleContact = () => {
   showToast('联系功能开发中...')
 }
 
-const addToCart = (product: ProductBrief) => {
-  if (product.productNumber <= 0) {
-    showToast('该商品暂时无货')
-    return
-  }
-  cartStore.addToCart(product, shop.value)
-  showToast({
-    message: `已将 ${product.productName} 加入购物车`,
-    type: 'success',
-    duration: 1000
+const goToProducts = () => {
+  const shopData = JSON.parse(JSON.stringify(shop.value))
+  router.push({
+    path: '/shopProducts',
+    query: {
+      shopId: String(shop.value.shopId || shopId),
+      shopName: shop.value.shopName || ''
+    },
+    state: {
+      shopData
+    }
   })
 }
 
@@ -223,8 +222,7 @@ onMounted(() => {
   // 再次检查历史状态，确保数据正确应用
   checkHistoryState()
 
-  // 获取真实商品数据
-  fetchProducts()
+  fetchReviews()
 })
 </script>
 

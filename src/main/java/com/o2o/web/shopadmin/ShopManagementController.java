@@ -113,6 +113,8 @@ public class ShopManagementController {
         return ResponseResultWrap.success(shopVO);
     }
 
+
+
     private void validateShopOperation(ShopDTO shopTransfer) {
         if (shopTransfer == null) {
             throw new BusinessException("店铺操作失败");

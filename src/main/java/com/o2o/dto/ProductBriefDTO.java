@@ -2,6 +2,7 @@ package com.o2o.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ProductBriefDTO {

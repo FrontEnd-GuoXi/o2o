@@ -69,6 +69,7 @@ const router = useRouter()
 const orderIds = ref<string[]>([])
 const token = ref('')
 const totalPrice = ref('')
+const evaluationOrders = ref('')
 const isExpired = ref(false)
 
 // 倒计时时间，单位毫秒 (30秒)
@@ -81,8 +82,9 @@ onMounted(() => {
   }
   token.value = route.query.token as string
   totalPrice.value = route.query.totalPrice as string
+  evaluationOrders.value = (route.query.evaluationOrders as string) || ''
 
-  if (!token.value || orderIds.value.length === 0) {
+  if (!token.value || orderIds.value.length === 0 || !evaluationOrders.value) {
     showToast('订单信息异常')
     router.replace('/home')
   }
@@ -126,7 +128,13 @@ const onPay = async () => {
         type: 'success',
         message: '支付成功，库存已扣减',
         onClose: () => {
-          router.replace('/home')
+          router.replace({
+            path: '/orderEvaluation',
+            query: {
+              evaluationOrders: evaluationOrders.value,
+              totalPrice: totalPrice.value
+            }
+          })
         }
       })
     } else {

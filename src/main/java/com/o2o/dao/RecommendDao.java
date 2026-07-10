@@ -4,8 +4,8 @@ import com.o2o.entity.Shop;
 
 import java.util.List;
 
-public interface Recommend {
+public interface RecommendDao {
 
-    List<Shop> recommendByRating ();
+    List<Shop> recommendByAvgScore ();
 
 }

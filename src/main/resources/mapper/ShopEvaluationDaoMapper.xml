@@ -28,11 +28,12 @@
 
     <resultMap id="evaluationWithShopMap" type="com.o2o.entity.ShopEvaluation">
         <id column="evaluation_id" property="evaluationId" />
+        <result column="content" property="content" />
         <result column="total_score" property="totalScore" />
         <result column="service_score" property="serviceScore" />
         <result column="environment_score" property="environmentScore" />
         <result column="create_time" property="createTime" />
-        <result column="last_edit_time" property="last_edit_time" />
+        <result column="last_edit_time" property="lastEditTime" />
         <association property="userInfo" javaType="com.o2o.entity.PersonInfo">
             <id column="user_id" property="userId"/>
             <result column="name" property="name"/>

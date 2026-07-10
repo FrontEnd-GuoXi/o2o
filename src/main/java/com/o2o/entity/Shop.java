@@ -13,6 +13,7 @@ public class Shop {
     private String shopAddr;
     private String phone;
     private String shopImg;
+    // 1是启用，-1是禁用
     private Integer priority;
     private Date createTime;
     private Date lastEditTime;

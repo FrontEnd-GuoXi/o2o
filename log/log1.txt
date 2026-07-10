@@ -1,125 +1,182 @@
 D:\software\tomcat\apache-tomcat-8.0.50\bin\catalina.bat run
-[2026-07-06 10:17:27,005] Artifact o2o:war: Waiting for server connection to start artifact deployment…
-Using CATALINA_BASE:   "C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28"
+[2026-07-09 02:25:54,019] Artifact o2o:war: Waiting for server connection to start artifact deployment…
+Using CATALINA_BASE:   "C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\154d0a0a-6c0c-4741-b882-cefb3e6b5e48"
 Using CATALINA_HOME:   "D:\software\tomcat\apache-tomcat-8.0.50"
 Using CATALINA_TMPDIR: "D:\software\tomcat\apache-tomcat-8.0.50\temp"
 Using JRE_HOME:        "D:\software\JDK"
 Using CLASSPATH:       "D:\software\tomcat\apache-tomcat-8.0.50\bin\bootstrap.jar;D:\software\tomcat\apache-tomcat-8.0.50\bin\tomcat-juli.jar"
 NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
-Connected to the target VM, address: '127.0.0.1:63081', transport: 'socket'
-06-Jul-2026 10:17:43.591 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.50
-06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 7 2018 20:06:05 UTC
-06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.50.0
-06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
-06-Jul-2026 10:17:43.602 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
-06-Jul-2026 10:17:43.604 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
-06-Jul-2026 10:17:43.606 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             D:\software\JDK
-06-Jul-2026 10:17:43.606 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           11.0.14+8-LTS-263
-06-Jul-2026 10:17:43.606 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         D:\software\tomcat\apache-tomcat-8.0.50
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28\conf\logging.properties
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:63081,suspend=y,server=n
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\captureAgent\debugger-agent.jar
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote=
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.port=1099
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.ssl=false
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.password.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28\jmxremote.password
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.access.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28\jmxremote.access
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.rmi.server.hostname=127.0.0.1
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\58511dd0-720d-4652-b696-70e57f93cc28
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=D:\software\tomcat\apache-tomcat-8.0.50
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\software\tomcat\apache-tomcat-8.0.50\temp
-06-Jul-2026 10:17:43.607 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library 1.2.16 using APR version 1.6.3.
-06-Jul-2026 10:17:43.612 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
-06-Jul-2026 10:17:44.686 信息 [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized (OpenSSL 1.0.2m  2 Nov 2017)
-06-Jul-2026 10:17:44.792 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-apr-8080"]
-06-Jul-2026 10:17:44.819 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-apr-8009"]
-06-Jul-2026 10:17:44.833 信息 [main] org.apache.catalina.startup.Catalina.load Initialization processed in 2558 ms
-06-Jul-2026 10:17:45.137 信息 [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
-06-Jul-2026 10:17:45.137 信息 [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.50
-06-Jul-2026 10:17:45.188 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-apr-8080"]
-06-Jul-2026 10:17:45.214 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-apr-8009"]
-06-Jul-2026 10:17:45.220 信息 [main] org.apache.catalina.startup.Catalina.start Server startup in 385 ms
+Connected to the target VM, address: '127.0.0.1:50381', transport: 'socket'
+09-Jul-2026 14:25:57.501 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.50
+09-Jul-2026 14:25:57.506 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 7 2018 20:06:05 UTC
+09-Jul-2026 14:25:57.506 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.50.0
+09-Jul-2026 14:25:57.506 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             D:\software\JDK
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           11.0.14+8-LTS-263
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\154d0a0a-6c0c-4741-b882-cefb3e6b5e48
+09-Jul-2026 14:25:57.511 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         D:\software\tomcat\apache-tomcat-8.0.50
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\154d0a0a-6c0c-4741-b882-cefb3e6b5e48\conf\logging.properties
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:50381,suspend=y,server=n
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\captureAgent\debugger-agent.jar
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote=
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.port=1099
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.ssl=false
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.password.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\154d0a0a-6c0c-4741-b882-cefb3e6b5e48\jmxremote.password
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.access.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\154d0a0a-6c0c-4741-b882-cefb3e6b5e48\jmxremote.access
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.rmi.server.hostname=127.0.0.1
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+09-Jul-2026 14:25:57.512 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\154d0a0a-6c0c-4741-b882-cefb3e6b5e48
+09-Jul-2026 14:25:57.516 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=D:\software\tomcat\apache-tomcat-8.0.50
+09-Jul-2026 14:25:57.516 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\software\tomcat\apache-tomcat-8.0.50\temp
+09-Jul-2026 14:25:57.516 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library 1.2.16 using APR version 1.6.3.
+09-Jul-2026 14:25:57.516 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+09-Jul-2026 14:25:58.441 信息 [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized (OpenSSL 1.0.2m  2 Nov 2017)
+09-Jul-2026 14:25:58.485 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-apr-8080"]
+09-Jul-2026 14:25:58.496 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-apr-8009"]
+09-Jul-2026 14:25:58.500 信息 [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1607 ms
+09-Jul-2026 14:25:58.576 信息 [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+09-Jul-2026 14:25:58.576 信息 [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.50
+09-Jul-2026 14:25:58.596 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-apr-8080"]
+09-Jul-2026 14:25:58.611 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-apr-8009"]
+09-Jul-2026 14:25:58.619 信息 [main] org.apache.catalina.startup.Catalina.start Server startup in 120 ms
 Connected to server
-[2026-07-06 10:17:45,636] Artifact o2o:war: Artifact is being deployed, please wait…
-06-Jul-2026 10:17:52.411 信息 [RMI TCP Connection(5)-127.0.0.1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-10:17:52.714 [RMI TCP Connection(5)-127.0.0.1] INFO org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
-10:17:52.820 [RMI TCP Connection(5)-127.0.0.1] DEBUG org.springframework.web.context.support.XmlWebApplicationContext - Refreshing Root WebApplicationContext
-10:17:52.932 [RMI TCP Connection(5)-127.0.0.1] ERROR org.springframework.web.context.ContextLoader - Context initialization failed
-org.springframework.beans.factory.BeanDefinitionStoreException: IOException parsing XML document from class path resource [spring/spring-context.xml]; nested exception is java.io.FileNotFoundException: class path resource [spring/spring-context.xml] cannot be opened because it does not exist
-	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:344)
-	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:304)
-	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
-	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
-	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
-	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:125)
-	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
-	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:133)
-	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:636)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:521)
-	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:400)
-	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:291)
-	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
-	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4861)
-	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5322)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:145)
-	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:753)
-	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:729)
-	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:717)
-	at org.apache.catalina.startup.HostConfig.manageApp(HostConfig.java:1730)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.apache.tomcat.util.modeler.BaseModelMBean.invoke(BaseModelMBean.java:300)
-	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:809)
-	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
-	at org.apache.catalina.mbeans.MBeanFactory.createStandardContext(MBeanFactory.java:484)
-	at org.apache.catalina.mbeans.MBeanFactory.createStandardContext(MBeanFactory.java:433)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.apache.tomcat.util.modeler.BaseModelMBean.invoke(BaseModelMBean.java:300)
-	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:809)
-	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801)
-	at java.management/com.sun.jmx.remote.security.MBeanServerAccessController.invoke(MBeanServerAccessController.java:468)
-	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1466)
-	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1307)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1406)
-	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:827)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:359)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:562)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:796)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:677)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:676)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+[2026-07-09 02:25:59,036] Artifact o2o:war: Artifact is being deployed, please wait…
+09-Jul-2026 14:26:04.842 信息 [RMI TCP Connection(3)-127.0.0.1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+logback---- 2026-07-09 14:26:05.229 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+logback---- 2026-07-09 14:26:06.445 [RMI TCP Connection(3)-127.0.0.1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+logback---- 2026-07-09 14:26:07.731 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+logback---- 2026-07-09 14:26:07.824 [RMI TCP Connection(3)-127.0.0.1] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.4 [built 23-March-2019 23:00:48 -0700; debug? true; trace: 10]
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+09-Jul-2026 14:26:08.617 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager
+logback---- 2026-07-09 14:26:09.296 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+09-Jul-2026 14:26:10.055 警告 [localhost-startStop-1] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [1,328] milliseconds.
+09-Jul-2026 14:26:10.076 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager has finished in 1,459 ms
+logback---- 2026-07-09 14:26:11.541 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: java.io.IOException
+logback---- 2026-07-09 14:26:11.561 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:13.598 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:13.605 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-1] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+org.springframework.amqp.AmqpIOException: java.io.IOException
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:70)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:603)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:725)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:252)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2210)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2183)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2163)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:463)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:447)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1942)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1915)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1384)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1230)
 	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: java.io.FileNotFoundException: class path resource [spring/spring-context.xml] cannot be opened because it does not exist
-	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:180)
-	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:330)
-	... 58 common frames omitted
-06-Jul-2026 10:17:52.933 严重 [RMI TCP Connection(5)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal One or more listeners failed to start. Full details will be found in the appropriate container log file
-06-Jul-2026 10:17:54.659 警告 [RMI TCP Connection(5)-127.0.0.1] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [1,712] milliseconds.
-06-Jul-2026 10:17:54.660 严重 [RMI TCP Connection(5)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal Context [] startup failed due to previous errors
-[2026-07-06 10:17:54,709] Artifact o2o:war: Error during artifact deployment. See server log for details.
-06-Jul-2026 10:17:55.242 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager
-06-Jul-2026 10:17:55.402 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager has finished in 160 ms
+Caused by: java.io.IOException: null
+	at com.rabbitmq.client.impl.AMQChannel.wrap(AMQChannel.java:129)
+	at com.rabbitmq.client.impl.AMQChannel.wrap(AMQChannel.java:125)
+	at com.rabbitmq.client.impl.AMQChannel.exnWrappingRpc(AMQChannel.java:147)
+	at com.rabbitmq.client.impl.AMQConnection.start(AMQConnection.java:439)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1225)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1173)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1342)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectHostPort(AbstractConnectionFactory.java:654)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:619)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:566)
+	... 12 common frames omitted
+Caused by: com.rabbitmq.client.ShutdownSignalException: connection error; protocol method: #method<connection.close>(reply-code=530, reply-text=NOT_ALLOWED - vhost /o2o_dev not found, class-id=10, method-id=40)
+	at com.rabbitmq.utility.ValueOrException.getValue(ValueOrException.java:66)
+	at com.rabbitmq.utility.BlockingValueOrException.uninterruptibleGetValue(BlockingValueOrException.java:36)
+	at com.rabbitmq.client.impl.AMQChannel$BlockingRpcContinuation.getReply(AMQChannel.java:502)
+	at com.rabbitmq.client.impl.AMQChannel.privateRpc(AMQChannel.java:293)
+	at com.rabbitmq.client.impl.AMQChannel.exnWrappingRpc(AMQChannel.java:141)
+	... 19 common frames omitted
+logback---- 2026-07-09 14:26:13.617 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:15.645 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:15.649 [RMI TCP Connection(3)-127.0.0.1] INFO  com.o2o.util.SpringContextLoaderListener - ? Spring Context 已成功加载: Root WebApplicationContext
+logback---- 2026-07-09 14:26:15.654 [RMI TCP Connection(3)-127.0.0.1] INFO  com.o2o.util.SpringContextLoaderListener - ? 根Spring上下文加载完成，应用可以正常使用了！
+logback---- 2026-07-09 14:26:15.659 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 10425 ms
+logback---- 2026-07-09 14:26:15.700 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'spring-dispatcher'
+logback---- 2026-07-09 14:26:16.825 [RMI TCP Connection(3)-127.0.0.1] INFO  com.o2o.util.SpringContextLoaderListener - ? Spring Context 已成功加载: WebApplicationContext for namespace 'spring-dispatcher-servlet'
+logback---- 2026-07-09 14:26:16.825 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1125 ms
+[2026-07-09 02:26:16,845] Artifact o2o:war: Artifact is deployed successfully
+[2026-07-09 02:26:16,845] Artifact o2o:war: Deploy took 17,809 milliseconds
+logback---- 2026-07-09 14:26:20.774 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-1] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7fa575a5: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:26:20.776 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:22.800 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-2] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:26:22.800 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:22.805 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:24.865 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:30.060 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@72b46c7a: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:26:30.061 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:32.095 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-3] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:26:32.095 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:32.097 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:34.129 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:39.321 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-3] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@f8d2fe6: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:26:39.321 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-4] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:41.395 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-4] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:26:41.395 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-4] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:41.395 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:43.433 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:48.470 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-4] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7fd2e099: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:26:48.470 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-5] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:50.523 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-5] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:26:50.523 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-5] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:50.523 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:52.559 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:57.699 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-5] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6bd4db58: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:26:57.699 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-6] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:26:59.740 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-6] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:26:59.741 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:26:59.741 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-6] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:01.881 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:07.066 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-6] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6041af2: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:27:07.076 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-7] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:09.117 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-7] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:27:09.117 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-7] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:09.117 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:11.161 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:16.348 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-7] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7ff8ee6c: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:27:16.348 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-8] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:18.378 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-8] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:27:18.378 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-8] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:18.378 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:20.431 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:25.448 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-8] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@71cf87a5: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:27:25.448 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-9] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:27.508 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-9] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:27:27.508 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-9] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:27.508 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:29.553 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:34.578 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-9] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@3b8083ce: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:27:34.578 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-10] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:36.624 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-10] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:27:36.624 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-10] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:38.664 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:43.858 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-10] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5c7c9f02: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:27:43.858 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-11] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:45.921 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-11] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:27:45.921 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-11] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:45.921 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:47.971 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:53.153 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-11] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4a9f043a: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:27:53.153 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-12] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:55.180 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-12] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:27:55.180 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-12] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:27:55.182 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:27:57.233 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:28:02.243 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-12] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@37fbd265: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:28:02.243 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-13] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:28:04.301 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-13] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+logback---- 2026-07-09 14:28:04.301 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-13] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+logback---- 2026-07-09 14:28:04.301 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:28:06.351 [AMQP Connection 0:0:0:0:0:0:0:1:5672] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+logback---- 2026-07-09 14:28:11.384 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-13] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4978aeb8: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+logback---- 2026-07-09 14:28:11.384 [org.springframework.amqp.rabbit.config.ListenerContainerFactoryBean#0-14] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672

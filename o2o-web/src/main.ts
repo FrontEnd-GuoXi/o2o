@@ -11,7 +11,10 @@ import {
   Cell,
   Icon,
   allowMultipleToast,
-  CountDown
+  CountDown,
+  Rate,
+  Swipe,
+  SwipeItem
 } from 'vant'
 
 import App from './App.vue'
@@ -34,6 +37,9 @@ app.use(Toast)
 app.use(Cell)
 app.use(Icon)
 app.use(CountDown)
+app.use(Rate)
+app.use(Swipe)
+app.use(SwipeItem)
 
 app.use(createPinia())
 app.use(router)

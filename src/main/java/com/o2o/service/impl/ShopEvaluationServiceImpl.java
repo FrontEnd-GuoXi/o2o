@@ -8,12 +8,15 @@ import com.o2o.entity.Shop;
 import com.o2o.entity.ShopEvaluation;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.service.ShopEvaluationService;
+import com.o2o.vo.StoreReviewListVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShopEvaluationServiceImpl implements ShopEvaluationService {
@@ -61,7 +64,20 @@ public class ShopEvaluationServiceImpl implements ShopEvaluationService {
         if (evaRows > 0 && scoreRows > 0) {
             return true;
         } else {
-            throw new BusinessException("评论添加失败。");
+            throw new BusinessException("评价添加失败。");
         }
+    }
+
+    @Override
+    public List<StoreReviewListVO> queryEvaluationListByShopId(Long shopId) {
+        List<ShopEvaluation> shopEvaluationList = shopEvaluationDao.queryEvaluationListByShopId(shopId);
+        List<StoreReviewListVO> storeReviewListVOS = shopEvaluationList.stream().map(shopEvaluation -> {
+            StoreReviewListVO storeReviewListVO = new StoreReviewListVO();
+            BeanUtils.copyProperties(shopEvaluation, storeReviewListVO);
+            storeReviewListVO.setProfileImg(shopEvaluation.getUserInfo().getProfileImg());
+            storeReviewListVO.setName(shopEvaluation.getUserInfo().getName());
+            return storeReviewListVO;
+        }).collect(Collectors.toList());
+        return storeReviewListVOS;
     }
 }

@@ -46,6 +46,10 @@
             <div class="shop-info">
               <h3 class="shop-title">{{ shop.shopName }}</h3>
               <p class="shop-desc">{{ shop.shopDesc }}</p>
+              <div class="shop-rating">
+                <span class="rating-score">评分 {{ formatAvgScore(shop.avgScore) }}</span>
+                <span class="rating-count">{{ shop.evaluationCount ?? 0 }}人评价</span>
+              </div>
               <div class="shop-meta">
                 <span class="shop-area">
                   <van-icon name="location-o" /> {{ shop.areaName || '默认区域' }}
@@ -76,7 +80,7 @@ import {
   showToast
 } from 'vant'
 import O2oHeader from '@/components/O2oHeader.vue'
-import { getShopCategoryByParentId, queryShopListByCategoryId, type ShopCategory } from '@/api/shop'
+import { getShopCategoryByParentId, queryShopListByCategoryId, type ShopCategory, type Shop } from '@/api/shop'
 import { getImageUrl, handleImageError } from '@/utils/image'
 
 const route = useRoute()
@@ -91,10 +95,19 @@ const selectedSubCategoryId = ref('')
 const subCategories = ref<ShopCategory[]>([])
 
 // 列表状态
-const shopList = ref<any[]>([])
+const shopList = ref<Shop[]>([])
 const loading = ref(false)
 const finished = ref(false)
 const refreshing = ref(false)
+
+const formatAvgScore = (score?: string | number | null) => {
+  if (score === null || score === undefined || score === '') {
+    return '暂无'
+  }
+
+  const numericScore = Number(score)
+  return Number.isNaN(numericScore) ? '暂无' : numericScore.toFixed(1)
+}
 
 // 获取子分类按钮数据
 const fetchSubCategories = async () => {
@@ -153,7 +166,7 @@ const onSubCategoryChange = (id: string) => {
   fetchShops(true)
 }
 
-const goToShopDetail = (shop: any) => {
+const goToShopDetail = (shop: Shop) => {
   console.log('跳转到店铺详情:', shop.shopId)
   // 使用 JSON.parse(JSON.stringify()) 确保传递的是一个纯净的对象，避免 Proxy 带来的序列化问题
   const shopData = JSON.parse(JSON.stringify(shop))
@@ -278,6 +291,23 @@ onMounted(() => {
   gap: 12px;
   font-size: 12px;
   color: #646566;
+}
+
+.shop-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.rating-score {
+  color: #ee0a24;
+  font-weight: 600;
+}
+
+.rating-count {
+  color: #969799;
 }
 
 .shop-meta span {
