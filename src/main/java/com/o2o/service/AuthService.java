@@ -9,7 +9,7 @@ public interface AuthService {
 
      void registerUser (PersonInfo personInfo, UserIdentity userIdentity);
 
-     String login (String identity, String credential);
+     String login (String identity, String credential, String platform);
 
      PersonInfoDTO queryUserInfoById (int userId);
 

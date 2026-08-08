@@ -5,6 +5,8 @@ import com.o2o.dto.PersonInfoDTO;
 import com.o2o.entity.PersonInfo;
 import com.o2o.entity.UserIdentity;
 import com.o2o.enums.HttpApiCode;
+import com.o2o.enums.PlatformTypeEnum;
+import com.o2o.enums.UserTypeEnum;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.security.JwtService;
 import com.o2o.security.UserContextHolder;
@@ -76,17 +78,42 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    public String login (String identity, String credential) {
+    public String login (String identity, String credential, String platform) {
         try {
             UserIdentity userIdentity = userDao.queryUserIdentityByIdentifier(identity);
             if (userIdentity == null) {
                 throw new BusinessException(HttpApiCode.UNAUTHORIZED, "密码或账号错误");
             }
             boolean pass = encoder.matches(credential, userIdentity.getCredential());
-            //boolean pass = credential.equals(userIdentity.getCredential());
+
             if (!pass) {
                 throw new BusinessException(HttpApiCode.UNAUTHORIZED, "密码或账号错误");
             }
+
+            PersonInfo userInfo = userDao.queryUserInfoByUserId(userIdentity.getUserId().intValue());
+            Integer userType = userInfo.getUserType();
+            PlatformTypeEnum platformType = PlatformTypeEnum.fromCode(platform);
+            if (platformType == null) {
+                throw new BusinessException("不存在该平台参数！");
+            }
+
+            UserTypeEnum userTypeEnum = UserTypeEnum.fromCode(userType);
+            switch (platformType) {
+                case CONSUMER:
+                    if (userTypeEnum != UserTypeEnum.CUSTOMER && userTypeEnum != UserTypeEnum.SHOP_OWNER) {
+                        throw new BusinessException("该用户不是消费者或商家！");
+                    }
+                    break;
+                case MANAGER:
+                    if (userTypeEnum != UserTypeEnum.SHOP_OWNER && userTypeEnum != UserTypeEnum.SUPER_ADMIN) {
+                        throw new BusinessException("该用户不是管理员或商家！");
+                    }
+                    break;
+                default:
+                    throw new BusinessException("不存在该平台参数！");
+            }
+
+
             String token = jwtService.genToken(userIdentity.getUserId());
             if (token == null) {
                 throw new BusinessException("登录令牌生成失败");

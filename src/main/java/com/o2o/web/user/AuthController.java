@@ -103,7 +103,7 @@ public class AuthController {
             throw new BusinessException(errStr);
         }
 
-        String token = authService.login(loginRequestDTO.getIdentifier(), loginRequestDTO.getCredential());
+        String token = authService.login(loginRequestDTO.getIdentifier(), loginRequestDTO.getCredential(), loginRequestDTO.getPlatform());
         return ResponseResultWrap.success(token, "登录成功");
     }
 

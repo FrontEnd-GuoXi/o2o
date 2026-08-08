@@ -5,6 +5,7 @@ import request from '@/utils/request'
 export interface LoginRequest {
   identifier: string
   credential: string
+  platform: string
 }
 
 // 注册请求参数接口
