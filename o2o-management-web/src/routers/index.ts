@@ -7,6 +7,8 @@ import { errorRouter, staticRouter } from "@/routers/modules/staticRouter";
 import { useAuthStore } from "@/stores/modules/auth";
 import { useUserStore } from "@/stores/modules/user";
 
+import { getUserInfoApi } from "@/api/modules/login";
+
 const mode = import.meta.env.VITE_ROUTER_MODE;
 
 const routerMode = {
@@ -64,16 +66,28 @@ router.beforeEach(async (to, from, next) => {
   // 5.判断是否有 Token，没有重定向到 login 页面
   if (!userStore.token) return next({ path: LOGIN_URL, replace: true });
 
-  // 6.如果没有菜单列表，就重新请求菜单列表并添加动态路由
+  // 6.如果没有用户信息，请求后端获取
+  if (!userStore.userInfo.name) {
+    try {
+      const { data } = await getUserInfoApi();
+      userStore.setUserInfo(data);
+    } catch {
+      // 获取用户信息失败，清除 token 重新登录
+      userStore.setToken("");
+      return next({ path: LOGIN_URL, replace: true });
+    }
+  }
+
+  // 7.如果没有菜单列表，就重新请求菜单列表并添加动态路由
   if (!authStore.authMenuListGet.length) {
     await initDynamicRouter();
     return next({ ...to, replace: true });
   }
 
-  // 7.存储 routerName 做按钮权限筛选
+  // 8.存储 routerName 做按钮权限筛选
   authStore.setRouteName(to.name as string);
 
-  // 8.正常访问页面
+  // 9.正常访问页面
   next();
 });
 

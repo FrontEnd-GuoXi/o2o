@@ -26,13 +26,20 @@ export interface ReqPage {
 // 登录模块
 export namespace Login {
   export interface ReqLoginForm {
-    username: string;
-    password: string;
-  }
-  export interface ResLogin {
-    access_token: string;
+    identifier: string;
+    credential: string;
+    platform: string;
   }
   export interface ResAuthButtons {
     [key: string]: string[];
   }
+}
+
+// 用户信息
+export interface UserInfo {
+  userId: string;
+  name: string;
+  gender: string;
+  userType: number;
+  profileImg: string;
 }

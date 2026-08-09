@@ -28,7 +28,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { logoutApi } from "@/api/modules/login";
+
 import { LOGIN_URL } from "@/config";
 import { useUserStore } from "@/stores/modules/user";
 
@@ -44,14 +44,12 @@ const logout = () => {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
-  }).then(async () => {
-    // 1.执行退出登录接口
-    await logoutApi();
-
-    // 2.清除 Token
+  }).then(() => {
+    // 1.清除 Token 和用户信息
     userStore.setToken("");
+    userStore.setUserInfo({ userId: "", name: "", gender: "", userType: 0, profileImg: "" });
 
-    // 3.重定向到登陆页
+    // 2.重定向到登陆页
     router.replace(LOGIN_URL);
     ElMessage.success("退出登录成功！");
   });

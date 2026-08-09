@@ -1,20 +1,15 @@
 import http from "@/api";
-import { PORT1 } from "@/api/config/servicePort";
-import { Login } from "@/api/interface/index";
+import { Login, UserInfo } from "@/api/interface/index";
 import authButtonList from "@/assets/json/authButtonList.json";
 import authMenuList from "@/assets/json/authMenuList.json";
 
 /**
  * @description 用户登录
  * @param params Login.ReqLoginForm
- * @returns Promise<Login.ResLogin>
+ * @returns Promise<ResultData<string>>
  */
 export const loginApi = (params: Login.ReqLoginForm) => {
-  return http.post<Login.ResLogin>(PORT1 + `/login`, params, { loading: false }); // 正常 post json 请求  ==>  application/json
-  // return http.post<Login.ResLogin>(PORT1 + `/login`, params, { loading: false }); // 控制当前请求不显示 loading
-  // return http.post<Login.ResLogin>(PORT1 + `/login`, {}, { params }); // post 请求携带 query 参数  ==>  ?username=admin&password=123456
-  // return http.post<Login.ResLogin>(PORT1 + `/login`, qs.stringify(params)); // post 请求携带表单参数  ==>  application/x-www-form-urlencoded
-  // return http.get<Login.ResLogin>(PORT1 + `/login?${qs.stringify(params, { arrayFormat: "repeat" })}`); // get 请求可以携带数组等复杂参数
+  return http.post<string>("/auth/login", params, { loading: false });
 };
 
 /**
@@ -42,4 +37,12 @@ export const getAuthButtonListApi = () => {
  */
 export const logoutApi = () => {
   return http.post(PORT1 + `/logout`);
+};
+
+/**
+ * @description 获取用户信息
+ * @returns Promise<ResultData<UserInfo>>
+ */
+export const getUserInfoApi = () => {
+  return http.get<UserInfo>("/auth/getUserInfo");
 };

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import type { UserState } from "@/stores/interface";
+import type { UserInfo, UserState } from "@/stores/interface";
 
 export const useUserStore = defineStore(
   "geeker-user",
@@ -11,8 +11,14 @@ export const useUserStore = defineStore(
       token.value = newToken;
     };
 
-    const userInfo = ref<UserState["userInfo"]>({ name: "Geeker" });
-    const setUserInfo = (newUserInfo: UserState["userInfo"]) => {
+    const userInfo = ref<UserInfo>({
+      userId: "",
+      name: "",
+      gender: "",
+      userType: 0,
+      profileImg: ""
+    });
+    const setUserInfo = (newUserInfo: UserInfo) => {
       userInfo.value = newUserInfo;
     };
 

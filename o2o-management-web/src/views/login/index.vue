@@ -1,24 +1,17 @@
 <template>
-  <div class="login-container flx-center">
-    <div class="login-box">
-      <SwitchDark class="dark" />
-      <div class="login-left">
-        <img class="login-left-img" src="@/assets/images/login_left.png" alt="login" />
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-logo">
+        <img class="login-icon" src="@/assets/images/logo.svg" alt="" />
+        <h2 class="logo-text">O2O 管理后台</h2>
+        <p class="logo-subtitle">欢迎回来，请登录您的账号</p>
       </div>
-      <div class="login-form">
-        <div class="login-logo">
-          <img class="login-icon" src="@/assets/images/logo.svg" alt="" />
-          <h2 class="logo-text">o2o</h2>
-        </div>
-        <LoginForm />
-      </div>
+      <LoginForm />
     </div>
   </div>
 </template>
 
 <script setup lang="ts" name="login">
-import SwitchDark from "@/components/SwitchDark/index.vue";
-
 import LoginForm from "./components/LoginForm.vue";
 </script>
 

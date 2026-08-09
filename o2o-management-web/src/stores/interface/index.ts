@@ -5,9 +5,17 @@ export type AssemblySizeType = "large" | "default" | "small";
 export type LanguageType = "zh" | "en" | null;
 
 /* UserState */
+export interface UserInfo {
+  userId: string;
+  name: string;
+  gender: string;
+  userType: number;
+  profileImg: string;
+}
+
 export interface UserState {
   token: string;
-  userInfo: { name: string };
+  userInfo: UserInfo;
 }
 
 /* tabsMenuProps */
