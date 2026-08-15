@@ -43,3 +43,26 @@ export interface UserInfo {
   userType: number;
   profileImg: string;
 }
+
+// 店铺
+export interface ShopVO {
+  shopId: string;
+  shopName: string;
+  shopDesc: string;
+  shopAddr: string;
+  phone: string;
+  shopImg: string;
+  priority: number;
+  createTime: string;
+  lastEditTime: string;
+  enableStatus: number;
+  advice: string;
+  areaId: string;
+  areaName: string;
+  ownerId: string;
+  shopCategoryId: string;
+  shopCategoryName: string;
+  shopCategoryParentId: string;
+  avgScore: number;
+  evaluationCount: number;
+}

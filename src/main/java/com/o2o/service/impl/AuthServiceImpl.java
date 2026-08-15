@@ -9,7 +9,6 @@ import com.o2o.enums.PlatformTypeEnum;
 import com.o2o.enums.UserTypeEnum;
 import com.o2o.exceptions.BusinessException;
 import com.o2o.security.JwtService;
-import com.o2o.security.UserContextHolder;
 import com.o2o.service.AuthService;
 import com.o2o.vo.UserInfoVO;
 import org.slf4j.Logger;
@@ -158,7 +157,9 @@ public class AuthServiceImpl implements AuthService {
             }
             UserInfoVO userInfoVO = new UserInfoVO();
             BeanUtils.copyProperties(userInfo, userInfoVO);
+
             userInfoVO.setUserId(String.valueOf(userInfo.getUserId()));
+            userInfoVO.setUserTypeName(UserTypeEnum.fromCode(userInfo.getUserType()).getDesc());
             return userInfoVO;
         } catch (BusinessException e) {
             logger.warn("查询用户信息VO失败：{}", e.toString());

@@ -9,6 +9,7 @@ public class UserInfoVO {
 
     // 1、顾客 2、店家 3、超级管理员
     private Integer userType;
+    private String userTypeName;
     private String profileImg;
     private String name;
 

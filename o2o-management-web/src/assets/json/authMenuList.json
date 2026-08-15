@@ -14,6 +14,20 @@
         "isAffix": true,
         "isKeepAlive": true
       }
+    },
+    {
+      "path": "/shop/shopList",
+      "name": "shopList",
+      "component": "/shop/ShopList/index",
+      "meta": {
+        "icon": "Shop",
+        "title": "店铺管理",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
     }
   ],
   "msg": "成功"

@@ -1,0 +1,93 @@
+D:\software\tomcat\apache-tomcat-8.0.50\bin\catalina.bat run
+[2026-08-15 11:21:28,663] Artifact o2o:war: Waiting for server connection to start artifact deployment…
+Using CATALINA_BASE:   "C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\4882e413-1af0-4102-b058-a19cb00da18c"
+Using CATALINA_HOME:   "D:\software\tomcat\apache-tomcat-8.0.50"
+Using CATALINA_TMPDIR: "D:\software\tomcat\apache-tomcat-8.0.50\temp"
+Using JRE_HOME:        "D:\software\JDK"
+Using CLASSPATH:       "D:\software\tomcat\apache-tomcat-8.0.50\bin\bootstrap.jar;D:\software\tomcat\apache-tomcat-8.0.50\bin\tomcat-juli.jar"
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+Connected to the target VM, address: '127.0.0.1:62976', transport: 'socket'
+15-Aug-2026 11:21:32.159 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.0.50
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 7 2018 20:06:05 UTC
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.0.50.0
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             D:\software\JDK
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           11.0.14+8-LTS-263
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\4882e413-1af0-4102-b058-a19cb00da18c
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         D:\software\tomcat\apache-tomcat-8.0.50
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\4882e413-1af0-4102-b058-a19cb00da18c\conf\logging.properties
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:62976,suspend=y,server=n
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\captureAgent\debugger-agent.jar
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote=
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.port=1099
+15-Aug-2026 11:21:32.174 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.ssl=false
+15-Aug-2026 11:21:32.179 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.password.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\4882e413-1af0-4102-b058-a19cb00da18c\jmxremote.password
+15-Aug-2026 11:21:32.179 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcom.sun.management.jmxremote.access.file=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\4882e413-1af0-4102-b058-a19cb00da18c\jmxremote.access
+15-Aug-2026 11:21:32.179 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.rmi.server.hostname=127.0.0.1
+15-Aug-2026 11:21:32.179 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+15-Aug-2026 11:21:32.179 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+15-Aug-2026 11:21:32.200 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+15-Aug-2026 11:21:32.200 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\ThinkPad\AppData\Local\JetBrains\IntelliJIdea2021.3\tomcat\4882e413-1af0-4102-b058-a19cb00da18c
+15-Aug-2026 11:21:32.200 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=D:\software\tomcat\apache-tomcat-8.0.50
+15-Aug-2026 11:21:32.200 信息 [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=D:\software\tomcat\apache-tomcat-8.0.50\temp
+15-Aug-2026 11:21:32.200 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded APR based Apache Tomcat Native library 1.2.16 using APR version 1.6.3.
+15-Aug-2026 11:21:32.200 信息 [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+15-Aug-2026 11:21:33.223 信息 [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized (OpenSSL 1.0.2m  2 Nov 2017)
+15-Aug-2026 11:21:33.292 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-apr-8080"]
+15-Aug-2026 11:21:33.304 信息 [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-apr-8009"]
+15-Aug-2026 11:21:33.308 信息 [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1802 ms
+15-Aug-2026 11:21:33.406 信息 [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+15-Aug-2026 11:21:33.406 信息 [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.0.50
+15-Aug-2026 11:21:33.444 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-apr-8080"]
+15-Aug-2026 11:21:33.462 信息 [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-apr-8009"]
+15-Aug-2026 11:21:33.466 信息 [main] org.apache.catalina.startup.Catalina.start Server startup in 157 ms
+Connected to server
+[2026-08-15 11:21:33,624] Artifact o2o:war: Artifact is being deployed, please wait…
+15-Aug-2026 11:21:40.103 信息 [RMI TCP Connection(3)-127.0.0.1] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+logback---- 2026-08-15 11:21:40.448 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+logback---- 2026-08-15 11:21:41.813 [RMI TCP Connection(3)-127.0.0.1] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+logback---- 2026-08-15 11:21:43.013 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+logback---- 2026-08-15 11:21:43.098 [RMI TCP Connection(3)-127.0.0.1] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.4 [built 23-March-2019 23:00:48 -0700; debug? true; trace: 10]
+15-Aug-2026 11:21:43.488 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+logback---- 2026-08-15 11:21:45.160 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: localhost:5672
+15-Aug-2026 11:21:46.191 警告 [localhost-startStop-1] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [2,584] milliseconds.
+15-Aug-2026 11:21:46.215 信息 [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory D:\software\tomcat\apache-tomcat-8.0.50\webapps\manager has finished in 2,727 ms
+logback---- 2026-08-15 11:21:47.648 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: connectionFactory#6efe2d64:0/SimpleConnection@329c3d82 [delegate=amqp://guest@0:0:0:0:0:0:0:1:5672//o2o_dev, localPort= 50271]
+logback---- 2026-08-15 11:21:47.736 [RMI TCP Connection(3)-127.0.0.1] INFO  com.o2o.util.SpringContextLoaderListener - 鉁� Spring Context 宸叉垚鍔熷姞杞�: Root WebApplicationContext
+logback---- 2026-08-15 11:21:47.741 [RMI TCP Connection(3)-127.0.0.1] INFO  com.o2o.util.SpringContextLoaderListener - 馃帀 鏍筍pring涓婁笅鏂囧姞杞藉畬鎴愶紝搴旂敤鍙互姝ｅ父浣跨敤浜嗭紒
+logback---- 2026-08-15 11:21:47.746 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 7293 ms
+logback---- 2026-08-15 11:21:47.802 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'spring-dispatcher'
+logback---- 2026-08-15 11:21:49.524 [RMI TCP Connection(3)-127.0.0.1] INFO  com.o2o.util.SpringContextLoaderListener - 鉁� Spring Context 宸叉垚鍔熷姞杞�: WebApplicationContext for namespace 'spring-dispatcher-servlet'
+logback---- 2026-08-15 11:21:49.538 [RMI TCP Connection(3)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1736 ms
+[2026-08-15 11:21:49,548] Artifact o2o:war: Artifact is deployed successfully
+[2026-08-15 11:21:49,548] Artifact o2o:war: Deploy took 15,924 milliseconds
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79086c4e] was not registered for synchronization because synchronization is not active
+logback---- 2026-08-15 11:21:55.820 [http-apr-8080-exec-10] INFO  c.m.v.c.i.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 2, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 10000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeps1bkycvq9o0nhf9|28ed4f85, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.cj.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeps1bkycvq9o0nhf9|28ed4f85, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/o2o?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 30, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 10, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {password=******, user=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+logback---- 2026-08-15 11:21:55.861 [http-apr-8080-exec-10] WARN  c.m.v2.resourcepool.BasicResourcePool - Bad pool size config, start 3 < min 10. Using 10 as start.
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@5972407c [wrapping: com.mysql.cj.jdbc.ConnectionImpl@77e7ff92]] will not be managed by Spring
+==>  Preparing: SELECT id, user_id, identity_type, identifier, credential, create_time, last_edit_time FROM tb_user_identity WHERE identifier = ? 
+==> Parameters: 123456(String)
+<==    Columns: id, user_id, identity_type, identifier, credential, create_time, last_edit_time
+<==        Row: 1, 1, password, 123456, $2a$16$m/2gNgzULuVQOUDlNPkc1uIhNUkKx49VUKMRyqC/dB.BHTw0H7zRu, 2026-03-25 09:46:06, 2026-03-25 09:46:06
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@79086c4e]
+Creating a new SqlSession
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5b84b6ac] was not registered for synchronization because synchronization is not active
+JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@18397542 [wrapping: com.mysql.cj.jdbc.ConnectionImpl@77e7ff92]] will not be managed by Spring
+==>  Preparing: SELECT user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+==> Parameters: 1(Integer)
+<==    Columns: user_id, name, profile_img, gender, enable_status, user_type, create_time, last_edit_time
+<==        Row: 1, Wow, null, 男, 0, 2, 2026-03-25 09:46:06, 2026-03-25 09:46:06
+<==      Total: 1
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5b84b6ac]
+logback---- 2026-08-15 11:22:02.402 [http-apr-8080-exec-3] INFO  com.o2o.security.JwtFilter - contextPath=/o2o, servletPath=/auth/getUserInfo, requestURI=/o2o/auth/getUserInfo
+logback---- 2026-08-15 11:22:02.402 [http-apr-8080-exec-3] WARN  com.o2o.security.JwtFilter - 璁よ瘉澶辫触: 缂哄皯鎴栭潪娉曠殑Authorization璇锋眰澶�
