@@ -66,3 +66,32 @@ export interface ShopVO {
   avgScore: number;
   evaluationCount: number;
 }
+
+// 新增/更新店铺
+export interface AddShop {
+  shopId?: string;
+  shopName: string;
+  shopDesc?: string;
+  shopAddr: string;
+  phone: string;
+  priority: number;
+  enableStatus: number;
+  area: number;
+  categorySub: number;
+}
+
+// 区域
+export interface Area {
+  areaId: number;
+  areaName: string;
+  priority: number;
+}
+
+// 店铺分类
+export interface ShopCategory {
+  shopCategoryId: number;
+  shopCategoryName: string;
+  shopCategoryDesc: string;
+  priority: number;
+  parent: { shopCategoryId: number } | null;
+}

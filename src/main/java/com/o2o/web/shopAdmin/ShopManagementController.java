@@ -1,4 +1,4 @@
-package com.o2o.web.shopadmin;
+package com.o2o.web.shopAdmin;
 
 
 
@@ -36,7 +36,8 @@ public class ShopManagementController {
 
     @ResponseBody
     @RequestMapping(value = "/registeredOrUpdateShop", method = RequestMethod.POST)
-    public ResponseResultWrap<Object> addShop(@Valid AddShop addShopDTO, BindingResult result, @RequestParam(value = "shopImg", required = false) MultipartFile shopImg) {
+    public ResponseResultWrap<Object> addShop(@Valid AddShop addShopDTO, BindingResult result,
+                                              @RequestParam(value = "shopImg", required = false) MultipartFile shopImg) {
         if (result.hasErrors()) {
             String errorMessage = result.getFieldError().getDefaultMessage();
             throw new BusinessException(errorMessage);
@@ -80,8 +81,6 @@ public class ShopManagementController {
         validateShopOperation(shopTransfer);
         return ResponseResultWrap.success(shopTransfer.getStateInfo());
     }
-
-
 
 
 

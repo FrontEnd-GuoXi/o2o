@@ -7,8 +7,8 @@ import type { AssemblySizeType, LanguageType, LayoutType } from "@/stores/interf
 export const useGlobalStore = defineStore(
   "geeker-global",
   () => {
-    // 布局模式 (纵向：vertical | 经典：classic | 横向：transverse | 分栏：columns)
-    const layout = ref<LayoutType>("vertical");
+    // 布局模式 (经典：classic)
+    const layout = ref<LayoutType>("classic");
     // element 组件大小
     const assemblySize = ref<AssemblySizeType>("default");
     // 当前系统语言

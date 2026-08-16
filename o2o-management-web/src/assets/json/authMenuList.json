@@ -2,20 +2,6 @@
   "code": 200,
   "data": [
     {
-      "path": "/home/index",
-      "name": "home",
-      "component": "/home/index",
-      "meta": {
-        "icon": "HomeFilled",
-        "title": "首页",
-        "isLink": "",
-        "isHide": false,
-        "isFull": false,
-        "isAffix": true,
-        "isKeepAlive": true
-      }
-    },
-    {
       "path": "/shop/shopList",
       "name": "shopList",
       "component": "/shop/ShopList/index",
@@ -25,7 +11,7 @@
         "isLink": "",
         "isHide": false,
         "isFull": false,
-        "isAffix": false,
+        "isAffix": true,
         "isKeepAlive": true
       }
     }

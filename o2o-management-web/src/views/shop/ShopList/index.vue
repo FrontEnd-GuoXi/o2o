@@ -1,5 +1,9 @@
 <template>
   <div class="shop-list card">
+    <div class="shop-list__header">
+      <el-button type="primary" @click="shopDialogRef?.open()">新建店铺</el-button>
+    </div>
+
     <el-table :data="shopList" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="shopId" label="店铺ID" width="100" />
       <el-table-column prop="shopName" label="店铺名称" min-width="150" />
@@ -23,26 +27,18 @@
       <el-table-column prop="evaluationCount" label="评价数" width="80" align="center" />
       <el-table-column prop="createTime" label="创建时间" width="170" />
     </el-table>
+
+    <ShopDialog ref="shopDialogRef" @success="fetchShopList" />
   </div>
 </template>
 
 <script setup lang="ts" name="shopList">
 import { ref, onMounted } from "vue";
-import { getShopListApi } from "@/api/modules/shop";
-import { ShopVO } from "@/api/interface";
+import { useShopList } from "./useShopList";
+import ShopDialog from "./ShopDialog/index.vue";
 
-const shopList = ref<ShopVO[]>([]);
-const loading = ref(false);
-
-const fetchShopList = async () => {
-  loading.value = true;
-  try {
-    const { data } = await getShopListApi();
-    shopList.value = data ?? [];
-  } finally {
-    loading.value = false;
-  }
-};
+const { shopList, loading, fetchShopList } = useShopList();
+const shopDialogRef = ref<InstanceType<typeof ShopDialog>>();
 
 onMounted(() => {
   fetchShopList();
