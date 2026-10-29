@@ -49,6 +49,7 @@ const router = useRouter()
 const form = ref<LoginRequest>({
   identifier: '',
   credential: '',
+  platform: 'consumer',
 })
 
 const isLoading = ref(false)

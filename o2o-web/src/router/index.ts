@@ -46,6 +46,11 @@ const routes = [
     component: () => import('@/pages/ShopDetail/index.vue'),
   },
   {
+    name: 'ShopProducts',
+    path: '/shopProducts',
+    component: () => import('@/pages/ShopProducts/index.vue'),
+  },
+  {
     name: 'Cart',
     path: '/cart',
     component: () => import('@/pages/Cart/index.vue'),
@@ -59,6 +64,11 @@ const routes = [
     name: 'OrderPayWait',
     path: '/orderPayWait',
     component: () => import('@/pages/OrderPayWait/index.vue'),
+  },
+  {
+    name: 'OrderEvaluation',
+    path: '/orderEvaluation',
+    component: () => import('@/pages/OrderEvaluation/index.vue'),
   },
 ]
 

@@ -11,12 +11,6 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-            Path fullPath = Paths.get("D:/shop/2/def.png");
-            Path basePath = Paths.get("D:/shop/");
-
-            Path relPath = basePath.relativize(fullPath);
-            Path onlinePath = Paths.get(".").resolve("\\shop").resolve(relPath);
-            System.out.println("onlinePath2对象结果: " + onlinePath);
     }
 
 }

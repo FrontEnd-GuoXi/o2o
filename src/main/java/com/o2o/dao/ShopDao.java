@@ -20,5 +20,7 @@ public interface ShopDao {
 
     List<Shop> queryShopListByCategoryId (Long categoryId);
 
+    Shop getShopDetailById (@Param("shopId") Long shopId);
+
 
 }

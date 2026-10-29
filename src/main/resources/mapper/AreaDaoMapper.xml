@@ -10,4 +10,18 @@
         select area_id, area_name, priority,create_time,last_edit_time from tb_area
     </select>
 
+    <insert id="batchInsertArea" useGeneratedKeys="true" keyProperty="areaId">
+        INSERT INTO tb_area (
+                area_name, priority, create_time, last_edit_time
+        ) VALUES
+        <foreach collection="areaList" item="area" separator=",">
+            (
+            #{area.areaName},
+            #{area.priority},
+            NOW(),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
 </mapper>

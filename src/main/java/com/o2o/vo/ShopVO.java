@@ -1,6 +1,8 @@
 package com.o2o.vo;
 
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -23,5 +25,7 @@ public class ShopVO {
     private String shopCategoryId;
     private String shopCategoryName;
     private String shopCategoryParentId;
+    private BigDecimal avgScore;
+    private Integer evaluationCount;
 
 }

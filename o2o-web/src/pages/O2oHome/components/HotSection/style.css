@@ -37,6 +37,22 @@
   gap: 16px;
 }
 
+.hot-swipe {
+  width: 100%;
+  overflow: hidden;
+}
+
+.hot-swipe-item {
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 2px;
+}
+
+.hot-swipe .van-swipe__indicators {
+  bottom: 6px;
+}
+
 .shop-card {
   background-color: white;
   border-radius: 8px;

@@ -1,0 +1,11 @@
+.shop-list {
+  padding: 20px;
+  height: 100%;
+  box-sizing: border-box;
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+  }
+}

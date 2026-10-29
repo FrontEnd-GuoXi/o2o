@@ -17,6 +17,8 @@
         <result property="lastEditTime" column="last_edit_time"/>
         <result property="enableStatus" column="enable_status"/>
         <result property="advice" column="advice"/>
+        <result property="avgScore" column="avg_score"/>
+        <result property="evaluationCount" column="evaluation_count"/>
         <association property="area" javaType="Area">
             <id property="areaId" column="area_id" />
             <result property="areaName" column="area_name"/>
@@ -46,6 +48,8 @@
             </association>
         </association>
     </resultMap>
+
+
 
     <insert id="addShop" parameterType="Shop"
             useGeneratedKeys="true" keyProperty="shopId" keyColumn="shop_id">
@@ -124,6 +128,47 @@
         LEFT JOIN tb_shop_category sc ON s.shop_category_id = sc.shop_category_id
     WHERE s.shop_id = #{shopId} AND s.owner_id = #{userId}
     </select>
+
+    <resultMap id="seeShopDetailMap" type="com.o2o.entity.Shop" >
+        <id property="shopId" column="shop_id"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="shopDesc" column="shop_desc"/>
+        <result property="shopAddr" column="shop_addr"/>
+        <result property="phone" column="phone"/>
+        <result property="shopImg" column="shop_img"/>
+        <result property="priority" column="priority"/>
+        <result property="createTime" column="create_time"/>
+        <result property="lastEditTime" column="last_edit_time"/>
+        <result property="enableStatus" column="enable_status"/>
+        <result property="advice" column="advice"/>
+        <result property="avgScore" column="avg_score"/>
+        <result property="evaluationCount" column="evaluation_count"/>
+        <association property="area" javaType="Area">
+            <id property="areaId" column="area_id" />
+            <result property="areaName" column="area_name"/>
+        </association>
+    </resultMap>
+
+    <select id="getShopDetailById" parameterType="Long" resultMap="seeShopDetailMap" >
+        SELECT
+            s.shop_id,
+            s.shop_name,
+            s.shop_desc,
+            s.shop_addr,
+            s.phone,
+            s.shop_img,
+            s.priority,
+            s.create_time,
+            s.last_edit_time,
+            s.advice,
+            s.avg_score,
+            s.evaluation_count,
+            s.enable_status,
+            a.area_name
+        FROM tb_shop s
+                 LEFT JOIN tb_area a ON s.area_id = a.area_id
+        WHERE s.shop_id = #{shopId} AND s.enable_status = 1
+    </select>
     
     
     <select id="checkYourShopList" parameterType="long"  resultMap="shopResultMap">
@@ -186,6 +231,8 @@
             s.last_edit_time,
             s.enable_status,
             s.advice,
+            s.avg_score,
+            s.evaluation_count,
 
             a.area_id,
             a.area_name,

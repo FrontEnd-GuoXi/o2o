@@ -79,6 +79,7 @@ import {
   type PayOrderDTO
 } from '@/api/order'
 import { useCartStore } from '@/stores/cart'
+import { buildEvaluationOrders, serializeEvaluationOrders } from '@/utils/orderEvaluation'
 
 const router = useRouter()
 const route = useRoute()
@@ -125,6 +126,18 @@ const onSelectAddress = () => {
   showToast('地址选择功能开发中...')
 }
 
+const buildEvaluationOrdersQuery = (shopIdMapOrderId: Record<string, string>) => {
+  return serializeEvaluationOrders(
+    buildEvaluationOrders(
+      shopIdMapOrderId,
+      groupedCheckoutItems.value.map(group => ({
+        shopId: group.shopId,
+        shopName: group.shopName
+      }))
+    )
+  )
+}
+
 const onPay = async () => {
   const loading = showLoadingToast({
     message: '创建订单中...',
@@ -151,6 +164,7 @@ const onPay = async () => {
 
     if (res.code === "200") {
       const { totalPrice: serverTotalPrice, shopIdMapOrderId } = res.data
+      const evaluationOrders = buildEvaluationOrdersQuery(shopIdMapOrderId)
 
       // 3. 根据返回值渲染总价，并提示支付
       try {
@@ -164,7 +178,7 @@ const onPay = async () => {
         })
 
         // 4. 用户点击“立即支付”
-        showLoadingToast({
+        const payLoading = showLoadingToast({
           message: '支付中...',
           forbidClick: true,
         })
@@ -179,6 +193,7 @@ const onPay = async () => {
             }
 
             const deductRes = await inventoryDeduction(payData)
+            payLoading.close()
 
             if (deductRes.code === "200") {
               showToast({
@@ -186,13 +201,20 @@ const onPay = async () => {
                 message: '支付成功，库存已扣减',
                 onClose: () => {
                   cartStore.clearCart()
-                  router.replace('/home')
+                  router.replace({
+                    path: '/orderEvaluation',
+                    query: {
+                      evaluationOrders,
+                      totalPrice: serverTotalPrice
+                    }
+                  })
                 }
               })
             } else {
               showToast(deductRes.message || '库存扣减失败')
             }
           } catch (err) {
+            payLoading.close()
             console.error('Inventory deduction error:', err)
             showToast('库存扣减异常，请联系客服')
           }
@@ -206,7 +228,8 @@ const onPay = async () => {
           query: {
             orderIds,
             token: orderToken.value,
-            totalPrice: serverTotalPrice
+            totalPrice: serverTotalPrice,
+            evaluationOrders
           }
         })
       }

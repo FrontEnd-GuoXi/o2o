@@ -140,18 +140,10 @@ public class ShopServiceImpl implements ShopService {
     }
 
     public ShopVO queryShopById (long shopId, long userId) {
-        try {
             Shop shop = shopDao.queryShopById(shopId, userId);
             ShopVO shopVO = new ShopVO();
             Cls2Cls.shopToShopVO(shop, shopVO);
             return shopVO;
-        } catch (BusinessException e) {
-            logger.warn("店铺查询失败：{}", e.getMessage());
-            throw e;
-        } catch (Exception e) {
-            logger.error(e.toString());
-            throw new BusinessException("店铺查询失败");
-        }
     }
 
     public List<ShopVO> queryShopListByCategoryId(Long categoryId) {
@@ -170,6 +162,13 @@ public class ShopServiceImpl implements ShopService {
             logger.error(e.toString());
             throw new BusinessException("店铺列表查询失败");
         }
+    }
+
+    public ShopVO getShopDetailById (Long shopId) {
+        Shop shop = shopDao.getShopDetailById(shopId);
+        ShopVO shopVO = new ShopVO();
+        Cls2Cls.shopToShopVO(shop, shopVO);
+        return shopVO;
     }
 
 }
