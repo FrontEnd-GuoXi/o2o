@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/o2o/cart")
+@RequestMapping("/cart")
 public class CartController {
     @Autowired
     CartService cartService;
