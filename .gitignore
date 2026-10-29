@@ -30,6 +30,8 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+# 前端 o2o-management-web 的 vite 构建配置文件需要纳入版本管理
+!o2o-management-web/build/
 
 ### VS Code ###
 .vscode/
